@@ -1,24 +1,8 @@
 <template>
 <v-app>
-    <v-container>
-      <v-container>
-        <v-row>
-           <v-col cols="12" md="2" sm="4">
-            <h1>Side Panel</h1>
-          </v-col>
-          <v-col cols="12" md="10" sm="12">
-            
-            <h1>Forms</h1>
-            <div id="surveyContainer">
-
-              <div id="surveyCreator"></div>
-            </div>
-          </v-col>
-         
-         
-        </v-row>
-      </v-container>
-    </v-container>
+    <div id="surveyCreator">
+    </div>
+    
 </v-app>
 </template>
 
