@@ -26,6 +26,8 @@
     },
     "dependencies": {
         "@mdi/font": "^6.6.96",
+        "survey-creator-knockout": "^1.9.24",
+        "survey-vue": "^1.9.24",
         "vue-router": "^3.5.2",
         "vuetify": "^2.6.4",
         "vuex": "^3.6.2"
