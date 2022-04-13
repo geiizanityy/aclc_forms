@@ -56,7 +56,7 @@
   </v-app>
 </template>
 <script>
-import logo from './../../../public/storage/src/logo.png'
+import logo from './../../../public/images/src/logo.png'
 export default {
     data() {
         return {
@@ -72,7 +72,7 @@ export default {
 #app {
   height: 100%;
   width: 100%;
-  background: url("http://localhost:8000/storage/src/bg12.jpg") no-repeat center
+  background: url("http://localhost:8000/images/src/bg12.jpg") no-repeat center
     center;
   background-size: cover;
 }
