@@ -1,6 +1,9 @@
 <template>
-
+  <v-container>
+    {{datajson}}
+    <h1>Form Builder</h1>
     <div id="surveyCreator"></div>
+  </v-container>
 </template>
 
 <script>
@@ -16,13 +19,17 @@ const creatorOptions = {
 
 export default {
   name: "survey-creator",
+  data() {
+    return {
+      datajson:null
+    }
+  },
   mounted() {
     const creator = new SurveyCreator(creatorOptions);
     
-    // ...
     creator.saveSurveyFunc = (saveNo, callback) => {
-      // If you use localStorage:
       window.localStorage.setItem("survey-json", creator.text);
+      this.datajson = creator.text
       callback(saveNo, true);
     
     };
