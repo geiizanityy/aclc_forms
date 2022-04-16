@@ -72,7 +72,7 @@ export default {
 #app {
   height: 100%;
   width: 100%;
-  background: url("http://localhost:8000/images/src/bg12.jpg") no-repeat center
+  background: url("http://localhost:8000/images/src/bg13.jpg") no-repeat center
     center;
   background-size: cover;
 }

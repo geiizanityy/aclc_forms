@@ -4,10 +4,12 @@ import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
 
+import Layout from './components/layout/Layout.vue'
 import LoginComponent from './components/LoginComponent.vue'
-import Home from './components/Home/Home.vue'
+import Home from './components/home/Home.vue'
 import PageNotFound from './components/404.vue'
-import FormBuilder from './components/FormBuilder/FormBuilder.vue'
+import FormBuilder from './components/forms/form_builder/FormBuilder.vue'
+import FormList from './components/forms/form_list/FormList.vue'
 
 const routes = [
 
@@ -22,14 +24,25 @@ const routes = [
         name:'login'
     },
     {
-        path:'/formbuilder',
-        component:FormBuilder,
-        name:'formbuilder'
-    },
-    {
         path:'/home',
-        component:Home,
-        name:'home'
+        component:Layout,
+        children:[
+            {
+                path:'/home',
+                component:Home,
+                name:'home'
+            },
+            {
+                path:'/formbuilder',
+                component:FormBuilder,
+                name:'formbuilder'
+            },
+            {
+                path:'/formlist',
+                component:FormList,
+                name:'formlist'
+            },
+        ]
     }
 ]
 
