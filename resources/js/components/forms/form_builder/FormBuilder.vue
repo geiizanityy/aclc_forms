@@ -23,12 +23,13 @@ export default {
   data() {
     return {
       datajson:null,
+      text:'Form'
     }
   },
   mounted() {
     const creator = new SurveyCreator(creatorOptions);
 
-    var defaultJSON = {
+/*     var defaultJSON = {
     pages: [
         {
             name: 'page1',
@@ -40,15 +41,15 @@ export default {
             ]
         }
     ]
-  }
+  } */
     creator.saveSurveyFunc = (saveNo, callback) => {
       window.localStorage.setItem("survey-json", creator.text);
       this.datajson = creator.text
       callback(saveNo, true);
     
     };
-    var defaultJSON = { pages: [{ name:'page1', elements: [{ type: 'text', name:"q1"}]}]};
-    creator.text = JSON.stringify(defaultJSON);
+    /* var defaultJSON = { pages: [{ name:'page1', elements: [{ type: 'text', name:"q1"}]}]};
+    creator.text = JSON.stringify(defaultJSON); */
     creator.render("surveyCreator");
 
     

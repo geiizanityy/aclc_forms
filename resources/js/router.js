@@ -10,6 +10,7 @@ import Home from './components/home/Home.vue'
 import PageNotFound from './components/404.vue'
 import FormBuilder from './components/forms/form_builder/FormBuilder.vue'
 import FormList from './components/forms/form_list/FormList.vue'
+import FormSample from './components/forms/form_sample/FormSample.vue'
 
 const routes = [
 
@@ -41,6 +42,11 @@ const routes = [
                 path:'/formlist',
                 component:FormList,
                 name:'formlist'
+            },
+            {
+                path:'/formsample',
+                component:FormSample,
+                name:'formsample'
             },
         ]
     }

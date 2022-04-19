@@ -50,7 +50,7 @@
             >
           </template>
           <div class="ml-5">
-            <v-list-item to="formbuilder">
+            <v-list-item to="#">
               <v-list-item-icon>
                 <v-icon class="white--text" small>mdi-form-select</v-icon>
               </v-list-item-icon>
@@ -62,6 +62,13 @@
                 <v-icon class="white--text" small>mdi-table</v-icon>
               </v-list-item-icon>
               <v-list-item-title class="white--text v-list-group-item">Form List</v-list-item-title>
+            </v-list-item>
+
+            <v-list-item to="formsample">
+              <v-list-item-icon>
+                <v-icon class="white--text" small>mdi-table</v-icon>
+              </v-list-item-icon>
+              <v-list-item-title class="white--text v-list-group-item">Form Example</v-list-item-title>
             </v-list-item>
           </div>
         </v-list-group>
