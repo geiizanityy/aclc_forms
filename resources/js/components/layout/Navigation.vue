@@ -50,7 +50,7 @@
             >
           </template>
           <div class="ml-5">
-            <v-list-item to="#">
+            <v-list-item to="formbuilder">
               <v-list-item-icon>
                 <v-icon class="white--text" small>mdi-form-select</v-icon>
               </v-list-item-icon>

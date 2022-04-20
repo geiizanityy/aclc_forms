@@ -65,6 +65,7 @@ export default {
         "maxTimeToFinish": 10, 
         "showTimerPanel": "top" 
         }
+       
     const survey = new Survey.Model(JSON.stringify(quiz));
 
     return {
