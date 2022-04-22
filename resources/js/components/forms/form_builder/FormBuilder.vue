@@ -1,7 +1,6 @@
 <template>
   <v-container>
     {{datajson}}
-    <h1>Form Builder</h1>
     <div id="surveyCreator"></div>
   </v-container>
 </template>

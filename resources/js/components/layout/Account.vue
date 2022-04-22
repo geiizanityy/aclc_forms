@@ -1,16 +1,12 @@
 <template>
   <div>
-    <v-menu transition="slide-y-transition" bottom>
+    <v-menu transition="slide-y-transition" bottom offset-y>
       <template v-slot:activator="{ on, attrs }">
-        <v-btn
-          text
-          v-bind="attrs"
-          v-on="on"
-        >
-        <v-icon>mdi-account</v-icon>
-          Useremail@gmail.com
-          <v-icon>mdi-menu-down</v-icon>
-        </v-btn>
+      <v-avatar color="red" v-bind="attrs" v-on="on" size="30">
+      <v-icon dark>
+        mdi-account-circle
+      </v-icon>
+    </v-avatar>
       </template>
 
       <v-list>

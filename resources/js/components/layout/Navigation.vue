@@ -1,24 +1,32 @@
 <template>
   <nav>
-    <v-app-bar app>
+    <v-app-bar app dark id="app-bar">
       <v-app-bar-nav-icon
         @click="drawer = !drawer"
-        class="black--text"
+        class="white--text"
       ></v-app-bar-nav-icon>
-      <v-container class="d-flex">
-        <v-row no-gutters>
-          <v-col cols="12" md="8" sm="10">
-            <v-toolbar-title class="black--text mt-3"
-              >ACLC FORMS</v-toolbar-title
-            >
-          </v-col>
-          <v-col cols="12" md="4" sm="6">
-            <div class="float-right">
-              <acccount></acccount>
-            </div>
-          </v-col>
-        </v-row>
-      </v-container>
+      <v-toolbar-title>
+        ACLC Learning Management System
+      </v-toolbar-title>
+      <v-spacer></v-spacer>
+      
+      <v-text-field
+      class="mt-7 mr-3"
+      outlined
+      label="Search"
+      prepend-inner-icon="mdi-magnify"
+      dense
+
+      >
+
+      </v-text-field>
+
+      <acccount></acccount>
+
+      <v-btn icon>
+        <v-icon>mdi-dots-vertical</v-icon>
+      </v-btn>
+
     </v-app-bar>
 
     <v-navigation-drawer v-model="drawer" app id="app-sidebar" dark>
@@ -102,13 +110,16 @@ export default {
   },
   data() {
     return {
-      drawer: null,
+      drawer: false,
       logo: logo,
     };
   },
 };
 </script>
 <style scoped>
+#app-bar {
+  background-color: #0f112d;
+}
 .logo {
   display: block;
   margin: 0px auto;

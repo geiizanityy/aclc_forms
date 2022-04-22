@@ -18,6 +18,10 @@
         <style>
             body {
                 font-family: 'Nunito', sans-serif;
+                background-color: #2d3748;
+            }
+            #app {
+                background-color: #f3f3f3;
             }
         </style>
     </head>
