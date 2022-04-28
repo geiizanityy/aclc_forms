@@ -6,7 +6,7 @@
         class="white--text"
       ></v-app-bar-nav-icon>
       <v-toolbar-title>
-        ACLC Learning Management System
+        Learning Management System
       </v-toolbar-title>
       <v-spacer></v-spacer>
       
