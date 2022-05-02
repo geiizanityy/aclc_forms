@@ -13,6 +13,9 @@ window.Vue = require('vue').default;
 /* Vue Router */
 import router from './router.js';
 
+/* VUEX STORE */
+import store from './store/index'
+
 /* Vuetify */
 import vuetify from '../plugins/vuetify.js'
 
@@ -41,5 +44,6 @@ Vue.component('app-component', require('./components/App.vue').default);
 const app = new Vue({
     el: '#app',
     vuetify,
-    router
+    router,
+    store
 }).$mount('#app');
