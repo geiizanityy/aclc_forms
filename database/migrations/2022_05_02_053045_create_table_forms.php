@@ -15,6 +15,8 @@ class CreateTableForms extends Migration
     {
         Schema::create('forms', function (Blueprint $table) {
             $table->id('form_id');
+            $table->text('form_name');
+            $table->text('form_category');
             $table->json('form_elements');
             $table->timestamps();
         });

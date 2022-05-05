@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    {{ datajson }}
+      {{selectedForm}}
     <v-row class="mb-5">
       <v-col cols="12" md="8" sm="6"> </v-col>
       <v-col cols="6" md="4" sm="2">
@@ -22,6 +22,23 @@ import { SurveyCreator } from "survey-creator-knockout";
 import "survey-core/defaultV2.min.css";
 import "survey-creator-core/survey-creator-core.min.css";
 
+/* import * as SurveyKo from "survey-knockout";
+import * as widgets from "surveyjs-widgets"; */
+
+/* Object.filter = (obj, predicate) =>
+  Object.keys(obj)
+    .filter((key) => predicate(obj[key]))
+    .reduce((res, key) => Object.assign(res, { [key]: obj[key] }), {});
+
+const widgetsList = Object.filter(
+  SurveyConfig.widgets,
+  (widget) => widget === true
+);
+
+Object.keys(widgetsList).forEach(function (widget) {
+  widgets[widget](SurveyKo);
+}); */
+
 const creatorOptions = {
   showLogicTab: true,
   isAutoSave: true,
@@ -34,35 +51,56 @@ export default {
     return {
       datajson: null,
       text: "Form",
-      formElements:{}
+      formElements: {},
     };
+  },
+  computed:{
+      selectedForm() {
+          let data = this.$store.state.forms.selected_form
+          for(let i = 0; i<data.length;i++) {
+              return data[i].form_elements
+          }
+      }
+  },
+  watch:{
+      datajson:function() {
+          return this.datajson
+      }
   },
   methods: {
     async addForm() {
-      await axios.post('/api/addform',{
-          formElement:this.formElements
-          }).then((response) => {
-        console.log(response.data)
-      }).catch((err) => {
-        console.log(err)
-      }).finally(function() {
-        console.log("success")
-      })
+      await axios
+        .post("/api/addform", {
+          formElement: this.formElements,
+        })
+        .then((response) => {
+          console.log(response.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+        .finally(function () {
+          console.log("success");
+        });
     },
     saveForm() {
-      let formObj = JSON.parse(this.datajson)
-      this.formElements = formObj
-      if(formObj === null) {
-        alert("Form is empty")
-      }else if(formObj.pages === undefined) {
-        alert("Form is empty")
-      }else {
-        this.addForm()
+      let formObj = JSON.parse(this.datajson);
+      this.formElements = formObj;
+      if (formObj === null) {
+        alert("Form is empty");
+      } else if (formObj.pages === undefined) {
+        alert("Form is empty");
+      } else {
+        this.addForm();
       }
     },
   },
+  created() {
+      this.$store.dispatch("getSelectedForm",this.$route.params.id)
+  },
   mounted() {
-    const creator = new SurveyCreator(creatorOptions);
+
+    const creator = new SurveyCreator(creatorOptions)
 
     /*     var defaultJSON = {
     pages: [
@@ -82,8 +120,11 @@ export default {
       this.datajson = creator.text;
       callback(saveNo, true);
     };
-    /* var defaultJSON = { pages: [{ name:'page1', elements: [{ type: 'text', name:"q1"}]}]};
-    creator.text = JSON.stringify(defaultJSON); */
+
+    var defaultJSON = { pages: [{ name:'page1', elements: [{ type: 'text', name:"q1"}]}]};
+    var kolera = this.selectedForm
+    console.log(kolera)
+    creator.text = JSON.stringify(defaultJSON);
     creator.render("surveyCreator");
   },
 };

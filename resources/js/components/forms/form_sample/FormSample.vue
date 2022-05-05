@@ -138,7 +138,7 @@ export default {
   },
   computed: {
     forms() {
-        let formElements = this.$store.state.forms.forms
+        let formElements = this.$store.state.forms
         return formElements
       /* let data = Object.assign({}, JSON.stringify(this.$store.state.forms.forms[0])); */
 

@@ -12,6 +12,8 @@ class Form extends Model
     protected $primaryKey = 'form_id';
 
     protected $fillable = [
+        'form_name',
+        'form_category',
         'form_elements'
     ];
 }

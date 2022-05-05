@@ -34,7 +34,7 @@ const routes = [
                 name:'home'
             },
             {
-                path:'/formbuilder',
+                path:'/formbuilder/:id',
                 component:FormBuilder,
                 name:'formbuilder'
             },

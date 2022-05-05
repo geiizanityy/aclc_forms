@@ -4,6 +4,8 @@ import axios from "axios";
 /* STORE STATES */
 const getDefaultSate = () => {
     return {
+        form_list:[],
+        selected_form:{},
         forms:[]
     }
 }
@@ -23,11 +25,16 @@ const mutations = {
     GET_FORMS:(state,data) => {
         state.forms = data
     },
+    GET_FORM_LIST:(state,data) => {
+        state.form_list = data.data
+    },
+    GET_SELECTED_FORM:(state,data) => {
+        state.selected_form = data
+    },
 
 
     /* UPDATE FILE DATA FROM STORE STATES */
     UPDATE_FORM:(state) => {
-
     },
 
 
@@ -38,8 +45,8 @@ const mutations = {
 
 
     /* ADD FILE DATA FROM STORE STATES */
-    ADD_FORM:(state) => {
-
+    ADD_FORM:(state,data) => {
+        state.form_list.push(data)
     }
 }
 
@@ -47,9 +54,26 @@ const mutations = {
 const actions = {
 
     /* FETCH FILE DATA FROM DATABASE */
-    async getForms({commit}) {
-
+    async getFormList({commit,rootState}) {
+        await axios.get('/api/formlist').then((response) => {
+            commit('GET_FORM_LIST',response.data)
+        }).catch((error) => {
+            console.log(error)
+        }).finally(function() {
+            console.log("Forms Retrieved")
+        })
     },
+    async getSelectedForm({commit,rootState},id) {
+        await axios.get('/api/getselectedform/'+id).then((response) => {
+            commit("GET_SELECTED_FORM",response.data)
+        }).catch((error) => {
+            console.log(error.response.data)
+        }).finally(function() {
+            console.log("Selected form retrieved")
+        })
+    },
+
+
     async getSingleForm({commit,state}) {
         await axios.get('/api/fetchform').then((response) => {
             commit("GET_FORMS",response.data)
@@ -59,11 +83,11 @@ const actions = {
     },
 
 
-
     /* UPDATE FILE DATA FROM DATABASE */
     async updateForm({commit}) {
 
     },
+
 
 
 
@@ -76,8 +100,26 @@ const actions = {
 
 
     /* ADD FILE TO DATABASE */
-    async addForm({commit}) {
-
+    async addForm({commit},data) {
+       /*  let form = Object.assign({},data,{
+            form_elements:{
+                pages:[]
+            }
+        }) */
+        let form = {
+            form_name:data.form_name,
+            form_category:data.form_category,
+            form_elements:JSON.stringify({
+                pages:[]
+            })
+        }
+        await axios.post('/api/addform',form).then((response) => {
+            console.log(response.data)
+        }).catch((error) => {
+            console.log(error.response.data)
+        }).finally(function() {
+            console.log("Form Added")
+        })
     }
 
 }

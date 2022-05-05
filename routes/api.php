@@ -14,8 +14,10 @@ use App\Http\Controllers\FormController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::post('/addform',[FormController::class,'store']);
 Route::get('/fetchform',[FormController::class,'fetchForm']);
+Route::get('/formlist',[FormController::class,'index']);
+Route::post('/addform',[FormController::class,'store']);
+Route::get('/getselectedform/{id}',[FormController::class,'show']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
