@@ -110,10 +110,14 @@ const actions = {
             form_name:data.form_name,
             form_category:data.form_category,
             form_elements:JSON.stringify({
-                pages:[]
+                "title":data.form_name,
+                "pages":[{
+                    "name":'Page 1'
+                }]
             })
         }
         await axios.post('/api/addform',form).then((response) => {
+            commit("ADD_FORM",response.data)
             console.log(response.data)
         }).catch((error) => {
             console.log(error.response.data)

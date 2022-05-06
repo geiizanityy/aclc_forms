@@ -9,7 +9,7 @@
         Learning Management System
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      
+
       <v-text-field
       class="mt-7 mr-3"
       outlined
@@ -58,14 +58,7 @@
             >
           </template>
           <div class="ml-5">
-            <v-list-item to="formbuilder">
-              <v-list-item-icon>
-                <v-icon class="white--text" small>mdi-form-select</v-icon>
-              </v-list-item-icon>
-              <v-list-item-title class="white--text v-list-group-item">Form Builder</v-list-item-title>
-            </v-list-item>
-
-            <v-list-item to="formlist">
+            <v-list-item @click="$router.push({name:'formlist'})">
               <v-list-item-icon>
                 <v-icon class="white--text" small>mdi-table</v-icon>
               </v-list-item-icon>

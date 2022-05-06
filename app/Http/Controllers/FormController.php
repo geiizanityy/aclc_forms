@@ -64,6 +64,11 @@ class FormController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $form = Form::findOrFail($id);
+        return response()->json([
+            'message' => 'Successfully Updated',
+            'data' => new FormResource($form)
+        ]);
     }
 
     public function destroy($id)

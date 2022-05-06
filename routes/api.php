@@ -18,6 +18,7 @@ Route::get('/fetchform',[FormController::class,'fetchForm']);
 Route::get('/formlist',[FormController::class,'index']);
 Route::post('/addform',[FormController::class,'store']);
 Route::get('/getselectedform/{id}',[FormController::class,'show']);
+Route::put('/editform/{id}',[FormController::class,'update']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

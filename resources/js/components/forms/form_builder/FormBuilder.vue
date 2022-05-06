@@ -1,6 +1,6 @@
 <template>
   <v-container>
-      {{selectedForm}}
+    {{ datajson }}
     <v-row class="mb-5">
       <v-col cols="12" md="8" sm="6"> </v-col>
       <v-col cols="6" md="4" sm="2">
@@ -52,22 +52,24 @@ export default {
       datajson: null,
       text: "Form",
       formElements: {},
+      form_id: this.$route.params.id,
     };
   },
-  computed:{
-      selectedForm() {
-          let data = this.$store.state.forms.selected_form
-          for(let i = 0; i<data.length;i++) {
-              return data[i].form_elements
-          }
+  computed: {
+    selectedForm() {
+      let data = this.$store.state.forms.selected_form;
+      for (let i = 0; i < data.length; i++) {
+        return data[i].form_elements;
       }
+    },
   },
-  watch:{
-      datajson:function() {
-          return this.datajson
-      }
+  watch: {
+    datajson: function () {
+      return this.datajson;
+    },
   },
   methods: {
+
     async addForm() {
       await axios
         .post("/api/addform", {
@@ -83,6 +85,7 @@ export default {
           console.log("success");
         });
     },
+
     saveForm() {
       let formObj = JSON.parse(this.datajson);
       this.formElements = formObj;
@@ -94,38 +97,38 @@ export default {
         this.addForm();
       }
     },
+
+
+    async fetchFormData() {
+      await axios
+        .get("/api/getselectedform/" + this.form_id)
+        .then((response) => {
+          this.datajson = response.data[0].form_elements;
+        })
+        .catch((error) => {
+          console.log(error.response.data);
+        })
+        .finally(function () {
+          console.log("Selected form retrieved");
+        });
+    },
+    async getEditForm() {
+      await this.fetchFormData();
+      const creator = new SurveyCreator(creatorOptions);
+      creator.saveSurveyFunc = (saveNo, callback) => {
+        this.datajson = creator.text;
+        callback(saveNo, true);
+      };
+      console.log(JSON.parse(this.datajson))
+      creator.JSON = JSON.parse(this.datajson);
+      creator.render("surveyCreator");
+    },
   },
   created() {
-      this.$store.dispatch("getSelectedForm",this.$route.params.id)
+    this.$store.dispatch("getSelectedForm", this.$route.params.id);
   },
   mounted() {
-
-    const creator = new SurveyCreator(creatorOptions)
-
-    /*     var defaultJSON = {
-    pages: [
-        {
-            name: 'page1',
-            elements: [
-                {
-                    type: 'text',
-                    name: "q1"
-                }
-            ]
-        }
-    ]
-  } */
-    creator.saveSurveyFunc = (saveNo, callback) => {
-      /* window.localStorage.setItem("survey-json", creator.text); */
-      this.datajson = creator.text;
-      callback(saveNo, true);
-    };
-
-    var defaultJSON = { pages: [{ name:'page1', elements: [{ type: 'text', name:"q1"}]}]};
-    var kolera = this.selectedForm
-    console.log(kolera)
-    creator.text = JSON.stringify(defaultJSON);
-    creator.render("surveyCreator");
+    this.getEditForm();
   },
 };
 </script>
