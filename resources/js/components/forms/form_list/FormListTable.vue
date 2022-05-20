@@ -70,12 +70,28 @@
           </v-dialog>
         </v-toolbar>
       </template>
+
       <template v-slot:item.actions="{ item }">
-        <v-icon small class="mr-2" @click="editItem(item)"> mdi-pencil </v-icon>
-        <v-icon small @click="deleteItem(item)"> mdi-delete </v-icon>
+           <v-menu transition="slide-y-transition" bottom offset-y>
+      <template v-slot:activator="{ on, attrs }">
+       <v-icon  v-bind="attrs" v-on="on">mdi-dots-vertical</v-icon>
       </template>
-      <template v-slot:no-data>
-        <v-btn color="primary" @click="initialize"> Reset </v-btn>
+
+      <v-list>
+        <v-list-item link>
+            <v-list-item-title  @click="editItem(item)">
+                <v-icon size="20"> mdi-pencil </v-icon><span>Edit</span>
+            </v-list-item-title>
+
+        </v-list-item>
+        <v-list-item link>
+            <v-list-item-title  @click="deleteItem(item)">
+                <v-icon size="20"> mdi-delete </v-icon><span>Delete</span>
+            </v-list-item-title>
+
+        </v-list-item>
+      </v-list>
+    </v-menu>
       </template>
     </v-data-table>
   </v-container>
@@ -85,6 +101,12 @@ export default {
   data: () => ({
     dialog: false,
     dialogDelete: false,
+     items: [
+        { title: 'Click Me' },
+        { title: 'Click Me' },
+        { title: 'Click Me' },
+        { title: 'Click Me 2' },
+      ],
     formListTableHeader: [
       {
         text: "Name",

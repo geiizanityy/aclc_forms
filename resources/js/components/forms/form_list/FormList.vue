@@ -1,7 +1,6 @@
 <template>
 
 <v-container>
-    <h1>Form List Component</h1>
     <form-list-table></form-list-table>
 </v-container>
 

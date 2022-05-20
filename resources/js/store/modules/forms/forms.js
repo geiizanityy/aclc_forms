@@ -66,6 +66,8 @@ const actions = {
     async getSelectedForm({commit,rootState},id) {
         await axios.get('/api/getselectedform/'+id).then((response) => {
             commit("GET_SELECTED_FORM",response.data)
+            console.log(response.data)
+            localStorage.setItem("selected_form",JSON.stringify(response.data))
         }).catch((error) => {
             console.log(error.response.data)
         }).finally(function() {

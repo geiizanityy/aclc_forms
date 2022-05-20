@@ -122,7 +122,6 @@ export default {
         this.datajson = creator.text;
         callback(saveNo, true);
       };
-      console.log(JSON.parse(this.datajson))
       creator.JSON = JSON.parse(this.datajson);
       creator.render("surveyCreator");
     },

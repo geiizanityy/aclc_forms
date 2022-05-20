@@ -1,6 +1,5 @@
 <template>
   <v-container>
-    {{forms}}
     <div id="surveyElement" style="display: inline-block; width: 100%">
       <survey :survey="survey" />
     </div>
@@ -80,15 +79,10 @@ export default {
             },
           ],
         },
+
         {
           name: "page2",
-          elements: [
-            {
-              type: "text",
-              name: "r",
-              title: "What is your name?",
-            },
-          ],
+          elements: [{ type: "text", name: "r", title: "What is your name?" }],
         },
       ],
       showProgressBar: "top",
@@ -97,6 +91,7 @@ export default {
       showTimerPanel: "top",
       showTimerPanelMode: "page",
     };
+    var data = this.form;
     var json = {
       title: "Title",
       description: "Desc",
@@ -122,9 +117,10 @@ export default {
       maxTimeToFinish: 10,
       showTimerPanel: "top",
     };
-    var formElements = Object.assign({}, this.$store.state.forms.forms[0])
-    var qq = this.$store.state.forms
-    const survey = new Survey.Model(JSON.stringify(formElements));
+    var formElements = localStorage.getItem("selected_form");
+    var qq = JSON.parse(formElements);
+    var data = qq[0].form_elements;
+    const survey = new Survey.Model(data);
     survey.onComplete.add(function (sender) {
       document.querySelector("#surveyResult").textContent =
         "Result JSON:\n" + JSON.stringify(sender.data, null, 3);
@@ -132,21 +128,21 @@ export default {
     });
 
     return {
-      data: qq,
       survey: survey,
     };
   },
   computed: {
     forms() {
-        let formElements = this.$store.state.forms
-        return formElements
+      let formElements = this.$store.state.forms.selected_form;
+      return formElements;
       /* let data = Object.assign({}, JSON.stringify(this.$store.state.forms.forms[0])); */
-
     },
   },
-  mounted() {},
   created() {
-    this.$store.dispatch("getSingleForm");
+    this.$store.dispatch("getSelectedForm", 11);
+  },
+  mounted() {
+    console.log(this.forms);
   },
 };
 </script>

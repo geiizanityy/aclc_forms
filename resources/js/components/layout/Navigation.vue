@@ -58,7 +58,7 @@
             >
           </template>
           <div class="ml-5">
-            <v-list-item @click="$router.push({name:'formlist'})">
+            <v-list-item to="formlist">
               <v-list-item-icon>
                 <v-icon class="white--text" small>mdi-table</v-icon>
               </v-list-item-icon>
