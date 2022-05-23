@@ -1,6 +1,7 @@
 <template>
   <v-container>
       {{computedForms}}
+      {{data}}
 
     <div id="surveyElement" style="display: inline-block; width: 100%">
       <survey :survey="survey" />
@@ -132,6 +133,7 @@ export default {
 
     return {
       survey: {},
+      data:null,
       quiz2:{
       logoPosition: "right",
       completedHtml: "Your score is {correctedAnswers} out of {questionCount}",
@@ -185,9 +187,11 @@ export default {
   },
   created() {
     this.$store.dispatch("getSelectedForm", this.$route.params.id)
-    var formElements = localStorage.getItem("selected_form");
+    var formElements = this.data
     var qq = JSON.parse(formElements);
-    var data = qq[0].form_elements;
+    /* var form = qq[0].form_elements; */
+    console.log(this.data)
+
     const survey = new Survey.Model(this.quiz2);
     survey.onComplete.add(function (sender) {
       document.querySelector("#surveyResult").textContent =
@@ -199,7 +203,8 @@ export default {
   },
   computed: {
     computedForms() {
-      return this.$store.state.forms.selected_form;
+      this.data = this.$store.state.forms.selected_form;
+      return this.data
       /* let data = Object.assign({}, JSON.stringify(this.$store.state.forms.forms[0])); */
     },
   },
