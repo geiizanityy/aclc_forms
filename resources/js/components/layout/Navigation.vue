@@ -5,20 +5,16 @@
         @click="drawer = !drawer"
         class="white--text"
       ></v-app-bar-nav-icon>
-      <v-toolbar-title>
-        Learning Management System
-      </v-toolbar-title>
+      <v-toolbar-title> Learning Management System </v-toolbar-title>
       <v-spacer></v-spacer>
 
       <v-text-field
-      class="mt-7 mr-3"
-      outlined
-      label="Search"
-      prepend-inner-icon="mdi-magnify"
-      dense
-
+        class="mt-7 mr-3"
+        outlined
+        label="Search"
+        prepend-inner-icon="mdi-magnify"
+        dense
       >
-
       </v-text-field>
 
       <acccount></acccount>
@@ -26,7 +22,6 @@
       <v-btn icon>
         <v-icon>mdi-dots-vertical</v-icon>
       </v-btn>
-
     </v-app-bar>
 
     <v-navigation-drawer v-model="drawer" app id="app-sidebar" dark>
@@ -40,14 +35,16 @@
       </v-container>
       <v-divider></v-divider>
 
-      <v-list>
-        <v-list-item class="white--text" to="home">
-          <v-list-item-icon>
-            <v-icon class="white--text">mdi-home</v-icon>
-          </v-list-item-icon>
+      <v-list class="red_list">
 
-          <v-list-item-title class="v-list-item-text">Home</v-list-item-title>
-        </v-list-item>
+          <v-list-item class="white--text" :to="{name:'home'}">
+            <v-list-item-icon>
+              <v-icon class="white--text">mdi-home</v-icon>
+            </v-list-item-icon>
+
+            <v-list-item-title class="v-list-item-text">Home</v-list-item-title>
+          </v-list-item>
+
 
         <v-list-group class="v-list-group" :value="false">
           <v-icon slot="prependIcon" color="white">mdi-form-select</v-icon>
@@ -58,19 +55,26 @@
             >
           </template>
           <div class="ml-5">
-            <v-list-item to="formlist">
+            <v-list-item :to="{name:'formlist'}">
               <v-list-item-icon>
                 <v-icon class="white--text" small>mdi-table</v-icon>
               </v-list-item-icon>
-              <v-list-item-title class="white--text v-list-group-item">Form List</v-list-item-title>
+              <v-list-item-title class="white--text v-list-group-item"
+                >Form List</v-list-item-title
+              >
             </v-list-item>
+            <!-- </router-link> -->
 
+            <!-- <router-link :to="{name:formsample}">
             <v-list-item to="formsample">
               <v-list-item-icon>
                 <v-icon class="white--text" small>mdi-table</v-icon>
               </v-list-item-icon>
-              <v-list-item-title class="white--text v-list-group-item">Form Example</v-list-item-title>
+              <v-list-item-title class="white--text v-list-group-item"
+                >Form Example</v-list-item-title
+              >
             </v-list-item>
+            </router-link> -->
           </div>
         </v-list-group>
 
@@ -119,16 +123,24 @@ export default {
   widows: 100%;
   height: 100%;
 }
+.red_list .v-list-item-group .v-list-item--active{
+  background-color: red;
+  color: white;
+}
 .v-list-item-text {
   color: #ffffff;
   size: 16px;
 }
 .v-list-group-item {
-    size: 15px;
+  size: 15px;
 }
-.v-list-item--active {
+.active {
   background-color: #8e0202;
   color: #fff;
+}
+.v-list-item--active {
+    background-color: #8e0202;
+    color:#fff;
 }
 .v-list-group {
   color: #ffffff;

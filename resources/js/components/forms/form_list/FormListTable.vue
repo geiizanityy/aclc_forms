@@ -1,6 +1,5 @@
 <template>
   <v-container>
-      {{forms}}
     <v-data-table
       :headers="formListTableHeader"
       :items="getFormList"
@@ -15,7 +14,7 @@
           <v-dialog v-model="dialog" max-width="100%">
             <template v-slot:activator="{ on, attrs }">
               <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on">
-                New Item
+                Create Form
               </v-btn>
             </template>
             <v-card>
@@ -78,6 +77,12 @@
       </template>
 
       <v-list>
+          <v-list-item link>
+            <v-list-item-title  @click="viewForm(item)">
+                <v-icon size="20"> mdi-eye </v-icon><span>View</span>
+            </v-list-item-title>
+
+        </v-list-item>
         <v-list-item link>
             <v-list-item-title  @click="editItem(item)">
                 <v-icon size="20"> mdi-pencil </v-icon><span>Edit</span>
@@ -156,6 +161,11 @@ export default {
   methods: {
     initialize() {
       this.forms = this.getFormList
+    },
+
+    viewForm(item) {
+        console.log(item.form_id)
+        window.open('formsample/' + item.form_id);
     },
 
     editItem(item) {

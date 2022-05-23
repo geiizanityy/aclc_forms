@@ -44,7 +44,7 @@ const routes = [
                 name:'formlist'
             },
             {
-                path:'/formsample',
+                path:'/formsample/:id',
                 component:FormSample,
                 name:'formsample'
             },
@@ -55,7 +55,7 @@ const routes = [
 const router = new VueRouter({
     routes,
     mode:'history',
-    linkActiveClass:'active',
+    linkActiveClass: "active", // active class for non-exact links.
     scrollBehavior(to,from,savedPosition) {
         return {
             x:0,
