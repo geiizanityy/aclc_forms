@@ -17,7 +17,7 @@ class CreateTableForms extends Migration
             $table->id('form_id');
             $table->text('form_name');
             $table->text('form_category');
-            $table->json('form_elements');
+            $table->longText('form_elements');
             $table->timestamps();
         });
     }
