@@ -64,16 +64,16 @@ const actions = {
             console.log("Forms Retrieved")
         })
     },
-    async getSelectedForm({commit,rootState},id) {
+   /*  async getSelectedForm({commit,rootState},id) {
         await axios.get('/api/getselectedform/'+id).then((response) => {
             commit("GET_SELECTED_FORM",response.data)
-            /* localStorage.setItem("selected_form",JSON.stringify(response.data)) */
+            localStorage.setItem("selected_form",JSON.stringify(response.data))
         }).catch((error) => {
             console.log(error.response.data)
         }).finally(function() {
             console.log("Selected form retrieved")
         })
-    },
+    }, */
 
 
     async getSingleForm({commit,state}) {
