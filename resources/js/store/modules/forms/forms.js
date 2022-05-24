@@ -6,7 +6,6 @@ const getDefaultSate = () => {
     return {
         form_list:[],
         selected_form:{},
-        forms:[]
     }
 }
 
@@ -29,7 +28,9 @@ const mutations = {
         state.form_list = data.data
     },
     GET_SELECTED_FORM:(state,data) => {
-        state.selected_form = data
+        /* state.selected_form.form_id = data[0].form_id
+        state.selected_form.form_elements = data[0].form_elements */
+        state.selected_form = data[0]
     },
 
 
@@ -66,7 +67,7 @@ const actions = {
     async getSelectedForm({commit,rootState},id) {
         await axios.get('/api/getselectedform/'+id).then((response) => {
             commit("GET_SELECTED_FORM",response.data)
-            localStorage.setItem("selected_form",JSON.stringify(response.data))
+            /* localStorage.setItem("selected_form",JSON.stringify(response.data)) */
         }).catch((error) => {
             console.log(error.response.data)
         }).finally(function() {

@@ -1,6 +1,6 @@
 <template>
-  <v-container>
-    {{ datajson }}
+
+<v-row>
     <v-row class="mb-5">
       <v-col cols="12" md="8" sm="6"> </v-col>
       <v-col cols="6" md="4" sm="2">
@@ -14,7 +14,8 @@
         <div id="surveyCreator"></div>
       </v-col>
     </v-row>
-  </v-container>
+    </v-row>
+
 </template>
 
 <script>

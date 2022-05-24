@@ -164,8 +164,13 @@ export default {
     },
 
     viewForm(item) {
-        console.log(item.form_id)
-        window.open('formsample/' + item.form_id);
+      this.$router.push({
+        name:'formsample',
+        params:{
+          id:item.form_id
+        }
+      })
+        /* window.open('formsample/' + item.form_id); */
     },
 
     editItem(item) {
