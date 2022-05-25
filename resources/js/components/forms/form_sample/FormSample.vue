@@ -1,5 +1,6 @@
 <template>
   <v-container>
+    {{quiz2}}
     <div id="surveyElement" style="display: inline-block; width: 100%">
       <survey :survey="survey" />
     </div>
@@ -184,10 +185,10 @@ export default {
     };
   },
   /* created() {
-    this.$store.dispatch("getSelectedForm", this.$route.params.id) 
+    this.$store.dispatch("getSelectedForm", this.$route.params.id)
     const formElements = this.$store.state.forms
    console.log(this.data)
-    var qq = JSON.stringify(formElements) 
+    var qq = JSON.stringify(formElements)
      const survey = new Survey.Model(this.quiz2);
             survey.onComplete.add(function (sender) {
               document.querySelector("#surveyResult").textContent =
@@ -195,8 +196,8 @@ export default {
               console.log(survey.getCorrectAnswerCount(formElements));
             });
             this.survey = survey
-    
-    
+
+
   }, */
   /* computed: {
     computedForms() {
@@ -227,7 +228,7 @@ export default {
           this.survey.onComplete.add(function (sender) {
             document.querySelector("#surveyResult").textContent =
               "Result JSON:\n" + JSON.stringify(sender.data, null, 3);
-            console.log(this.survey.getCorrectAnswerCount());
+            console.log(this.survey.getCorrectAnswerCount(form));
           });
 
           /* localStorage.setItem("selected_form",JSON.stringify(response.data)) */

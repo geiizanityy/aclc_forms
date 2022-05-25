@@ -1,12 +1,12 @@
 import Vue from "vue";
 import Vuex from 'vuex'
 
-import forms from './modules/forms/forms'
+import subject_contents from './modules/subject_contents/subjectcontents'
 
 
 Vue.use(Vuex)
 export default new Vuex.Store({
     modules:{
-        forms
+        subject_contents
     }
 })

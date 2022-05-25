@@ -9,7 +9,7 @@ import LoginComponent from './components/LoginComponent.vue'
 import Home from './components/home/Home.vue'
 import PageNotFound from './components/404.vue'
 import FormBuilder from './components/forms/form_builder/FormBuilder.vue'
-import FormList from './components/forms/form_list/FormList.vue'
+import SubjectContentList from './components/forms/subject_contents/SubjectContentList.vue'
 import FormSample from './components/forms/form_sample/FormSample.vue'
 
 const routes = [
@@ -39,9 +39,9 @@ const routes = [
                 name:'formbuilder'
             },
             {
-                path:'/formlist',
-                component:FormList,
-                name:'formlist'
+                path:'/subjectcontents',
+                component:SubjectContentList,
+                name:'subjectcontents'
             },
             {
                 path:'/formsample/:id',

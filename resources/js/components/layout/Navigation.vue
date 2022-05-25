@@ -55,12 +55,12 @@
             >
           </template>
           <div class="ml-5">
-            <v-list-item :to="{name:'formlist'}">
+            <v-list-item :to="{name:'subjectcontents'}">
               <v-list-item-icon>
                 <v-icon class="white--text" small>mdi-table</v-icon>
               </v-list-item-icon>
               <v-list-item-title class="white--text v-list-group-item"
-                >Form List</v-list-item-title
+                >Subject Content</v-list-item-title
               >
             </v-list-item>
             <!-- </router-link> -->

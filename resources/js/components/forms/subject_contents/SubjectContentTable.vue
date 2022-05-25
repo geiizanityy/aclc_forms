@@ -1,0 +1,279 @@
+<template>
+  <v-container>
+    <v-data-table
+      :headers="formListTableHeader"
+      :items="getSubjectContentList"
+      sort-by="calories"
+      class="elevation-1 text-uppercase"
+      dense
+    >
+      <template v-slot:top>
+        <v-toolbar flat color="info" dark>
+          <v-toolbar-title>
+            <v-icon>mdi-table-of-contents</v-icon>Contents</v-toolbar-title
+          >
+          <v-divider class="mx-4" inset vertical></v-divider>
+          <v-spacer></v-spacer>
+
+          <!-- CREATE DIALOG -->
+          <v-dialog v-model="dialog" max-width="80%">
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn color="error" dark class="mb-2" v-bind="attrs" v-on="on">
+                Create Content
+                <v-icon size="18">mdi-plus-box</v-icon>
+              </v-btn>
+            </template>
+            <v-card>
+              <v-toolbar color="primary" dark>
+                <span class="text-h5">{{ formTitle }}</span>
+              </v-toolbar>
+
+              <v-card-text>
+                <v-container class="mt-5">
+                  <v-row>
+                    <v-col cols="12" sm="12" md="16">
+                      <v-text-field
+                        v-model="editedItem.form_name"
+                        label="Course"
+                        disabled
+                        outlined
+                        dense
+                        prepend-inner-icon="mdi-information-outline"
+                      ></v-text-field>
+                      <v-text-field
+                        v-model="editedItem.form_name"
+                        label="Topic No."
+                        outlined
+                        dense
+                        prepend-inner-icon="mdi-information-outline"
+                      ></v-text-field>
+
+                      <v-textarea
+                        prepend-inner-icon="mdi-text"
+                        filled
+                        name="input-7-4"
+                        label="Topic Description"
+                        dense
+                      >
+                      </v-textarea>
+                      <v-row>
+
+                          <v-col md="6">
+                            <v-text-field
+                              v-model="editedItem.form_category"
+                              label="Slug"
+                              dense
+                              outlined
+                              prepend-inner-icon="mdi-information-outline"
+                            ></v-text-field>
+                          </v-col>
+                          <v-col md="6">
+                            <v-select
+                            dense
+                            label="Topic Type"
+                            outlined
+                            prepend-inner-icon="mdi-format-list-checkbox"
+                            :items="topicTypeItems"
+                            :value="topicTypeItems">
+
+                            </v-select>
+                          </v-col>
+
+                      </v-row>
+                    </v-col>
+                  </v-row>
+                </v-container>
+              </v-card-text>
+
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn color="blue darken-1" text @click="close">
+                  Cancel
+                </v-btn>
+                <v-btn color="blue darken-1" text @click="save"> Save </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
+
+          <!-- DELETE CONFIRMATION DIALOG -->
+          <v-dialog v-model="dialogDelete" max-width="500px">
+            <v-card>
+              <v-card-title class="text-h5"
+                >Are you sure you want to delete this item?</v-card-title
+              >
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn color="blue darken-1" text @click="closeDelete"
+                  >Cancel</v-btn
+                >
+                <v-btn color="blue darken-1" text @click="deleteItemConfirm"
+                  >OK</v-btn
+                >
+                <v-spacer></v-spacer>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
+        </v-toolbar>
+      </template>
+
+      <template v-slot:item.actions="{ item }">
+        <v-menu transition="slide-y-transition" bottom offset-y>
+          <template v-slot:activator="{ on, attrs }">
+            <v-icon v-bind="attrs" v-on="on">mdi-dots-vertical</v-icon>
+          </template>
+
+          <v-list class="text-uppercase">
+            <v-list-item link>
+              <v-list-item-title @click="viewForm(item)">
+                <v-icon size="18" color="success"> mdi-delete </v-icon
+                ><span class="button-span"> View</span>
+              </v-list-item-title>
+            </v-list-item>
+            <v-list-item link>
+              <v-list-item-title @click="editItem(item)">
+                <v-icon size="18" color="info"> mdi-pencil </v-icon>
+                <span class="button-span"> Edit</span>
+              </v-list-item-title>
+            </v-list-item>
+            <v-list-item link>
+              <v-list-item-title @click="deleteItem(item)">
+                <v-icon size="18" color="error"> mdi-delete </v-icon>
+                <span class="button-span"> Delete</span>
+              </v-list-item-title>
+            </v-list-item>
+          </v-list>
+        </v-menu>
+      </template>
+    </v-data-table>
+  </v-container>
+</template>
+<script>
+export default {
+  data: () => ({
+    dialog: false,
+    dialogDelete: false,
+    topicTypeItems:[
+        "Discussion",
+        "Assesment"
+    ],
+    items: [
+      { title: "Click Me" },
+      { title: "Click Me" },
+      { title: "Click Me" },
+      { title: "Click Me 2" },
+    ],
+    formListTableHeader: [
+      {
+        text: "Course",
+        align: "start",
+        sortable: false,
+        value: "course",
+      },
+      { text: "Subject.", value: "subject_name", sortable: false },
+      { text: "Topic No.", value: "topic_no", sortable: false },
+      { text: "Topic Description.", value: "topic_desc", sortable: false },
+      { text: "Topic No.", value: "topic_type", sortable: false },
+      { text: "Actions", value: "actions", sortable: false },
+    ],
+    forms: [],
+    editedIndex: -1,
+    editedItem: {
+      form_name: "",
+      form_category: "",
+      form_id: null,
+    },
+    defaultItem: {
+      form_name: "",
+      form_category: "",
+      form_id: null,
+    },
+  }),
+
+  computed: {
+    getSubjectContentList() {
+      return this.$store.state.subject_contents.subjectcontent_list;
+    },
+    formTitle() {
+      return this.editedIndex === -1 ? "New Item" : "Edit Item";
+    },
+  },
+
+  watch: {
+    dialog(val) {
+      val || this.close();
+    },
+    dialogDelete(val) {
+      val || this.closeDelete();
+    },
+  },
+
+  created() {
+    this.initialize();
+  },
+
+  methods: {
+    initialize() {
+      this.forms = this.getSubjectContentList;
+    },
+
+    viewForm(item) {
+      this.$router.push({
+        name: "formsample",
+        params: {
+          id: item.form_id,
+        },
+      });
+      /* window.open('formsample/' + item.form_id); */
+    },
+
+    editItem(item) {
+      this.$router.push({ name: "formbuilder", params: { id: item.form_id } });
+    },
+
+    deleteItem(item) {
+      this.editedIndex = this.getSubjectContentList.indexOf(item);
+      this.editedItem = Object.assign({}, item);
+      this.dialogDelete = true;
+    },
+
+    deleteItemConfirm() {
+      this.getSubjectContentList.splice(this.editedIndex, 1);
+      this.closeDelete();
+    },
+
+    close() {
+      this.dialog = false;
+      this.$nextTick(() => {
+        this.editedItem = Object.assign({}, this.defaultItem);
+        this.editedIndex = -1;
+      });
+    },
+
+    closeDelete() {
+      this.dialogDelete = false;
+      this.$nextTick(() => {
+        this.editedItem = Object.assign({}, this.defaultItem);
+        this.editedIndex = -1;
+      });
+    },
+
+    save() {
+      if (this.editedIndex > -1) {
+        Object.assign(
+          this.getSubjectContentList[this.editedIndex],
+          this.editedItem
+        );
+      } else {
+        /* this.getFormList.push(this.editedItem); */
+        this.$store.dispatch("addForm", this.editedItem);
+      }
+      this.close();
+    },
+  },
+};
+</script>
+<style scoped>
+.button-span {
+  font-size: 12px;
+}
+</style>
