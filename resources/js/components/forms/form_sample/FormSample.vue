@@ -1,6 +1,8 @@
 <template>
   <v-container>
     {{quiz2}}
+    <v-divider></v-divider>
+    {{formData}}
     <div id="surveyElement" style="display: inline-block; width: 100%">
       <survey :survey="survey" />
     </div>
@@ -131,7 +133,7 @@ export default {
 
     return {
       survey: new Survey.Model(),
-      formData: {},
+      formData: null,
       quiz2: {
         logoPosition: "right",
         completedHtml:
@@ -207,31 +209,27 @@ export default {
     },
   }, */
   methods: {
-    setForm() {
-      this.forms = this.computedForms;
-    },
+
     async loadForm() {
-      const survey = new Survey.Model();
+      const survey = new Survey.Model(this.formData);
       survey.onComplete.add(function (sender) {
         document.querySelector("#surveyResult").textContent =
           "Result JSON:\n" + JSON.stringify(sender.data, null, 3);
-        console.log(survey.getCorrectAnswerCount(formElements));
+          console.log(this.survey.getCorrectAnswerCount(survey));
       });
+
       this.survey = survey;
       await axios
         .get("/api/getselectedform/" + this.$route.params.id)
         .then((response) => {
-          console.log(response.data);
-          this.formData = response.data[0].form_elements;
-          const form = response.data[0].form_elements;
+          this.formData = response.data[0].topic_content
+          /* const form = response.data[0].topic_content;
           this.survey = new Survey.Model(form);
           this.survey.onComplete.add(function (sender) {
             document.querySelector("#surveyResult").textContent =
               "Result JSON:\n" + JSON.stringify(sender.data, null, 3);
-            console.log(this.survey.getCorrectAnswerCount(form));
-          });
-
-          /* localStorage.setItem("selected_form",JSON.stringify(response.data)) */
+            console.log(this.survey.getCorrectAnswerCount(this.survey));
+          }); */
         })
         .catch((error) => {
           console.log(error.response.data);
@@ -240,6 +238,7 @@ export default {
     },
   },
   async created() {
+    console.log(this.formData)
     this.loadForm();
   },
 };

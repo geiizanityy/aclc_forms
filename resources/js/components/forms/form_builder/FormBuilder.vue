@@ -57,12 +57,12 @@ export default {
     };
   },
   computed: {
-    selectedForm() {
+    /* selectedForm() {
       let data = this.$store.state.forms.selected_form;
       for (let i = 0; i < data.length; i++) {
         return data[i].form_elements;
       }
-    },
+    }, */
   },
   watch: {
     datajson: function () {

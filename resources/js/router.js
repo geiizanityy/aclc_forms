@@ -44,9 +44,9 @@ const routes = [
                 name:'subjectcontents'
             },
             {
-                path:'/formsample/:id',
+                path:'/subjectcontent/:id',
                 component:FormSample,
-                name:'formsample'
+                name:'subjectconent'
             },
         ]
     }

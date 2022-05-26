@@ -124,8 +124,8 @@
 
           <v-list class="text-uppercase">
             <v-list-item link>
-              <v-list-item-title @click="viewForm(item)">
-                <v-icon size="18" color="success"> mdi-delete </v-icon
+              <v-list-item-title @click="viewContent(item)">
+                <v-icon size="18" color="success"> mdi-eye </v-icon
                 ><span class="button-span"> View</span>
               </v-list-item-title>
             </v-list-item>
@@ -155,12 +155,6 @@ export default {
     topicTypeItems:[
         "Discussion",
         "Assesment"
-    ],
-    items: [
-      { title: "Click Me" },
-      { title: "Click Me" },
-      { title: "Click Me" },
-      { title: "Click Me 2" },
     ],
     formListTableHeader: [
       {
@@ -216,18 +210,17 @@ export default {
       this.forms = this.getSubjectContentList;
     },
 
-    viewForm(item) {
+    viewContent(item) {
       this.$router.push({
-        name: "formsample",
+        name: 'subjectconent',
         params: {
-          id: item.form_id,
+          id: item.subjectcontent_id,
         },
       });
-      /* window.open('formsample/' + item.form_id); */
     },
 
     editItem(item) {
-      this.$router.push({ name: "formbuilder", params: { id: item.form_id } });
+      /* this.$router.push({ name: "formbuilder", params: { id: item.form_id } }); */
     },
 
     deleteItem(item) {
