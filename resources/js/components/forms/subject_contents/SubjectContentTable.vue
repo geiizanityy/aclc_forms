@@ -220,7 +220,7 @@ export default {
     },
 
     editItem(item) {
-      /* this.$router.push({ name: "formbuilder", params: { id: item.form_id } }); */
+      this.$router.push({ name: "editcontent", params: { id: item.subjectcontent_id } });
     },
 
     deleteItem(item) {

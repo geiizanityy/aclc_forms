@@ -1,8 +1,8 @@
 <template>
   <v-container>
-    {{quiz2}}
+    <!-- {{quiz2}} -->
     <v-divider></v-divider>
-    {{formData}}
+<!--     {{formData}} -->
     <div id="surveyElement" style="display: inline-block; width: 100%">
       <survey :survey="survey" />
     </div>
@@ -211,25 +211,27 @@ export default {
   methods: {
 
     async loadForm() {
-      const survey = new Survey.Model(this.formData);
-      survey.onComplete.add(function (sender) {
-        document.querySelector("#surveyResult").textContent =
-          "Result JSON:\n" + JSON.stringify(sender.data, null, 3);
-          console.log(this.survey.getCorrectAnswerCount(survey));
-      });
-
+      const survey = new Survey.Model();
       this.survey = survey;
       await axios
-        .get("/api/getselectedform/" + this.$route.params.id)
+        .get('/api/viewsubjectcontent/' + this.$route.params.id)
         .then((response) => {
-          this.formData = response.data[0].topic_content
-          /* const form = response.data[0].topic_content;
-          this.survey = new Survey.Model(form);
-          this.survey.onComplete.add(function (sender) {
+          this.formData = response.data
+          const form = response.data[0].topic_content;
+          const survey = new Survey.Model(form);
+          this.survey = survey
+          survey.onComplete.add(function (sender) {
             document.querySelector("#surveyResult").textContent =
               "Result JSON:\n" + JSON.stringify(sender.data, null, 3);
-            console.log(this.survey.getCorrectAnswerCount(this.survey));
-          }); */
+            const score = survey.getCorrectAnswerCount(survey);
+            if(score<1) {
+                console.log("Failed")
+            }else {
+                console.log("Passed")
+            }
+          });
+          this.survey = survey
+
         })
         .catch((error) => {
           console.log(error.response.data);
@@ -237,8 +239,7 @@ export default {
         .finally(function () {});
     },
   },
-  async created() {
-    console.log(this.formData)
+  async mounted() {
     this.loadForm();
   },
 };

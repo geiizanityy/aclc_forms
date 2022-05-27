@@ -17,7 +17,8 @@ use App\Http\Controllers\SubjectContentController;
 Route::get('/fetchform',[SubjectContentController::class,'fetchForm']);
 Route::get('/subjectcontents',[SubjectContentController::class,'index']);
 Route::post('/addform',[SubjectContentController::class,'store']);
-Route::get('/getselectedform/{id}',[SubjectContentController::class,'show']);
+Route::get('/viewsubjectcontent/{id}',[SubjectContentController::class,'show']);
+Route::get('/geteditcontent/{id}',[SubjectContentController::class,'show']);
 Route::put('/editform/{id}',[SubjectContentController::class,'update']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {

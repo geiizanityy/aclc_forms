@@ -1,11 +1,12 @@
 <template>
 
 <v-row>
+    {{datajson}}
     <v-row class="mb-5">
       <v-col cols="12" md="8" sm="6"> </v-col>
       <v-col cols="6" md="4" sm="2">
         <div class="float-right">
-          <v-btn @click="saveForm()" color="info"> Save Form </v-btn>
+          <v-btn color="info"> Save Form </v-btn>
         </div>
       </v-col>
     </v-row>
@@ -52,26 +53,32 @@ export default {
     return {
       datajson: null,
       text: "Form",
+      content:null,
       formElements: {},
       form_id: this.$route.params.id,
     };
   },
   computed: {
-    /* selectedForm() {
-      let data = this.$store.state.forms.selected_form;
+    getEditContent() {
+      let data = this.$store.state.content_maker.editcontent;
       for (let i = 0; i < data.length; i++) {
-        return data[i].form_elements;
+        return data[i].topic_content;
       }
-    }, */
+    },
+    sample() {
+        return "Sample"
+    }
   },
   watch: {
     datajson: function () {
-      return this.datajson;
+      get:{
+          return this.$store.state.content_maker.editcontent
+      }
     },
   },
   methods: {
 
-    async addForm() {
+    /* async addForm() {
       await axios
         .post("/api/addform", {
           formElement: this.formElements,
@@ -85,13 +92,13 @@ export default {
         .finally(function () {
           console.log("success");
         });
-    },
+    }, */
     async editForm() {
 
     },
 
     saveForm() {
-      let formObj = JSON.parse(this.datajson);
+      /* let formObj = JSON.parse(this.datajson);
       this.formElements = formObj;
       if (formObj === null) {
         alert("Form is empty");
@@ -99,15 +106,15 @@ export default {
         alert("Form is empty");
       } else {
         this.addForm();
-      }
+      } */
     },
 
 
-    async fetchFormData() {
+   /*  async fetchFormData() {
       await axios
-        .get("/api/getselectedform/" + this.form_id)
+        .get("/api/geteditcontent/" + this.$route.params.id)
         .then((response) => {
-          this.datajson = response.data[0].form_elements;
+          this.datajson = response.data[0].topic_content;
         })
         .catch((error) => {
           console.log(error.response.data);
@@ -115,24 +122,42 @@ export default {
         .finally(function () {
           console.log("Selected form retrieved");
         });
-    },
+    }, */
     async getEditForm() {
-      await this.fetchFormData();
       const creator = new SurveyCreator(creatorOptions);
       creator.saveSurveyFunc = (saveNo, callback) => {
-        this.datajson = creator.text;
+        this.getEditContent = creator.text;
         callback(saveNo, true);
       };
-      creator.JSON = JSON.parse(this.datajson);
+      console.log(this.getEditContent)
+      creator.JSON = JSON.stringify(this.datajson);
       creator.render("surveyCreator");
     },
   },
-  created() {
-    this.$store.dispatch("getSelectedForm", this.$route.params.id);
+  async mounted() {
+    /* this.$store.dispatch("getSelectedForm", this.$route.params.id); */
+        await axios.get('/api/geteditcontent/'+this.$route.params.id).then((response) => {
+            const creator = new SurveyCreator(creatorOptions);
+            const data = response.data
+            creator.saveSurveyFunc = (saveNo, callback) => {
+                this.content = creator.text
+                console.log(this.content)
+                callback(saveNo, true);
+            };
+
+            creator.JSON = JSON.parse(data[0].topic_content);
+            creator.render("surveyCreator");
+        }).catch((error) => {
+            console.log(error.response.data)
+        }).finally(function() {
+            console.log("Selected form retrieved")
+        })
   },
-  mounted() {
-    this.getEditForm();
-  },
+
+    /* this.fetchFormData() */
+      /* this.getEditForm()
+      console.log(this.sample) */
+
 };
 </script>
 <style scoped>

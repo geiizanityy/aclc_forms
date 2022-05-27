@@ -3,11 +3,13 @@ import Vuex from 'vuex'
 
 import subject_contents from './modules/subject_contents/subjectcontents'
 import subjects from './modules/subjects/subjects'
+import content_maker from './modules/content_maker/contentmaker'
 
 Vue.use(Vuex)
 export default new Vuex.Store({
     modules:{
         subject_contents,
+        content_maker,
         subjects
     }
 })

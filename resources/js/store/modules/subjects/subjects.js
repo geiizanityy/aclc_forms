@@ -20,25 +20,25 @@ const getters = {
 /* STORE MUTATIONS */
 const mutations = {
     /* FETCH FILE DATA FROM STORE STATES */
-    GET_SUBJECT_CONTENTS:(state,data) => {
+    FETCH_SUBJECTS:(state,data) => {
         state.subjectcontent_list = data.data
     },
 
 
 
     /* UPDATE FILE DATA FROM STORE STATES */
-    UPDATE_FORM:(state) => {
+    UPDATE_SUBJECT:(state) => {
     },
 
 
     /* DELETE FILE DATA FROM STORE STATES */
-    DELETE_FORM:(state) => {
+    DELETE_SUBJECT:(state) => {
 
     },
 
 
     /* ADD FILE DATA FROM STORE STATES */
-    ADD_FORM:(state,data) => {
+    ADD_SUBJECT:(state,data) => {
         state.form_list.push(data)
     }
 }
@@ -47,7 +47,7 @@ const mutations = {
 const actions = {
 
     /* FETCH FILE DATA FROM DATABASE */
-    async getSubjectContentsList({commit,rootState}) {
+    /* async getSubjectContentsList({commit,rootState}) {
         await axios.get('/api/subjectcontents').then((response) => {
             commit('GET_SUBJECT_CONTENTS',response.data)
         }).catch((error) => {
@@ -55,7 +55,7 @@ const actions = {
         }).finally(function() {
             console.log("Forms Retrieved")
         })
-    },
+    }, */
    /*  async getSelectedForm({commit,rootState},id) {
         await axios.get('/api/getselectedform/'+id).then((response) => {
             commit("GET_SELECTED_FORM",response.data)
@@ -68,14 +68,14 @@ const actions = {
     }, */
 
 
-    async getSingleForm({commit,state}) {
+   /*  async getSingleForm({commit,state}) {
         await axios.get('/api/fetchform').then((response) => {
             commit("GET_FORMS",response.data)
         }).catch((error) => {
             console.log(error)
         }).finally(console.log("success"))
     },
-
+ */
 
     /* UPDATE FILE DATA FROM DATABASE */
     async updateForm({commit}) {
@@ -100,7 +100,7 @@ const actions = {
                 pages:[]
             }
         }) */
-        let form = {
+        /* let form = {
             form_name:data.form_name,
             form_category:data.form_category,
             form_elements:JSON.stringify({
@@ -109,15 +109,15 @@ const actions = {
                     "name":'Page 1'
                 }]
             })
-        }
-        await axios.post('/api/addform',form).then((response) => {
+        } */
+        /* await axios.post('/api/addform',form).then((response) => {
             commit("ADD_FORM",response.data)
             console.log(response.data)
         }).catch((error) => {
             console.log(error.response.data)
         }).finally(function() {
             console.log("Form Added")
-        })
+        }) */
     }
 
 }
