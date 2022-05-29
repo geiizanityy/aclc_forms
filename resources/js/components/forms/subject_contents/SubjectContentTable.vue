@@ -153,8 +153,8 @@
 </template>
 <script>
 export default {
+  
   data: () => ({
-
 
     dialog: false,
     dialogDelete: false,
@@ -226,6 +226,7 @@ export default {
   created() {
     this.initialize();
 
+
   },
 
   methods: {
@@ -287,7 +288,7 @@ export default {
     },
   },
 
-};
+}
 </script>
 <style scoped>
 .button-span {

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\SubjectResource;
 use App\Models\Subjects as Subjects;
 use Illuminate\Http\Request;
+use Hashids\Hashids;
 
 class SubjectController extends Controller
 {
@@ -18,6 +19,14 @@ class SubjectController extends Controller
         ->get();
         return SubjectResource::collection($subjects);
     
+    }
+    public function hashDemo() {
+        $id = '153334';
+        $hashids = new Hashids('this is salt',12,'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890');
+
+        $id = $hashids->encode($id);
+        dd($id);
+
     }
     public function subjectTeach($id)
     {

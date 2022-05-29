@@ -22,6 +22,7 @@ Route::get('/fetchform',[SubjectContentController::class,'fetchForm']);
 Route::get('/subjects',[SubjectController::class,'index']);
 Route::get('/teachsubject/{id}', [SubjectController::class, 'subjectTeach']);
 Route::get('/subject/{id}', [SubjectController::class, 'show']);
+Route::get('/subject', [SubjectController::class, 'hashDemo']);
 
 
 
