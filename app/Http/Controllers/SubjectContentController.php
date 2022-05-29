@@ -7,17 +7,17 @@ use Illuminate\Http\Request;
 use App\Models\SubjectContent as SubjectContent;
 use App\Http\Resources\SubjectContentResource;
 
-use DB;
+use Illuminate\Support\Facades\DB as DB;
 
 class SubjectContentController extends Controller
 {
     public function index()
     {
         //
-        $forms = SubjectContent::leftjoin('subjects','subject_contents.subject_id', '=', 'subjects.subject_id')
+        $contents = SubjectContent::leftjoin('subjects','subject_contents.subject_id', '=', 'subjects.subject_id')
         ->orderBy('topic_no', 'ASC')
         ->get();
-        return SubjectContentResource::collection($forms);
+        return SubjectContentResource::collection($contents);
     }
 
 
@@ -53,8 +53,8 @@ class SubjectContentController extends Controller
 
     public function show($id)
     {
-        $form = SubjectContent::where('subjectcontent_id',$id)->get();
-        return response(new SubjectContentResource($form));
+        $contents = SubjectContent::where('subjectcontent_id',$id)->get();
+        return response(new SubjectContentResource($contents));
     }
 
     public function edit($id)
@@ -63,7 +63,7 @@ class SubjectContentController extends Controller
     }
 
 
-    public function update(Request $request, $id)
+    /* public function update(Request $request, $id)
     {
         //
         $form = Form::findOrFail($id);
@@ -71,7 +71,7 @@ class SubjectContentController extends Controller
             'message' => 'Successfully Updated',
             'data' => new SubjectContentResource($form)
         ]);
-    }
+    } */
 
     public function destroy($id)
     {

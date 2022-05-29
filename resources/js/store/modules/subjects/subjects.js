@@ -4,7 +4,9 @@ import axios from "axios";
 /* STORE STATES */
 const getDefaultSate = () => {
     return {
-        subjectcontent_list:[],
+        teacher_subjects:[],
+        selected_subject:{}
+
     }
 }
 
@@ -14,7 +16,9 @@ const state = getDefaultSate()
 
 /* STORE GETTERS */
 const getters = {
-
+    getSelectedSubject:(state) => (subject_id) => {
+        return state.teacher_subjects.filter(item => item.subject_id === subject_id)
+    }
 }
 
 /* STORE MUTATIONS */
@@ -24,7 +28,9 @@ const mutations = {
         state.subjectcontent_list = data.data
     },
 
-
+    GET_TEACHER_SUBJECTS:(state,data) => {
+        state.teacher_subjects = data
+    },
 
     /* UPDATE FILE DATA FROM STORE STATES */
     UPDATE_SUBJECT:(state) => {
@@ -40,42 +46,38 @@ const mutations = {
     /* ADD FILE DATA FROM STORE STATES */
     ADD_SUBJECT:(state,data) => {
         state.form_list.push(data)
+    },
+    GET_SELECTED_SUBJECT:(state,data) => {
+        state.selected_subject = data
     }
+
 }
 
 /* STORE ACTIONS */
 const actions = {
 
     /* FETCH FILE DATA FROM DATABASE */
-    /* async getSubjectContentsList({commit,rootState}) {
-        await axios.get('/api/subjectcontents').then((response) => {
+    async getSubjectList({commit,rootState}) {
+        await axios.get('/api/subjects').then((response) => {
             commit('GET_SUBJECT_CONTENTS',response.data)
         }).catch((error) => {
             console.log(error)
         }).finally(function() {
             console.log("Forms Retrieved")
         })
-    }, */
-   /*  async getSelectedForm({commit,rootState},id) {
-        await axios.get('/api/getselectedform/'+id).then((response) => {
-            commit("GET_SELECTED_FORM",response.data)
-            localStorage.setItem("selected_form",JSON.stringify(response.data))
-        }).catch((error) => {
-            console.log(error.response.data)
-        }).finally(function() {
-            console.log("Selected form retrieved")
-        })
-    }, */
-
-
-   /*  async getSingleForm({commit,state}) {
-        await axios.get('/api/fetchform').then((response) => {
-            commit("GET_FORMS",response.data)
+    },
+    async getTeacherSubjects({commit,rootState},id) {
+        await axios.get('/api/teachsubject/'+id).then((response) => {
+            commit('GET_TEACHER_SUBJECTS',response.data.data)
         }).catch((error) => {
             console.log(error)
-        }).finally(console.log("success"))
+        }).finally(function() {
+            console.log("Techer Subjects Retrieved")
+        })
     },
- */
+
+
+
 
     /* UPDATE FILE DATA FROM DATABASE */
     async updateForm({commit}) {
@@ -91,35 +93,19 @@ const actions = {
 
     },
 
-
-
-    /* ADD FILE TO DATABASE */
-    async addForm({commit},data) {
-       /*  let form = Object.assign({},data,{
-            form_elements:{
-                pages:[]
-            }
-        }) */
-        /* let form = {
-            form_name:data.form_name,
-            form_category:data.form_category,
-            form_elements:JSON.stringify({
-                "title":data.form_name,
-                "pages":[{
-                    "name":'Page 1'
-                }]
-            })
-        } */
-        /* await axios.post('/api/addform',form).then((response) => {
-            commit("ADD_FORM",response.data)
-            console.log(response.data)
+    async getSelectedSubject({commit},subject_id) {
+        console.log(subject_id)
+        await axios.get('/api/subject/'+subject_id).then((response) => {
+            commit('GET_SELECTED_SUBJECT',response.data)
         }).catch((error) => {
-            console.log(error.response.data)
+            console.log(error)
         }).finally(function() {
-            console.log("Form Added")
-        }) */
+            console.log("Selected Subject Retrieved")
+        })
     }
 
+
+ 
 }
 
 export default {

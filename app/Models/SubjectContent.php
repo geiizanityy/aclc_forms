@@ -9,6 +9,11 @@ class SubjectContent extends Model
 {
     use HasFactory;
 
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+
     protected $table = 'subject_contents';
     protected $primaryKey = 'subjectcontent_id';
 

@@ -1,84 +1,73 @@
 <template>
-
-<v-container>
+  <v-container>
     <v-row justify="space-around">
-        <v-col cols="12" md="4" sm="6" v-for="i in 6" :key="i">
-             <v-card width="450">
-        <v-img
-          height="200px"
-          src="http://localhost:8000/images/bg4.jpg"
-          class="subject-banner"
-        >
-          <v-app-bar
-            flat
-            color="rgba(0, 0, 0, 0)"
+      <v-col cols="12" md="4" sm="6" v-for="(item,i) in fetchTeacherSubject" :key="i">
+        
+        <v-card width="450" class="text-uppercase">
+          <v-img
+            height="200px"
+            src="http://localhost:8000/images/bg4.jpg"
+            class="subject-banner"
           >
-            <v-app-bar-nav-icon color="white"></v-app-bar-nav-icon>
+            <v-app-bar flat color="rgba(0, 0, 0, 0)">
+              <v-app-bar-nav-icon color="white"></v-app-bar-nav-icon>
 
-            <v-toolbar-title class="text-h6 white--text pl-0">
-              Subject Name
-            </v-toolbar-title>
+              <router-link :to="item.link">
+                <v-toolbar-title class="text-h5 white--text pl-0">
+                  {{item.subject_name}}
+                </v-toolbar-title>
+              </router-link>
 
-            <v-spacer></v-spacer>
+              <v-spacer></v-spacer>
 
-            <v-btn
-              color="white"
-              icon
-            >
-              <v-icon>mdi-dots-vertical</v-icon>
-            </v-btn>
-          </v-app-bar>
+              <v-btn color="white" icon>
+                <v-icon>mdi-dots-vertical</v-icon>
+              </v-btn>
+            </v-app-bar>
 
-          <v-card-title class="white--text mt-8 justify-center">
-                  <v-avatar size="56">
-              <img
-                alt="user"
-                src="http://localhost:8000/images/usericon.png"
-              >
-            </v-avatar>
-           
-          </v-card-title>
-          
-        </v-img>
+            <v-card-title class="white--text mt-8 justify-center">
+              <v-avatar size="56">
+                <img
+                  alt="user"
+                  src="http://localhost:8000/images/usericon.png"
+                />
+              </v-avatar>
+            </v-card-title>
+          </v-img>
 
-        <v-card-text>
-          <div class="font-weight-bold">
-          </div>
-           <v-expansion-panels
-           focusable
-      v-model="panel"
-      :disabled="disabled"
-      multiple
-    >
-    <v-expansion-panel>
-        <v-expansion-panel-header>Subject:</v-expansion-panel-header>
-        <v-expansion-panel-content>
-          English
-        </v-expansion-panel-content>
-      </v-expansion-panel>
-      <v-expansion-panel>
-        <v-expansion-panel-header>Course Name:</v-expansion-panel-header>
-        <v-expansion-panel-content>
-          Course Name
-        </v-expansion-panel-content>
-      </v-expansion-panel>
+          <v-card-text>
+            <div class="font-weight-bold"></div>
+            <v-expansion-panels focusable :disabled="disabled" multiple>
+              <v-expansion-panel>
+                <v-expansion-panel-header
+                  >Subject Name:</v-expansion-panel-header
+                >
+                <v-expansion-panel-content> {{item.subject_name}} </v-expansion-panel-content>
+              </v-expansion-panel>
+              <v-expansion-panel>
+                <v-expansion-panel-header
+                  >Subject Code:</v-expansion-panel-header
+                >
+                <v-expansion-panel-content> {{item.subject_code}} </v-expansion-panel-content>
+              </v-expansion-panel>
+              <v-expansion-panel>
+                <v-expansion-panel-header
+                  >Course Name:</v-expansion-panel-header
+                >
+                <v-expansion-panel-content>
+                  {{item.course}}
+                </v-expansion-panel-content>
+              </v-expansion-panel>
 
-      <v-expansion-panel>
-        <v-expansion-panel-header>Subject Code:</v-expansion-panel-header>
-        <v-expansion-panel-content>
-          ENG101
-        </v-expansion-panel-content>
-      </v-expansion-panel>
+              <v-expansion-panel>
+                <v-expansion-panel-header>Teacher:</v-expansion-panel-header>
+                <v-expansion-panel-content>
+                  {{item.firstname}} {{item.lastname}}
+                </v-expansion-panel-content>
+              </v-expansion-panel>
+            </v-expansion-panels>
 
-      <v-expansion-panel>
-        <v-expansion-panel-header>Teacher:</v-expansion-panel-header>
-        <v-expansion-panel-content>
-            Giejie Abobo
-        </v-expansion-panel-content>
-      </v-expansion-panel>
-    </v-expansion-panels>
-
-          <!-- <v-timeline
+            <!-- <v-timeline
             align-top
             dense
           >
@@ -96,25 +85,59 @@
               </div>
             </v-timeline-item>
           </v-timeline> -->
-        </v-card-text>
-      </v-card>
-        </v-col>
-     
-      
-      
+          </v-card-text>
+        </v-card>
+      </v-col>
     </v-row>
   </v-container>
 </template>
 
 <script>
-  export default {
-      data() {
-          return {
-            disabled: false,
-            readonly: false,
+export default {
+  data() {
+    return {
+      disabled: false,
+      readonly: false,
+      link:{
+        name:'subjectcontents',
+        params:{
+          subject_id:1
+        }
+      },
+    };
+  },
+  computed:{
+    fetchTeacherSubject() {
+      const subject = this.$store.state.subjects.teacher_subjects
+       subject.forEach((element,index) => {
+          element.link = {
+            name:'subjectcontents',
+            params:{
+              subject_id:subject[index].subject_id
+            }
           }
-      }
-    /* data: () => ({
+       })
+       return subject
+    }
+  
+  },
+  methods:{
+    redirectSubjectContents(id) {
+      this.$router.push(
+        {
+          name:'subjectcontents',
+        params:{
+          subject_id:id
+        }
+        })
+        
+    }
+  },
+  mounted() {
+    this.$store.dispatch("getTeacherSubjects",3)
+   
+  }
+  /* data: () => ({
       messages: [
         {
           from: 'You',
@@ -136,12 +159,12 @@
         },
       ],
     }), */
-  }
+};
 </script>
 <style scoped>
 .subject-banner {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 </style>

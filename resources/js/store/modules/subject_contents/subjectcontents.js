@@ -5,6 +5,7 @@ import axios from "axios";
 const getDefaultSate = () => {
     return {
         subjectcontent_list:[],
+        contents:[]
     }
 }
 
@@ -20,8 +21,14 @@ const getters = {
 /* STORE MUTATIONS */
 const mutations = {
     /* FETCH FILE DATA FROM STORE STATES */
-    GET_SUBJECT_CONTENTS:(state,data) => {
+    GET_SUBJECT_CONTENTS_LIST:(state,data) => {
         state.subjectcontent_list = data.data
+    },
+
+
+
+    GET_SUBJECT_CONTENTS:(state,data) => {
+        state.contents = data.data
     },
 
 
@@ -49,13 +56,27 @@ const actions = {
     /* FETCH FILE DATA FROM DATABASE */
     async getSubjectContentsList({commit,rootState}) {
         await axios.get('/api/subjectcontents').then((response) => {
-            commit('GET_SUBJECT_CONTENTS',response.data)
+            commit('GET_SUBJECT_CONTENTS_LIST',response.data)
         }).catch((error) => {
             console.log(error)
         }).finally(function() {
             console.log("Forms Retrieved")
         })
     },
+
+
+    async getSubjectContents({commit,rootState},id) {
+        await axios.get('/api/subjectcontents/'+id).then((response) => {
+            commit('GET_SUBJECT_CONTENTS',response.data)
+        }).catch((error) => {
+            console.log(error)
+        }).finally(function() {
+            console.log("Contents Retrieved")
+        })
+    },
+
+    
+    
    /*  async getSelectedForm({commit,rootState},id) {
         await axios.get('/api/getselectedform/'+id).then((response) => {
             commit("GET_SELECTED_FORM",response.data)
@@ -94,30 +115,30 @@ const actions = {
 
 
     /* ADD FILE TO DATABASE */
-    async addForm({commit},data) {
-       /*  let form = Object.assign({},data,{
-            form_elements:{
-                pages:[]
-            }
-        }) */
-        let form = {
-            form_name:data.form_name,
-            form_category:data.form_category,
-            form_elements:JSON.stringify({
+    async addContent({commit},data) {
+        console.log(data)
+       /*  let content = {
+            subject_id:data.subject_id,
+            topic_no:data.topic_no,
+            topic_desc:data.topic_desc,
+            topic_slug:data.topic_slug,
+            topic_status:data.topic_status,
+            topic_type:data.topic_type,
+            topic_content:JSON.stringify({
                 "title":data.form_name,
                 "pages":[{
                     "name":'Page 1'
                 }]
             })
         }
-        await axios.post('/api/addform',form).then((response) => {
+        await axios.post('/api/addform',content).then((response) => {
             commit("ADD_FORM",response.data)
             console.log(response.data)
         }).catch((error) => {
             console.log(error.response.data)
         }).finally(function() {
             console.log("Form Added")
-        })
+        })*/
     }
 
 }

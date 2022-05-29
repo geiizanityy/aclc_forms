@@ -33,7 +33,7 @@
                   <v-row>
                     <v-col cols="12" sm="12" md="16">
                       <v-text-field
-                        v-model="editedItem.form_name"
+                        v-model="editedItem.course_name"
                         label="Course"
                         disabled
                         outlined
@@ -41,7 +41,7 @@
                         prepend-inner-icon="mdi-information-outline"
                       ></v-text-field>
                       <v-text-field
-                        v-model="editedItem.form_name"
+                        v-model="editedItem.topic_no"
                         label="Topic No."
                         outlined
                         dense
@@ -60,7 +60,7 @@
 
                           <v-col md="6">
                             <v-text-field
-                              v-model="editedItem.form_category"
+                              v-model="editedItem.topic_slug"
                               label="Slug"
                               dense
                               outlined
@@ -69,6 +69,7 @@
                           </v-col>
                           <v-col md="6">
                             <v-select
+                            v-model="editedItem.topic_type"
                             dense
                             label="Topic Type"
                             outlined
@@ -87,26 +88,29 @@
 
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="blue darken-1" text @click="close">
+                <v-btn color="default" @click="close">
                   Cancel
                 </v-btn>
-                <v-btn color="blue darken-1" text @click="save"> Save </v-btn>
+                <v-btn color="success" @click="save"><v-icon>mdi-content-save</v-icon> Save </v-btn>
               </v-card-actions>
             </v-card>
           </v-dialog>
 
           <!-- DELETE CONFIRMATION DIALOG -->
-          <v-dialog v-model="dialogDelete" max-width="500px">
+          <v-dialog v-model="dialogDelete" max-width="600px" class="text-uppercase">
+             <v-toolbar color="error" dark>
+                <v-icon>mdi-alert</v-icon><span class="text-h5">Confirmation</span>
+              </v-toolbar>
             <v-card>
-              <v-card-title class="text-h5"
+              <v-card-title class="text-h6"
                 >Are you sure you want to delete this item?</v-card-title
               >
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="blue darken-1" text @click="closeDelete"
+                <v-btn color="default" text @click="closeDelete"
                   >Cancel</v-btn
                 >
-                <v-btn color="blue darken-1" text @click="deleteItemConfirm"
+                <v-btn color="error" @click="deleteItemConfirm"
                   >OK</v-btn
                 >
                 <v-spacer></v-spacer>
@@ -150,6 +154,8 @@
 <script>
 export default {
   data: () => ({
+
+
     dialog: false,
     dialogDelete: false,
     topicTypeItems:[
@@ -172,23 +178,39 @@ export default {
     forms: [],
     editedIndex: -1,
     editedItem: {
-      form_name: "",
-      form_category: "",
-      form_id: null,
+      subject_id:null,
+      course_name:"Course Name",
+      topic_no:"",
+      topic_desc:"",
+      topic_slug:"",
+      topic_status:"Incomplete",
+      topic_type:"",
     },
     defaultItem: {
+      subject_id:null,
+      course:"Course Name",
       form_name: "",
-      form_category: "",
-      form_id: null,
+      topic_no:"",
+      topic_desc:"",
+      topic_slug:"",
+      topic_status:"Incomplete",
+      topic_type:"",
     },
   }),
 
   computed: {
     getSubjectContentList() {
-      return this.$store.state.subject_contents.subjectcontent_list;
+      return this.$store.state.subject_contents.contents;
+    },
+    getSelectedSubject() {
+      return this.$store.state.subjects.selected_subject
+    },
+    subjectInfo() {
+      const storage = localStorage.getItem('vuex','subject_contents')
+      return JSON.parse(storage)
     },
     formTitle() {
-      return this.editedIndex === -1 ? "New Item" : "Edit Item";
+      return this.editedIndex === -1 ? "New Content" : "Edit Information";
     },
   },
 
@@ -203,6 +225,7 @@ export default {
 
   created() {
     this.initialize();
+
   },
 
   methods: {
@@ -258,11 +281,12 @@ export default {
         );
       } else {
         /* this.getFormList.push(this.editedItem); */
-        this.$store.dispatch("addForm", this.editedItem);
+        this.$store.dispatch("addContent", this.editedItem);
       }
       this.close();
     },
   },
+
 };
 </script>
 <style scoped>

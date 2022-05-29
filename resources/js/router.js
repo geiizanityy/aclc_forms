@@ -39,7 +39,7 @@ const routes = [
                 name:'editcontent'
             },
             {
-                path:'/subjectcontents',
+                path:'/subjectcontents/:subject_id',
                 component:SubjectContentList,
                 name:'subjectcontents'
             },

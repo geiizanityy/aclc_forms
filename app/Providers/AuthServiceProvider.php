@@ -5,6 +5,10 @@ namespace App\Providers;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 
+use App\Models\SubjectContent;
+use App\Models\User;
+use App\Models\Subjects;
+
 class AuthServiceProvider extends ServiceProvider
 {
     /**
@@ -24,6 +28,8 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
+
+
 
         //
     }
