@@ -27,12 +27,12 @@ Route::get('/subject', [SubjectController::class, 'hashDemo']);
 
 
 Route::get('/subjectcontents',[SubjectContentController::class,'index']);
-Route::get('/subjectcontents/{id}',[SubjectContentController::class,'subjectContents']);
-
-
-Route::post('/addform',[SubjectContentController::class,'store']);
-
+Route::get('/subjectcontents/{id}',[SubjectContentController::class,'getSubjectContent']);
 Route::get('/viewsubjectcontent/{id}',[SubjectContentController::class,'show']);
+Route::post('/addsubjectcontent',[SubjectContentController::class,'store']);
+Route::put('/updatesubjectcontent/{id}',[SubjectContentController::class,'update']);
+
+
 
 Route::get('/geteditcontent/{id}',[SubjectContentController::class,'show']);
 

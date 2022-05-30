@@ -4,6 +4,7 @@ import axios from "axios";
 /* STORE STATES */
 const getDefaultSate = () => {
     return {
+        subjects:[],
         teacher_subjects:[],
         selected_subject:{}
 
@@ -25,7 +26,7 @@ const getters = {
 const mutations = {
     /* FETCH FILE DATA FROM STORE STATES */
     FETCH_SUBJECTS:(state,data) => {
-        state.subjectcontent_list = data.data
+        state.subjects = data.data
     },
 
     GET_TEACHER_SUBJECTS:(state,data) => {
@@ -59,7 +60,7 @@ const actions = {
     /* FETCH FILE DATA FROM DATABASE */
     async getSubjectList({commit,rootState}) {
         await axios.get('/api/subjects').then((response) => {
-            commit('GET_SUBJECT_CONTENTS',response.data)
+            commit('FETCH_SUBJECTS',response.data)
         }).catch((error) => {
             console.log(error)
         }).finally(function() {
@@ -105,7 +106,7 @@ const actions = {
     }
 
 
- 
+
 }
 
 export default {

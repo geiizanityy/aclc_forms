@@ -20,6 +20,23 @@ class SubjectContentController extends Controller
         return SubjectContentResource::collection($contents);
     }
 
+    public function getSubjectContent($id)
+    {
+        //
+        $contents = SubjectContent::leftjoin('subjects','subject_contents.subject_id', '=', 'subjects.subject_id')
+        ->where('subjects.subject_id','=',$id)
+        ->orderBy('topic_no', 'ASC')
+        ->get();
+        return SubjectContentResource::collection($contents);
+    }
+
+    public function show($id)
+    {
+        $contents = SubjectContent::where('subjectcontent_id',$id)->get();
+        return response(new SubjectContentResource($contents));
+    }
+
+
 
     public function create()
     {
@@ -38,8 +55,8 @@ class SubjectContentController extends Controller
 
     public function store(Request $request)
     {
-        $form = SubjectContent::create($request->all());
-        return response($form);
+        $content = SubjectContent::create($request->all());
+        return new SubjectContentResource($content);
         /* return response()->json([
             'data' => new FormResource($form),
             'message' => 'Form successfully added'
@@ -49,13 +66,17 @@ class SubjectContentController extends Controller
         ]);
         return FormResource::collection($form); */
     }
-
-
-    public function show($id)
+    public function update(Request $request, $id)
     {
-        $contents = SubjectContent::where('subjectcontent_id',$id)->get();
-        return response(new SubjectContentResource($contents));
+        //$this->validation($request);
+
+        $content = SubjectContent::findOrFail($id);
+        $content->topic_content = $request->topic_content;
+        $content->save();
+
+        return new SubjectContentResource($request);
     }
+
 
     public function edit($id)
     {

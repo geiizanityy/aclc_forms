@@ -20,9 +20,12 @@ export default {
             return this.$store.state.subjects.selected_subject
         }
     },
-    created() {
+    async created() {
         this.$store.dispatch("getTeacherSubjects",3)
+        this.$store.dispatch("getSubjectList")
+        this.$store.dispatch("getSubjectContentsList")
         this.$store.dispatch("getSelectedSubject",this.$route.params.subject_id)
+        this.$store.dispatch("getSubjectContents",this.$route.params.subject_id)
     }
 }
 </script>

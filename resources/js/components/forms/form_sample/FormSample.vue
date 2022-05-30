@@ -2,7 +2,7 @@
   <v-container>
     <!-- {{quiz2}} -->
     <v-divider></v-divider>
-<!--     {{formData}} -->
+    <!--     {{formData}} -->
     <div id="surveyElement" style="display: inline-block; width: 100%">
       <survey :survey="survey" />
     </div>
@@ -209,32 +209,32 @@ export default {
     },
   }, */
   methods: {
-
     async loadForm() {
+      console.log("yawa");
       const survey = new Survey.Model();
       this.survey = survey;
       await axios
-        .get('/api/viewsubjectcontent/' + this.$route.params.id)
+        .get("/api/viewsubjectcontent/" + this.$route.params.id)
         .then((response) => {
-          this.formData = response.data
+          console.log(response.data);
+          this.formData = response.data;
           const form = response.data[0].topic_content;
           const survey = new Survey.Model(form);
-          this.survey = survey
+          this.survey = survey;
           survey.onComplete.add(function (sender) {
             document.querySelector("#surveyResult").textContent =
               "Result JSON:\n" + JSON.stringify(sender.data, null, 3);
             const score = survey.getCorrectAnswerCount(survey);
-            if(score<1) {
-                console.log("Failed")
-            }else {
-                console.log("Passed")
+            if (score < 1) {
+              console.log("Failed");
+            } else {
+              console.log("Passed");
             }
           });
-          this.survey = survey
-
+          this.survey = survey;
         })
-        .catch((error) => {
-          console.log(error.response.data);
+        .catch((err) => {
+          console.log(err);
         })
         .finally(function () {});
     },

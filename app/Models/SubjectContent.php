@@ -21,7 +21,9 @@ class SubjectContent extends Model
         'topic_no',
         'topic_desc',
         'topic_content',
+        'topic_slug',
         'topic_status',
         'topic_type',
+        'subject_id'
     ];
 }

@@ -34,19 +34,21 @@ const routes = [
                 name:'home'
             },
             {
-                path:'/editcontent/:id',
+                path:'/editcontent/:subjectcontent_id',
                 component:FormBuilder,
-                name:'editcontent'
+                name:'editcontent',
+
             },
             {
                 path:'/subjectcontents/:subject_id',
                 component:SubjectContentList,
-                name:'subjectcontents'
+                name:'subjectcontents',
+
             },
             {
-                path:'/subjectcontent/:id',
+                path:'/subjectcontent/:subjectcontent_id',
                 component:FormSample,
-                name:'subjectconent'
+                name:'subjectconent',
             },
         ]
     }

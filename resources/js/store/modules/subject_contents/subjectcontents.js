@@ -22,13 +22,13 @@ const getters = {
 const mutations = {
     /* FETCH FILE DATA FROM STORE STATES */
     GET_SUBJECT_CONTENTS_LIST:(state,data) => {
-        state.subjectcontent_list = data.data
+        state.subjectcontent_list = data
     },
 
 
 
     GET_SUBJECT_CONTENTS:(state,data) => {
-        state.contents = data.data
+        state.contents = data
     },
 
 
@@ -45,8 +45,11 @@ const mutations = {
 
 
     /* ADD FILE DATA FROM STORE STATES */
-    ADD_FORM:(state,data) => {
-        state.form_list.push(data)
+    ADD_SUBJECT_CONTENT:(state,data) => {
+        state.contents.push(data)
+    },
+    UPDATE_SUBJECT_CONTENT:(state,data) => {
+
     }
 }
 
@@ -56,18 +59,18 @@ const actions = {
     /* FETCH FILE DATA FROM DATABASE */
     async getSubjectContentsList({commit,rootState}) {
         await axios.get('/api/subjectcontents').then((response) => {
-            commit('GET_SUBJECT_CONTENTS_LIST',response.data)
+            commit('GET_SUBJECT_CONTENTS_LIST',response.data.data)
         }).catch((error) => {
             console.log(error)
         }).finally(function() {
-            console.log("Forms Retrieved")
+            console.log("Subject Contents Retrieved")
         })
     },
 
 
     async getSubjectContents({commit,rootState},id) {
         await axios.get('/api/subjectcontents/'+id).then((response) => {
-            commit('GET_SUBJECT_CONTENTS',response.data)
+            commit('GET_SUBJECT_CONTENTS',response.data.data)
         }).catch((error) => {
             console.log(error)
         }).finally(function() {
@@ -75,8 +78,8 @@ const actions = {
         })
     },
 
-    
-    
+
+
    /*  async getSelectedForm({commit,rootState},id) {
         await axios.get('/api/getselectedform/'+id).then((response) => {
             commit("GET_SELECTED_FORM",response.data)
@@ -99,8 +102,13 @@ const actions = {
 
 
     /* UPDATE FILE DATA FROM DATABASE */
-    async updateForm({commit}) {
-
+    async updateSubjectContent({commit},data) {
+        console.log(data)
+        await axios.put('/api/updatesubjectcontent/'+data.subjectcontent_id,data).then((response) => {
+            console.log(response.data.data)
+        }).catch((error) => {
+            console.log(error.response.data)
+        }).finally(console.log("success"))
     },
 
 
@@ -115,30 +123,30 @@ const actions = {
 
 
     /* ADD FILE TO DATABASE */
-    async addContent({commit},data) {
-        console.log(data)
-       /*  let content = {
-            subject_id:data.subject_id,
+    async addContent({commit,rootState},data) {
+        let content = {
+            subject_id:parseInt(data.subject_id),
             topic_no:data.topic_no,
             topic_desc:data.topic_desc,
             topic_slug:data.topic_slug,
             topic_status:data.topic_status,
             topic_type:data.topic_type,
             topic_content:JSON.stringify({
-                "title":data.form_name,
+                "title":"Topic Name",
                 "pages":[{
                     "name":'Page 1'
                 }]
             })
         }
-        await axios.post('/api/addform',content).then((response) => {
-            commit("ADD_FORM",response.data)
-            console.log(response.data)
+        const subject = rootState.subjects.subjects.filter(item => item.subject_id === content.subject_id)[0]
+        await axios.post('/api/addsubjectcontent',content).then((response) => {
+            const subjectcontent = Object.assign({},subject,response.data.data)
+            commit("ADD_SUBJECT_CONTENT",subjectcontent)
         }).catch((error) => {
-            console.log(error.response.data)
+            console.log(error)
         }).finally(function() {
             console.log("Form Added")
-        })*/
+        })
     }
 
 }

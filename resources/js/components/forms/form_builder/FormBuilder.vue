@@ -1,12 +1,13 @@
 <template>
 
 <v-row>
-    {{datajson}}
+    {{subjectcontent.topic_content}}
+    {{subjectcontent.subjectcontent_id}}
     <v-row class="mb-5">
       <v-col cols="12" md="8" sm="6"> </v-col>
       <v-col cols="6" md="4" sm="2">
         <div class="float-right">
-          <v-btn color="info"> Save Form </v-btn>
+          <v-btn color="info" @click="updateSubjectContent"> Save Form </v-btn>
         </div>
       </v-col>
     </v-row>
@@ -51,11 +52,11 @@ export default {
   name: "survey-creator",
   data() {
     return {
-      datajson: null,
-      text: "Form",
-      content:null,
-      formElements: {},
-      form_id: this.$route.params.id,
+        subjectcontent:{
+            topic_content:null,
+            subjectcontent_id:this.$route.params.subjectcontent_id,
+        }
+
     };
   },
   computed: {
@@ -69,13 +70,7 @@ export default {
         return "Sample"
     }
   },
-  watch: {
-    datajson: function () {
-      get:{
-          return this.$store.state.content_maker.editcontent
-      }
-    },
-  },
+
   methods: {
 
     /* async addForm() {
@@ -93,8 +88,9 @@ export default {
           console.log("success");
         });
     }, */
-    async editForm() {
-
+    updateSubjectContent() {
+        this.subjectcontent.subjectcontent_id = this.$route.params.subjectcontent_id
+        this.$store.dispatch("updateSubjectContent",this.subjectcontent)
     },
 
     saveForm() {
@@ -123,25 +119,16 @@ export default {
           console.log("Selected form retrieved");
         });
     }, */
-    async getEditForm() {
-      const creator = new SurveyCreator(creatorOptions);
-      creator.saveSurveyFunc = (saveNo, callback) => {
-        this.getEditContent = creator.text;
-        callback(saveNo, true);
-      };
-      console.log(this.getEditContent)
-      creator.JSON = JSON.stringify(this.datajson);
-      creator.render("surveyCreator");
-    },
   },
   async mounted() {
+      this.subjectcontent_id = parseInt(this.$route.params.subjectcontent_id)
     /* this.$store.dispatch("getSelectedForm", this.$route.params.id); */
-        await axios.get('/api/geteditcontent/'+this.$route.params.id).then((response) => {
+        await axios.get('/api/geteditcontent/'+this.subjectcontent_id).then((response) => {
             const creator = new SurveyCreator(creatorOptions);
             const data = response.data
             creator.saveSurveyFunc = (saveNo, callback) => {
-                this.content = creator.text
-                console.log(this.content)
+                this.subjectcontent.topic_content = creator.text
+                this.updateSubjectContent()
                 callback(saveNo, true);
             };
 

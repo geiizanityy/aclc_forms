@@ -33,8 +33,7 @@
                   <v-row>
                     <v-col cols="12" sm="12" md="16">
                       <v-text-field
-                        v-model="editedItem.course_name"
-                        label="Course"
+                        :value="getSelectedSubject.course"
                         disabled
                         outlined
                         dense
@@ -49,6 +48,7 @@
                       ></v-text-field>
 
                       <v-textarea
+                      v-model="editedItem.topic_desc"
                         prepend-inner-icon="mdi-text"
                         filled
                         name="input-7-4"
@@ -153,7 +153,7 @@
 </template>
 <script>
 export default {
-  
+
   data: () => ({
 
     dialog: false,
@@ -169,6 +169,7 @@ export default {
         sortable: false,
         value: "course",
       },
+      { text: "Content_id", value: "subjectcontent_id", sortable: false },
       { text: "Subject.", value: "subject_name", sortable: false },
       { text: "Topic No.", value: "topic_no", sortable: false },
       { text: "Topic Description.", value: "topic_desc", sortable: false },
@@ -244,7 +245,7 @@ export default {
     },
 
     editItem(item) {
-      this.$router.push({ name: "editcontent", params: { id: item.subjectcontent_id } });
+      this.$router.push({ name: "editcontent", params: { subjectcontent_id: item.subjectcontent_id } });
     },
 
     deleteItem(item) {
@@ -275,17 +276,18 @@ export default {
     },
 
     save() {
+    this.editedItem.subject_id = parseInt(this.$route.params.subject_id)
       if (this.editedIndex > -1) {
         Object.assign(
           this.getSubjectContentList[this.editedIndex],
           this.editedItem
         );
       } else {
-        /* this.getFormList.push(this.editedItem); */
         this.$store.dispatch("addContent", this.editedItem);
       }
       this.close();
     },
+
   },
 
 }
