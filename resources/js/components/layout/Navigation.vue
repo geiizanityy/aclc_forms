@@ -24,7 +24,7 @@
       </v-btn>
     </v-app-bar>
 
-    <v-navigation-drawer v-model="drawer" app id="app-sidebar" dark>
+    <v-navigation-drawer v-model="drawer" id="app-sidebar" dark absolute top temporary>
       <v-container>
         <v-row justify="center">
           <v-col cols="12">
@@ -35,14 +35,22 @@
       </v-container>
       <v-divider></v-divider>
 
-      <v-list class="red_list">
+      <v-list class="red_list" nav dense>
 
-          <v-list-item class="white--text" :to="{name:'home'}">
+          <v-list-item class="white--text" :to="{name:'dashboard'}">
             <v-list-item-icon>
-              <v-icon class="white--text">mdi-home</v-icon>
+              <v-icon class="white--text">mdi-view-dashboard-outline</v-icon>
             </v-list-item-icon>
 
-            <v-list-item-title class="v-list-item-text">Home</v-list-item-title>
+            <v-list-item-title class="v-list-item-text">Dashboard</v-list-item-title>
+          </v-list-item>
+
+          <v-list-item class="white--text" :to="{name:'subjects'}">
+            <v-list-item-icon>
+              <v-icon class="white--text">mdi-bookmark-outline</v-icon>
+            </v-list-item-icon>
+
+            <v-list-item-title class="v-list-item-text">Subjects</v-list-item-title>
           </v-list-item>
 
 
@@ -108,9 +116,15 @@ export default {
   data() {
     return {
       drawer: false,
+      group: null,
       logo: logo,
     };
   },
+  watch: {
+      group () {
+        this.drawer = false
+      },
+    },
 };
 </script>
 <style scoped>

@@ -133,6 +133,7 @@ const actions = {
             topic_type:data.topic_type,
             topic_content:JSON.stringify({
                 "title":"Topic Name",
+                "completedHtml": "Your score is {correctedAnswers} out of {questionCount}",
                 "pages":[{
                     "name":'Page 1'
                 }]

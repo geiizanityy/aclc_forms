@@ -169,11 +169,11 @@ export default {
         sortable: false,
         value: "course",
       },
-      { text: "Content_id", value: "subjectcontent_id", sortable: false },
-      { text: "Subject.", value: "subject_name", sortable: false },
-      { text: "Topic No.", value: "topic_no", sortable: false },
-      { text: "Topic Description.", value: "topic_desc", sortable: false },
-      { text: "Topic No.", value: "topic_type", sortable: false },
+      /* { text: "Content_id", value: "subjectcontent_id", sortable: false }, */
+      { text: "Subject", value: "subject_name", sortable: false },
+      { text: "Topic No", value: "topic_no", sortable: false },
+      { text: "Topic Description", value: "topic_desc", sortable: false },
+      { text: "Type", value: "topic_type", sortable: false },
       { text: "Actions", value: "actions", sortable: false },
     ],
     forms: [],
@@ -239,7 +239,7 @@ export default {
       this.$router.push({
         name: 'subjectconent',
         params: {
-          id: item.subjectcontent_id,
+          subjectcontent_id: item.subjectcontent_id,
         },
       });
     },

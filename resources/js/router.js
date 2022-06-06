@@ -6,11 +6,13 @@ Vue.use(VueRouter)
 
 import Layout from './components/layout/Layout.vue'
 import LoginComponent from './components/LoginComponent.vue'
-import Home from './components/home/Home.vue'
+import Subjects from './components/subjects/Subjects.vue'
 import PageNotFound from './components/404.vue'
 import FormBuilder from './components/forms/form_builder/FormBuilder.vue'
 import SubjectContentList from './components/forms/subject_contents/SubjectContentList.vue'
 import FormSample from './components/forms/form_sample/FormSample.vue'
+
+import Dashboard from './components/dashboard/Dashboard.vue'
 
 const routes = [
 
@@ -24,31 +26,38 @@ const routes = [
         component:LoginComponent,
         name:'login'
     },
+
     {
-        path:'/home',
+        path:'/subject',
         component:Layout,
         children:[
+
             {
-                path:'/home',
-                component:Home,
-                name:'home'
+                path:'/subjects',
+                component:Subjects,
+                name:'subjects'
             },
             {
-                path:'/editcontent/:subjectcontent_id',
+                path:'/subjects/:subject_id/editcontent/:subjectcontent_id',
                 component:FormBuilder,
                 name:'editcontent',
 
             },
             {
-                path:'/subjectcontents/:subject_id',
+                path:'/subjects/subjectcontents/:subject_id/',
                 component:SubjectContentList,
                 name:'subjectcontents',
 
             },
             {
-                path:'/subjectcontent/:subjectcontent_id',
+                path:'/subjects/subjectcontent/:subject_id/:subjectcontent_id',
                 component:FormSample,
                 name:'subjectconent',
+            },
+            {
+                path:'/dashboard',
+                component:Dashboard,
+                name:'dashboard'
             },
         ]
     }

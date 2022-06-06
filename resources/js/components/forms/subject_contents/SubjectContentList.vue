@@ -1,7 +1,7 @@
 <template>
 
 <v-container>
-    <h1 class="text-uppercase"><v-icon>mdi-bookmark-outline</v-icon> {{subjectInfo.subject_name}}</h1>
+    <h1 class="text-uppercase"><v-icon size="40">mdi-bookmark-outline</v-icon> {{subjectInfo.subject_name}}</h1>
     <subject-content-table></subject-content-table>
 </v-container>
 

@@ -210,11 +210,10 @@ export default {
   }, */
   methods: {
     async loadForm() {
-      console.log("yawa");
       const survey = new Survey.Model();
       this.survey = survey;
       await axios
-        .get("/api/viewsubjectcontent/" + this.$route.params.id)
+        .get("/api/viewsubjectcontent/" + this.$route.params.subjectcontent_id)
         .then((response) => {
           console.log(response.data);
           this.formData = response.data;
