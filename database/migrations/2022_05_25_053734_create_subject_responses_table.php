@@ -14,14 +14,14 @@ class CreateSubjectResponsesTable extends Migration
     public function up()
     {
         Schema::create('subject_responses', function (Blueprint $table) {
-            $table->id('subjectresponse_id');
+            $table->uuid('id')->primary();
             $table->bigInteger('response_score')->nullable();
             $table->string('response_status');
+            $table->uuid('subjectcontent_id')->nullable(false);
             $table->timestamps();
         });
         Schema::table('subject_responses', function (Blueprint $table) {
-            $table->unsignedBigInteger('subjectcontent_id')->nullable();
-            $table->foreign('subjectcontent_id')->references('subjectcontent_id')->on('subject_contents');
+            $table->foreign('subjectcontent_id')->references('id')->on('subject_contents');
 
         });
     }

@@ -14,17 +14,17 @@ class CreateRemarksTable extends Migration
     public function up()
     {
         Schema::create('remarks', function (Blueprint $table) {
-            $table->id('remarks_id');
+            $table->uuid('id');
             $table->decimal('grade', 5, 2)->nullable();
             $table->string('remarks_status');
+            $table->uuid('subjectenrolled_id')->nullable(false);
+            $table->uuid('subjectresponse_id')->nullable(false);
             $table->timestamps();
         });
         Schema::table('remarks', function (Blueprint $table) {
-            $table->unsignedBigInteger('subjectenrolled_id')->nullable();
-            $table->foreign('subjectenrolled_id')->references('subjectenrolled_id')->on('subject_enrolled');
 
-            $table->unsignedBigInteger('subjectresponse_id')->nullable();
-            $table->foreign('subjectresponse_id')->references('subjectresponse_id')->on('subject_responses');
+            $table->foreign('subjectenrolled_id')->references('id')->on('subject_enrolled');
+            $table->foreign('subjectresponse_id')->references('id')->on('subject_responses');
 
         });
     }
