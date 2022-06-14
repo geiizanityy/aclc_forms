@@ -19,7 +19,7 @@ class UserTableSeeder extends Seeder
     {
         //
         DB::table('users')->insert([
-            'id' => substr(Str::uuid()->toString(),0,12),
+            'id' => substr(Str::uuid()->toString(),0,8),
             'username' => 'admin',
             'email'         => 'admin@gmail.com',
             'usertype_id'     => 1,
@@ -28,19 +28,19 @@ class UserTableSeeder extends Seeder
             'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
         ]);
         DB::table('users')->insert([
-            'id' => substr(Str::uuid()->toString(),0,12),
+            'id' => substr(Str::uuid()->toString(),0,8),
             'username' => 'student',
             'email'         => 'student@gmail.com',
-            'usertype_id'     => 2,
+            'usertype_id'     => 3,
             'password'      => Hash::make('123'),
             'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
             'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
         ]);
         DB::table('users')->insert([
-            'id' => substr(Str::uuid()->toString(),0,12),
+            'id' => substr(Str::uuid()->toString(),0,8),
             'username' => 'teacher',
             'email'         => 'teacher@gmail.com',
-            'usertype_id'     => 3,
+            'usertype_id'     => 2,
             'password'      => Hash::make('123'),
             'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
             'updated_at' => Carbon::now()->format('Y-m-d H:i:s')

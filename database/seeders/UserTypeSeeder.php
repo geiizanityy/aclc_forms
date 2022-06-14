@@ -20,19 +20,19 @@ class UserTypeSeeder extends Seeder
     {
 
         DB::table('user_type')->insert([
-            'id' => substr(Str::uuid()->toString(),0,8),
+            'id' => 1,
             'user_type' => 'admin',
             'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
             'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
         ]);
         DB::table('user_type')->insert([
-            'id' => substr(Str::uuid()->toString(),0,8),
+            'id' => 2,
             'user_type' => 'teacher',
             'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
             'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
         ]);
         DB::table('user_type')->insert([
-            'id' => substr(Str::uuid()->toString(),0,8),
+            'id' => 3,
             'user_type' => 'student',
             'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
             'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
