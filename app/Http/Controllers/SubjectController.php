@@ -9,7 +9,7 @@ use Hashids\Hashids;
 
 class SubjectController extends Controller
 {
-    
+
 
     public function index()
     {
@@ -18,7 +18,7 @@ class SubjectController extends Controller
         ->orderBy('subject_name', 'ASC')
         ->get();
         return SubjectResource::collection($subjects);
-    
+
     }
     public function hashDemo() {
         $id = '153334';
@@ -36,7 +36,7 @@ class SubjectController extends Controller
         ->orderBy('subject_name', 'ASC')
         ->get();
         return SubjectResource::collection($subjects);
-    
+
     }
     public function fetchSelectedSubject($id) {
         $subjects = Subjects::where('subject_id', '=', $id)
