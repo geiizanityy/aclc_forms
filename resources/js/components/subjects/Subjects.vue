@@ -15,15 +15,21 @@
 
               <router-link :to="item.link">
 
-                  <span class="text-h5 text-white"> {{item.subject_code}}</span>
+                  <span class="text-h5 text-white"> {{item.course}}</span>
               </router-link>
+
+
 
               <v-spacer></v-spacer>
 
               <v-btn color="white" icon>
                 <v-icon>mdi-dots-vertical</v-icon>
               </v-btn>
+
+
             </v-app-bar>
+            <h6 class="text-white"> {{item.subject_code}}</h6>
+
 
             <v-card-title class="white--text mt-8 justify-center">
               <v-avatar size="56">

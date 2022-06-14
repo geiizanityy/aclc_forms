@@ -45,7 +45,7 @@ class SubjectController extends Controller
         ->join('teachers','subjects.teacher_id','=','teachers.id')
         ->join('users','teachers.user_id','=','users.id')
         ->get();
-        return response($subjects);
+        return SubjectResource::collection($subjects);
 
     }
     public function fetchSelectedSubject($id) {
