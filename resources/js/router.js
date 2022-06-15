@@ -50,7 +50,7 @@ const routes = [
 
             },
             {
-                path:'/subjects/subjectcontent/:subject_id/:subjectcontent_id',
+                path:'/subjects/subjectcontent/:subject_id/',
                 component:FormSample,
                 name:'subjectconent',
             },

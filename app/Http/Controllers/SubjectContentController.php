@@ -14,7 +14,7 @@ class SubjectContentController extends Controller
     public function index()
     {
         //
-        $contents = SubjectContent::leftjoin('subjects','subject_contents.subject_id', '=', 'subjects.subject_id')
+        $contents = SubjectContent::leftjoin('subjects','subject_contents.subject_id', '=', 'subjects.id')
         ->orderBy('topic_no', 'ASC')
         ->get();
         return SubjectContentResource::collection($contents);
@@ -23,8 +23,9 @@ class SubjectContentController extends Controller
     public function getSubjectContent($id)
     {
         //
-        $contents = SubjectContent::leftjoin('subjects','subject_contents.subject_id', '=', 'subjects.subject_id')
-        ->where('subjects.subject_id','=',$id)
+        $contents = SubjectContent::select('subjects.*','subject_contents.*','subject_contents.id')
+        ->join('subjects','subject_contents.subject_id', '=', 'subjects.id')
+        ->where('subject_contents.id','=','t255a781')
         ->orderBy('topic_no', 'ASC')
         ->get();
         return SubjectContentResource::collection($contents);
@@ -32,8 +33,8 @@ class SubjectContentController extends Controller
 
     public function show($id)
     {
-        $contents = SubjectContent::where('subjectcontent_id',$id)->get();
-        return response(new SubjectContentResource($contents));
+        $contents = SubjectContent::where('id',$id)->get();
+        return SubjectContentResource::collection($contents);
     }
 
 

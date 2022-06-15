@@ -15,9 +15,9 @@ class SubjectController extends Controller
     public function index()
     {
         //
-        $subjects = Subjects::leftjoin('users','teachers.user_id', '=', 'users.id')
-        ->join('students','teachers.id','=','subjects.teacher_id')
-        ->orderBy('subject_name', 'ASC')
+        $subjects = Subjects::select('subjects.*','users.*','teachers.*')
+        ->join('teachers','subjects.teacher_id','=','teachers.id')
+        ->join('users','teachers.user_id','=','users.id')
         ->get();
         return SubjectResource::collection($subjects);
 
@@ -25,27 +25,19 @@ class SubjectController extends Controller
     public function hashDemo() {
         $id = '153334';
         $hashids = new Hashids('this is salt',12,'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890');
-
         $id = $hashids->encode($id);
         dd($id);
 
     }
     public function subjectTeach($id)
     {
-        //
-        /* $subjects = Subjects::leftjoin('users','users.id', '=', 'teachers','teachers.user_id')
-        ->orderBy('subject_name', 'ASC')
-        ->get(); */
-       /*  $subjects = DB::table('subjects')
-        ->select('subjects.subject_code', 'subjects.subject_description', 'subjects.course', 'teachers.teacher_fname', 'teachers.teacher_mname', 'teachers.teacher_lname', 'teachers.teacher_suffix', 'teachers.teacher_id as teacher_idno', 'users.id as user_id', 'subjects.id as subject_id', 'teachers.id as teacher_id')
+        $subjectTeach = Subjects::select(
+            'subjects.*','users.*','teachers.*','subjects.id')
         ->join('teachers','subjects.teacher_id','=','teachers.id')
         ->join('users','teachers.user_id','=','users.id')
-        ->get(); */
-        $subjects = Subjects::select('subjects.*','users.*','teachers.*')
-        ->join('teachers','subjects.teacher_id','=','teachers.id')
-        ->join('users','teachers.user_id','=','users.id')
+        ->where('subjects.teacher_id','=',$id)
         ->get();
-        return SubjectResource::collection($subjects);
+        return SubjectResource::collection($subjectTeach);
 
     }
     public function fetchSelectedSubject($id) {
@@ -71,8 +63,9 @@ class SubjectController extends Controller
     public function show($id)
     {
         //
-        $subject = Subjects::findOrFail($id);
-        return response(new SubjectResource($subject));
+        /* $subject = Subjects::findOrFail(1); */
+        /* return response(new SubjectResource($subject)); */
+        /* return response($id); */
 
     }
 

@@ -170,7 +170,6 @@ export default {
         value: "course",
       },
       /* { text: "Content_id", value: "subjectcontent_id", sortable: false }, */
-      { text: "Subject", value: "subject_name", sortable: false },
       { text: "Topic No", value: "topic_no", sortable: false },
       { text: "Topic Description", value: "topic_desc", sortable: false },
       { text: "Type", value: "topic_type", sortable: false },
@@ -238,8 +237,8 @@ export default {
     viewContent(item) {
       this.$router.push({
         name: 'subjectconent',
-        params: {
-          subjectcontent_id: item.subjectcontent_id,
+        query: {
+          subjectcontent_id: item.id,
         },
       });
     },

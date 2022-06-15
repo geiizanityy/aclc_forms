@@ -213,11 +213,11 @@ export default {
       const survey = new Survey.Model();
       this.survey = survey;
       await axios
-        .get("/api/viewsubjectcontent/" + this.$route.params.subjectcontent_id)
+        .get("/api/viewsubjectcontent/" + this.$route.query.subjectcontent_id)
         .then((response) => {
           console.log(response.data);
           this.formData = response.data;
-          const form = response.data[0].topic_content;
+          const form = response.data.data[0].topic_content;
           const survey = new Survey.Model(form);
           this.survey = survey;
           survey.onComplete.add(function (sender) {
