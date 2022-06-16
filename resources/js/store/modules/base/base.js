@@ -7,6 +7,9 @@ const getDefaultSate = () => {
         loading:{
             isLoading:false,
         },
+        snackbar:{
+            isVisible:false,
+        },
         loaders:[],
     }
 }

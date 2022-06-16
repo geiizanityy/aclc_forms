@@ -52,7 +52,6 @@ const actions = {
         await axios
             .post("/api/login", data)
             .then((response) => {
-                console.log(response.data)
                 /* localStorage.setItem("token", response.data.token);
                 localStorage.setItem("user_type", response.data.user.user_type); */
 
@@ -64,7 +63,11 @@ const actions = {
                 } */
             })
             .catch((err) => {
-                console.log(err)
+                rootState.base.snackbar = {
+                    isVisible:true,
+                    type:'error',
+                    content:err.response.data
+                }
             })
             .finally(() => {
                 rootState.base.loading.isLoading = false
