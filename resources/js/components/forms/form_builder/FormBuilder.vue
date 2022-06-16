@@ -13,22 +13,6 @@ import { SurveyCreator } from "survey-creator-knockout";
 import "survey-core/defaultV2.min.css";
 import "survey-creator-core/survey-creator-core.min.css";
 
-/* import * as SurveyKo from "survey-knockout";
-import * as widgets from "surveyjs-widgets"; */
-
-/* Object.filter = (obj, predicate) =>
-  Object.keys(obj)
-    .filter((key) => predicate(obj[key]))
-    .reduce((res, key) => Object.assign(res, { [key]: obj[key] }), {});
-
-const widgetsList = Object.filter(
-  SurveyConfig.widgets,
-  (widget) => widget === true
-);
-
-Object.keys(widgetsList).forEach(function (widget) {
-  widgets[widget](SurveyKo);
-}); */
 
 const creatorOptions = {
   showLogicTab: true,
@@ -61,59 +45,21 @@ export default {
 
   methods: {
 
-    /* async addForm() {
-      await axios
-        .post("/api/addform", {
-          formElement: this.formElements,
-        })
-        .then((response) => {
-          console.log(response.data);
-        })
-        .catch((err) => {
-          console.log(err);
-        })
-        .finally(function () {
-          console.log("success");
-        });
-    }, */
     updateSubjectContent() {
         this.subjectcontent.subjectcontent_id = this.$route.params.subjectcontent_id
         this.$store.dispatch("updateSubjectContent",this.subjectcontent)
     },
 
-    saveForm() {
-      /* let formObj = JSON.parse(this.datajson);
-      this.formElements = formObj;
-      if (formObj === null) {
-        alert("Form is empty");
-      } else if (formObj.pages === undefined) {
-        alert("Form is empty");
-      } else {
-        this.addForm();
-      } */
-    },
 
 
-   /*  async fetchFormData() {
-      await axios
-        .get("/api/geteditcontent/" + this.$route.params.id)
-        .then((response) => {
-          this.datajson = response.data[0].topic_content;
-        })
-        .catch((error) => {
-          console.log(error.response.data);
-        })
-        .finally(function () {
-          console.log("Selected form retrieved");
-        });
-    }, */
+
   },
   async mounted() {
-      this.subjectcontent_id = parseInt(this.$route.params.subjectcontent_id)
+      this.subjectcontent_id = this.$route.query.subjectcontent_id
     /* this.$store.dispatch("getSelectedForm", this.$route.params.id); */
         await axios.get('/api/geteditcontent/'+this.subjectcontent_id).then((response) => {
             const creator = new SurveyCreator(creatorOptions);
-            const data = response.data
+            const data = response.data.data
             creator.saveSurveyFunc = (saveNo, callback) => {
                 this.subjectcontent.topic_content = creator.text
                 this.updateSubjectContent()
@@ -128,10 +74,6 @@ export default {
             console.log("Selected form retrieved")
         })
   },
-
-    /* this.fetchFormData() */
-      /* this.getEditForm()
-      console.log(this.sample) */
 
 };
 </script>

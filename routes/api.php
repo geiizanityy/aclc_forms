@@ -4,7 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SubjectContentController;
 use App\Http\Controllers\SubjectController;
-
+use App\Http\Controllers\AuthController;
+use Illuminate\Routing\Router;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -15,6 +16,9 @@ use App\Http\Controllers\SubjectController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
+Route::post('/login',[AuthController::class,'login']);
+
 Route::get('/fetchform',[SubjectContentController::class,'fetchForm']);
 
 

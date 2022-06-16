@@ -9,6 +9,9 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Traits\Uuid;
 
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Crypt;
+
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable,Uuid;
@@ -46,4 +49,10 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function setPasswordAttribute($password)
+    {
+        $this->attributes['password'] = bcrypt($password);
+    }
+
 }

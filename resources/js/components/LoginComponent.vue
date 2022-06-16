@@ -1,8 +1,11 @@
 <template>
   <v-app>
-    <div v-if="isLogin">
-      <loader />
+    <!-- Loading Component -->
+    <div v-if="isLoading">
+      <loading :loadertype="loginAttrib.loadertype"></loading>
     </div>
+
+    <!-- MAIN COMPONENT LOGIN -->
     <v-main>
       <v-container class="fill-height">
         <v-row justify="center">
@@ -10,61 +13,144 @@
             <v-card class="elavation-12">
               <v-card-title class="loginheader">
                 <v-row class="mt-15">
-                     <div class="text-center">
-                       <v-icon size="100" class="white--text">mdi-account-lock</v-icon>
-                       <h1  class="text-h4 white--text text-center text-uppercase font-weight-bold mt-5">Sign in</h1>
-                   </div>
+                  <div class="text-center">
+                    <v-icon size="100" class="white--text"
+                      >mdi-account-lock</v-icon
+                    >
+                    <h1
+                      class="
+                        text-h4
+                        white--text
+                        text-center text-uppercase
+                        font-weight-bold
+                        mt-5
+                      "
+                    >
+                      Login
+                    </h1>
+                  </div>
                 </v-row>
               </v-card-title>
+
+              <!-- LOGIN FORM -->
               <v-container>
-                  <v-form
-                @submit.prevent="validate"
-                class="pt-5"
-                ref="form"
-                lazy-validation
-              >
-                <v-text-field
-                  prepend-inner-icon="mdi-account"
-                  label="Username"
-                  outlined
-                  required
-                  color="black"
-                ></v-text-field>
+                <v-form
+                  @submit.prevent="save"
+                  v-model="rules.isValid"
+                  lazy-validation
+                  class="pt-5"
+                  ref="form"
+                >
+                  <v-text-field
+                    prepend-inner-icon="mdi-account"
+                    label="Username"
+                    :rules="rules.username"
+                    v-model="form.username"
+                    outlined
+                    dense
+                    required
+                    color="black"
+                  ></v-text-field>
 
-                <v-text-field
-                  label="Password"
-                  outlined
-                  prepend-inner-icon="mdi-lock"
-                ></v-text-field>
+                  <v-text-field
+                    label="Password"
+                    :rules="rules.password"
+                    v-model="form.password"
+                    outlined
+                    type="password"
+                    dense
+                    required
+                    prepend-inner-icon="mdi-lock"
+                  ></v-text-field>
 
-                <v-card-actions>
-                  <v-btn
-                    color="blue accent-2"
-                    class="mr-4 white--text"
-                    type="submit"
-                  >
-                    Login
-                  </v-btn>
-                </v-card-actions>
-              </v-form>
+                  <v-card-actions>
+                    <v-btn
+                      color="blue accent-2"
+                      class="mr-4 white--text"
+                      @click="save()"
+                      :loading="isLoading"
+                    >
+                      Login
+                    </v-btn>
+                  </v-card-actions>
+                </v-form>
               </v-container>
+
+              <!-- / END LOGIN FORM -->
             </v-card>
           </v-col>
         </v-row>
       </v-container>
     </v-main>
+
+    <!--/ END MAIN COMPONENT -->
   </v-app>
 </template>
 <script>
-import logo from './../../../public/images/src/logo.png'
+import loading from "./base/loaders/Loading.vue";
+import logo from "./../../../public/images/src/logo.png";
 export default {
-    data() {
-        return {
-            logo:logo
-        }
+  components: {
+    loading,
+  },
+  data() {
+    return {
+      logo: logo,
+
+      //Login Attributes
+      loginAttrib: {
+        loginText: "Login",
+        loadertype: "circular",
+        isLogin: false,
+      },
+
+      //Form Attributes
+      form: {
+        username: "",
+        password: "",
+      },
+      defaultForm: {
+        username: "",
+        password: "",
+      },
+
+      //Rules Validation Attributes
+      rules: {
+        isValid: true,
+        username: [(v) => !!v || "Username is required"],
+        password: [(v) => !!v || "Password is required"],
+      },
+    };
+  },
+  computed: {
+    //ISLOADING COMPUTED
+    isLoading: {
+      get: function () {
+        return this.$store.state.base.loading.isLoading;
+      },
+
+      set: function (newVal) {
+        return newVal;
+      },
     },
-  mounted() {
-    document.getElementById("par").style.height = "100vh";
+  },
+
+  methods: {
+    login() {
+
+      this.$store.dispatch("login", this.form);
+    },
+    save() {
+      let isValid = this.$refs.form.validate();
+      if (isValid) {
+        this.login();
+        if(!this.isLoading) {
+            this.loginAttrib.loginText = "Login";
+        }
+      } else {
+
+      }
+    },
   },
 };
 </script>
@@ -77,19 +163,15 @@ export default {
   background-size: cover;
 }
 .logincontainer {
-    height: 500px;
+  height: 500px;
 }
 .loginheader {
-    background: #262863;
+  background: #262863;
 }
 .logo {
-    width: 60%;
-    height: 100%px;
+  width: 60%;
+  height: 100%px;
 }
-.paralaxLogin {
-  height: 100vh;
-}
-
 #loginRight {
   background: #ef5350;
 }

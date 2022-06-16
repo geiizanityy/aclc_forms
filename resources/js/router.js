@@ -38,7 +38,7 @@ const routes = [
                 name:'subjects'
             },
             {
-                path:'/subjects/:subject_id/editcontent/:subjectcontent_id',
+                path:'/subjects/subjectcontents/edit/',
                 component:FormBuilder,
                 name:'editcontent',
 

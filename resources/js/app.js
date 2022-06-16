@@ -19,6 +19,18 @@ import store from './store/index'
 /* Vuetify */
 import vuetify from '../plugins/vuetify.js'
 
+import loader from 'vue-ui-preloader';
+
+Vue.use(loader);
+
+
+
+
+
+
+
+
+
 
 
 

@@ -30,7 +30,7 @@ class UserTableSeeder extends Seeder
         DB::table('users')->insert([
             'id' => substr(Str::uuid()->toString(),0,8),
             'username' => 'student',
-            'email'         => 'student@gmail.com',
+            'email'         => 'student2@gmail.com',
             'usertype_id'     => 3,
             'password'      => Hash::make('123'),
             'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
@@ -39,7 +39,7 @@ class UserTableSeeder extends Seeder
         DB::table('users')->insert([
             'id' => substr(Str::uuid()->toString(),0,8),
             'username' => 'teacher',
-            'email'         => 'teacher@gmail.com',
+            'email'         => 'teacher21@gmail.com',
             'usertype_id'     => 2,
             'password'      => Hash::make('123'),
             'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
