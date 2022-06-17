@@ -73,7 +73,7 @@ export default {
             icon: "mdi-alert-circle",
             mode: "multi-line",
             position: "top",
-            timeout: 0,
+            timeout: 5500,
             title: "Error",
             text: this.snackbarNotification.content.message,
             visible: true,
@@ -85,9 +85,9 @@ export default {
             icon: "mdi-information-outline",
             mode: "multi-line",
             position: "top",
-            timeout: 0,
+            timeout: 5500,
             title: "Information",
-            text: "This is useful and is quite a long message, and won't be hidden automatically. You need to dismiss this by clicking the 'X' on the right.",
+            text: this.snackbarNotification.content.message,
             visible: true,
           };
           break;
@@ -97,9 +97,9 @@ export default {
             icon: "mdi-check-circle-outline",
             mode: "multi-line",
             position: "top",
-            timeout: 0,
+            timeout: 5500,
             title: "Success",
-            text: "That worked, hoorah.",
+            text: this.snackbarNotification.content.message,
             visible: true,
           };
           break;
@@ -109,9 +109,9 @@ export default {
             icon: "mdi-alert-outline",
             mode: "multi-line",
             position: "top",
-            timeout: 0,
+            timeout: 5500,
             title: "Warning",
-            text: "You probably shouldn't have seen that, oops.",
+            text: this.snackbarNotification.content.message,
             visible: true,
           };
           break;

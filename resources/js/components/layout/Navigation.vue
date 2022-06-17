@@ -63,7 +63,7 @@
             >
           </template>
           <div class="ml-5">
-            <v-list-item :to="{name:'subjectcontents'}">
+            <v-list-item :to="{name:'dummyroute6'}">
               <v-list-item-icon>
                 <v-icon class="white--text" small>mdi-table</v-icon>
               </v-list-item-icon>
@@ -86,19 +86,12 @@
           </div>
         </v-list-group>
 
-        <v-list-item class="white--text" to="route2">
+        <v-list-item class="white--text" :to="{name:'dummyroute1'}">
           <v-list-item-icon>
             <v-icon class="white--text">mdi-form-select</v-icon>
           </v-list-item-icon>
 
           <v-list-item-title>Route 2</v-list-item-title>
-        </v-list-item>
-
-        <v-list-item class="white--text" to="route3">
-          <v-list-item-icon>
-            <v-icon class="white--text">mdi-table</v-icon>
-          </v-list-item-icon>
-          <v-list-item-title>Route 3</v-list-item-title>
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
