@@ -1,9 +1,7 @@
 <template>
   <div>
-      {{snackbarAttrib}}
-      <h1>{{snackbarNotification}}</h1>
     <v-snackbar
-      v-model="snackbarNotification.isVisible"
+      v-model="snackbar"
       :color="snackbarAttrib.color"
       :multi-line="snackbarAttrib.mode === 'multi-line'"
       :timeout="snackbarAttrib.timeout"
@@ -23,7 +21,7 @@
           icon
           @click="snackbarAttrib.visible = false"
         >
-          <v-icon>mdi-close-circle-outline</v-icon>
+          <v-icon @click="close()">mdi-close-circle-outline</v-icon>
         </v-btn>
       </v-layout>
     </v-snackbar>
@@ -34,6 +32,7 @@
 export default {
   data() {
     return {
+        snackbar:false,
       buttons: [
         {
           color: "info",
@@ -56,29 +55,20 @@ export default {
           type: "error",
         },
       ],
-      snackbar: {
-        color: null,
-        icon: null,
-        mode: null,
-        position: "top",
-        text: null,
-        timeout: 7500,
-        title: null,
-        visible: false,
-      },
-      timeout: 7500,
     };
   },
   computed: {
     //ISLOADING COMPUTED
     snackbarNotification() {
+        this.snackbar = this.$store.state.base.snackbar.isVisible
         return this.$store.state.base.snackbar
     },
     snackbarAttrib() {
-    if (!this.snackbarNotification.type) return;
+    if (this.snackbarNotification.type === "") return;
+    let snackbar = {}
       switch (this.snackbarNotification.type) {
         case "error":
-          this.snackbar = {
+          snackbar = {
             color: "error",
             icon: "mdi-alert-circle",
             mode: "multi-line",
@@ -90,7 +80,7 @@ export default {
           };
           break;
         case "info":
-          this.snackbar = {
+          snackbar = {
             color: "info",
             icon: "mdi-information-outline",
             mode: "multi-line",
@@ -102,30 +92,32 @@ export default {
           };
           break;
         case "success":
-          this.snackbar = {
+          snackbar = {
             color: "success",
             icon: "mdi-check-circle-outline",
             mode: "multi-line",
             position: "top",
-            timeout: 7500,
+            timeout: 0,
             title: "Success",
             text: "That worked, hoorah.",
             visible: true,
           };
           break;
         case "warning":
-          this.snackbar = {
+          snackbar = {
             color: "warning",
             icon: "mdi-alert-outline",
             mode: "multi-line",
             position: "top",
-            timeout: 7500,
+            timeout: 0,
             title: "Warning",
             text: "You probably shouldn't have seen that, oops.",
             visible: true,
           };
           break;
+
       }
+      return snackbar
     },
     isLoading: {
       get: function () {
@@ -147,9 +139,9 @@ export default {
     },
   },
   methods: {
-    snackbarShow(type) {
-     
-    },
+      close() {
+          this.snackbar = false
+      }
   },
 };
 </script>

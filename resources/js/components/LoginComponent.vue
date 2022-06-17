@@ -6,9 +6,6 @@
     </div>
 
     <snackbar></snackbar>
-
-  
-
     <!-- MAIN COMPONENT LOGIN -->
     <v-main>
       <v-container class="fill-height">

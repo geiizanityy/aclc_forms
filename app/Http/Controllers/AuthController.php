@@ -21,7 +21,7 @@ class AuthController extends Controller
         if(!$user || !Hash::check($fields['password'], $user->password))
         {
             return response([
-                'message' => 'Credentials not found'
+                'message' => 'Credentials not found, check your username and password and try again.'
             ],401);
         }else {
             return response($user->usertype_id);
