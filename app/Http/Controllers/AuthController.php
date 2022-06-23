@@ -6,9 +6,14 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
+use Illuminate\Support\Facades\Crypt;
+
 class AuthController extends Controller
 {
     //
+
+
+
 
     public function login(Request $request)
     {
@@ -18,34 +23,47 @@ class AuthController extends Controller
         ]);
         $user = User::where('username', $fields['username'])->first();
 
-        if(!$user || !Hash::check($fields['password'], $user->password))
+        if (! $token = auth()->attempt($user)) {
+            return response()->json(['error' => 'Unauthorized'], 401);
+        }
+
+        return $this->respondWithToken($token);
+
+        /* if(!$user || !Hash::check($fields['password'], $user->password))
         {
             return response([
                 'message' => 'Credentials not found, check your username and password and try again.'
             ],401);
         }else {
-            return response($user->usertype_id);
-           /*  if($user->usertype_id === 1) {
-                return response('Admin');
-            }else if($user->usertype_id === 2) {
-                return response('Teacher');
-            }else {
-                return response('Student');
-            } */
-            /* return response([
-                'message' => 'Logged in',
-                'user_type' => $user->usertype_id
-            ],200);
- */
-        }
+            return response($username);
+
+        } */
     }
 
-    public function user() {
 
+    public function user() {
+        return response()->json(auth()->user());
     }
 
     /* USER LOGOUT FUNCTION */
     public function logout() {
+        auth()->logout();
 
+        return response()->json(['message' => 'Successfully logged out']);
     }
+
+    public function refresh()
+    {
+        return $this->respondWithToken(auth()->refresh());
+    }
+
+    protected function respondWithToken($token)
+    {
+        return response()->json([
+            'access_token' => $token,
+            'token_type' => 'bearer',
+            'expires_in' => auth()->factory()->getTTL() * 60
+        ]);
+    }
+
 }

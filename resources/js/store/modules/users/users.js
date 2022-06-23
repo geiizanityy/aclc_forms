@@ -49,9 +49,8 @@ const actions = {
     async login({ commit, rootState }, data) {
         rootState.base.loading.isLoading = true;
         await axios.get("/sanctum/csrf-cookie");
-        await axios
-            .post("/api/login", data)
-            .then((response) => {
+        await axios.post("/api/login", data).then((response) => {
+            console.log(response.data)
                 /* localStorage.setItem("token", response.data.token);
                 localStorage.setItem("user_type", response.data.user.user_type); */
 

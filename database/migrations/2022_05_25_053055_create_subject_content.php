@@ -14,18 +14,16 @@ class CreateSubjectContent extends Migration
     public function up()
     {
         Schema::create('subject_contents', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->string('topic_no');
-            $table->string('topic_desc');
-            $table->text('topic_slug');
-            $table->longtext('topic_content');
-            $table->string('topic_status');
-            $table->text('topic_type');
-            $table->uuid('subject_id')->nullable(false);
+            $table->id();
+            $table->uuid('content_id');
+            $table->longtext('subject_content');
+            $table->boolean('is_active')->default(1);
             $table->timestamps();
         });
 
         Schema::table('subject_contents', function (Blueprint $table) {
+
+            $table->unsignedBigInteger('subject_id');
             $table->foreign('subject_id')->references('id')->on('subjects');
 
         });

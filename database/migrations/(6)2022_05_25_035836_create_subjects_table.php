@@ -14,16 +14,18 @@ class CreateSubjectsTable extends Migration
     public function up()
     {
         Schema::create('subjects', function (Blueprint $table) {
-            $table->uuid("id")->primary();
+            $table->id();
+            $table->uuid("subject_id");
             $table->string("subject_code");
             $table->text("subject_description");
             $table->text("course");
             $table->text("banner");
-            $table->uuid('teacher_id')->nullable(false);
             $table->timestamps();
         });
 
         Schema::table('subjects', function (Blueprint $table) {
+
+            $table->unsignedBigInteger('teacher_id');
             $table->foreign('teacher_id')->references('id')->on('teachers');
 
         });

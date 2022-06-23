@@ -8,6 +8,11 @@ require('./bootstrap');
 
 window.Vue = require('vue').default;
 
+import Vue from "vue";
+import VueJWT from "hpsweb-vuejs-jwt";
+
+Vue.use(VueJWT);
+
 
 
 /* Vue Router */

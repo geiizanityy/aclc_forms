@@ -14,8 +14,10 @@ class CreateUserTypeTable extends Migration
     public function up()
     {
         Schema::create('user_type', function (Blueprint $table) {
-            $table->uuid('id')->primary();
+            $table->id();
+            $table->uuid('usertype_id');
             $table->string('user_type');
+            $table->bigInteger('access_level');
             $table->timestamps();
         });
 

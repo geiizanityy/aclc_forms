@@ -14,20 +14,24 @@ class CreateTeachersTable extends Migration
     public function up()
     {
         Schema::create('teachers', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->string('teacher_id');
+            $table->id();
+            $table->uuid('teacher_id');
+            $table->string('teacher_no');
             $table->string('teacher_fname');
             $table->string('teacher_mname');
             $table->string('teacher_lname');
             $table->string('teacher_suffix')->nullable();
             $table->string('teacher_contact');
+            $table->string('position');
             $table->boolean('is_active')->default(1);
+            $table->string('access_level');
             $table->date('date_registered');
-            $table->uuid('user_id')->nullable(false);
             $table->timestamps();
         });
 
         Schema::table('teachers', function (Blueprint $table) {
+
+            $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
 
         });

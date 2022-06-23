@@ -14,17 +14,18 @@ class CreateSubjectEnrolledTable extends Migration
     public function up()
     {
         Schema::create('subject_enrolled', function (Blueprint $table) {
-            $table->uuid('id')->primary();
+            $table->id();
+            $table->uuid('subjectenrolled_id');
             $table->text('subject_status');
-            $table->unsignedBigInteger('schoolyear_id')->nullable();
-            $table->uuid('student_id')->nullable(false);
             $table->timestamps();
         });
 
         Schema::table('subject_enrolled', function (Blueprint $table) {
-            $table->foreign('schoolyear_id')->references('schoolyear_id')->on('school_year');
 
+            $table->unsignedBigInteger('schoolyear_id');
+            $table->foreign('schoolyear_id')->references('id')->on('school_year');
 
+            $table->unsignedBigInteger('student_id');
             $table->foreign('student_id')->references('id')->on('students');
 
         });

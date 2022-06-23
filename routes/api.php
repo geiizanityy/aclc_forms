@@ -17,6 +17,20 @@ use Illuminate\Routing\Router;
 |
 */
 
+/* Route::group([
+    'middleware' => 'api',
+    'prefix' => 'auth'
+], function ($router) {
+
+    Route::post('/login','AuthController@login');
+    Route::post('logout', [AuthController::class, 'logout']);
+    Route::post('refresh', [AuthController::class, 'refresh']);
+    Route::post('user', [AuthController::class, 'user']);
+
+}); */
+
+
+
 Route::post('/login',[AuthController::class,'login']);
 
 Route::get('/fetchform',[SubjectContentController::class,'fetchForm']);

@@ -14,8 +14,9 @@ class CreateStudentsTable extends Migration
     public function up()
     {
         Schema::create('students', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->string('student_id')->unique();
+            $table->id();
+            $table->uuid('student_id');
+            $table->bigInteger('student_no')->unique();
             $table->string('student_fname');
             $table->string('student_mname');
             $table->string('student_lname');
@@ -23,11 +24,11 @@ class CreateStudentsTable extends Migration
             $table->string('student_contact');
             $table->boolean('is_active')->default(1);
             $table->date('date_registered');
-            $table->uuid('user_id')->nullable(false);
             $table->timestamps();
         });
 
         Schema::table('students', function (Blueprint $table) {
+            $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
 
         });
