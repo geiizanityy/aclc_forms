@@ -14,7 +14,26 @@
           <div>
             <strong>{{ snackbarAttrib.title }}</strong>
           </div>
-          <div>{{ snackbarAttrib.text }}</div>
+
+        <div v-if="snackbarAttrib.text">  
+          <div>
+            <v-icon size="15">mdi-comment-alert-outline</v-icon>
+              {{snackbarAttrib.text.message}}
+          </div>
+          </div>
+          
+          <div v-if="snackbarAttrib.text">
+             <div v-for="(item,i) in snackbarAttrib.text.errors" :key="i">
+              <ul v-for="(error,i) in item" :key="i" style="list-style-type:none;">
+                <li>
+                  <v-icon size="15">mdi-close</v-icon>
+                  {{error}}
+                </li>
+                
+              </ul>
+            </div>
+          </div>
+         
         </v-layout>
         <v-btn
           v-if="snackbarAttrib.timeout === 0"
@@ -75,7 +94,7 @@ export default {
             position: "top",
             timeout: 5500,
             title: "Error",
-            text: this.snackbarNotification.content.message,
+            text: this.snackbarNotification.content,
             visible: true,
           };
           break;

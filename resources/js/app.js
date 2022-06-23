@@ -9,10 +9,6 @@ require('./bootstrap');
 window.Vue = require('vue').default;
 
 import Vue from "vue";
-import VueJWT from "hpsweb-vuejs-jwt";
-
-Vue.use(VueJWT);
-
 
 
 /* Vue Router */
@@ -53,6 +49,11 @@ Vue.use(loader);
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 Vue.component('app-component', require('./components/App.vue').default);
+
+
+/* Vue.http.headers.common['X-CSRF-TOKEN'] = document.getElementsByName('csrf-token')[0].getAttribute('content');
+Vue.http.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('id_token');
+Vue.http.options.root = 'http://laravel.dev:8080'; */
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

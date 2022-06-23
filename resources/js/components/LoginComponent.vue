@@ -172,14 +172,10 @@ export default {
   },
 
   methods: {
-    login() {
-
-      this.$store.dispatch("login", this.form);
-    },
     save() {
       let isValid = this.$refs.form.validate();
       if (isValid) {
-        this.login();
+        this.$store.dispatch("login", this.form);
         if(!this.isLoading) {
             this.loginAttrib.loginText = "Login";
         }

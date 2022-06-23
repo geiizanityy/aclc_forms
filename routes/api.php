@@ -17,21 +17,19 @@ use Illuminate\Routing\Router;
 |
 */
 
-/* Route::group([
+Route::group([
     'middleware' => 'api',
     'prefix' => 'auth'
+ 
 ], function ($router) {
-
-    Route::post('/login','AuthController@login');
-    Route::post('logout', [AuthController::class, 'logout']);
-    Route::post('refresh', [AuthController::class, 'refresh']);
-    Route::post('user', [AuthController::class, 'user']);
-
-}); */
+    Route::post('/login', [AuthController::class, 'login']);
+    Route::post('/logout', [AuthController::class, 'logout']);
+    Route::post('/refresh', [AuthController::class, 'refresh']);
+    Route::get('/user', [AuthController::class, 'user']);    
+});
 
 
-
-Route::post('/login',[AuthController::class,'login']);
+/* Route::post('/login',[AuthController::class,'login']); */
 
 Route::get('/fetchform',[SubjectContentController::class,'fetchForm']);
 
@@ -55,8 +53,8 @@ Route::put('/updatesubjectcontent/{id}',[SubjectContentController::class,'update
 Route::get('/geteditcontent/{id}',[SubjectContentController::class,'show']);
 
 /* Route::put('/editform/{id}',[SubjectContentController::class,'update']); */
-
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+/* 
+Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 
-});
+}); */
