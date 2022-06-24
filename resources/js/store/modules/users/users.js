@@ -4,7 +4,7 @@ import axios from "axios";
 /* STORE STATES */
 const getDefaultSate = () => {
     return {
-
+        auth:{},
     }
 }
 
@@ -20,8 +20,8 @@ const getters = {
 /* STORE MUTATIONS */
 const mutations = {
     /* FETCH FILE DATA FROM STORE STATES */
-    GET_FILES: (state) => {
-
+    AUTH_USER: (state,data) => {
+        state.auth = data
     },
 
 
@@ -45,32 +45,7 @@ const mutations = {
 
 /* STORE ACTIONS */
 const actions = {
-    /* FETCH FILE DATA FROM DATABASE */
-    async login({ commit, rootState }, data) {
-        rootState.base.loading.isLoading = true;
-        await axios.post('/api/auth/login', data).then((response) => {
-            console.log(response.data)
-                /* localStorage.setItem("token", response.data.token);
-                localStorage.setItem("user_type", response.data.user.user_type);
 
-                var user_type = response.data.user.user_type;
-                if (user_type === "Chief" || user_type === "Staff") {
-                    this.$router.push({ name: "systemdashboard" });
-                } else {
-                    this.$router.push({ name: "clientsearch" });
-                } */
-            })
-            .catch((err) => {
-                rootState.base.snackbar = {
-                    isVisible:true,
-                    type:'error',
-                    content:err.response.data
-                }
-            })
-            .finally(() => {
-                rootState.base.loading.isLoading = false
-            });
-    },
 
 }
 

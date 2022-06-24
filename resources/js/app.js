@@ -17,11 +17,11 @@ import router from './router.js';
 /* VUEX STORE */
 import store from './store/index'
 
+
 /* Vuetify */
 import vuetify from '../plugins/vuetify.js'
 
 import loader from 'vue-ui-preloader';
-
 Vue.use(loader);
 
 
@@ -50,10 +50,15 @@ Vue.use(loader);
 
 Vue.component('app-component', require('./components/App.vue').default);
 
+/* axios.defaults.withCredentials = true
+axios.defaults.baseURL = 'http://localhost:8000/'
+const a_tkn = localStorage.getItem('token')
 
-/* Vue.http.headers.common['X-CSRF-TOKEN'] = document.getElementsByName('csrf-token')[0].getAttribute('content');
-Vue.http.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('id_token');
-Vue.http.options.root = 'http://laravel.dev:8080'; */
+if(a_tkn) {
+    axios.defaults.headers.common['Authorization'] = a_tkn
+}
+ */
+
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

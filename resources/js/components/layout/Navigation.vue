@@ -95,7 +95,6 @@
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
-    asdasd
   </nav>
 </template>
 

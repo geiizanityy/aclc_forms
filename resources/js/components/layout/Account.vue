@@ -10,8 +10,15 @@
       </template>
 
       <v-list>
-        <v-list-item v-for="(item, i) in items" :key="i">
-          <v-list-item-title>{{ item.title }}</v-list-item-title>
+        <v-list-item link>
+            <v-list-item-title>
+                Account Settings
+            </v-list-item-title>
+        </v-list-item>
+        <v-list-item link @click="logout()">
+            <v-list-item-title>
+                Logout
+            </v-list-item-title>
         </v-list-item>
       </v-list>
     </v-menu>
@@ -23,12 +30,16 @@ export default {
   data() {
     return {
         usericon:usericon,
-      items: [
-        { title: "Account Settings" },
-        { title: "Logout" },
-      ],
     };
   },
+  methods:{
+    logout() {
+        this.$store.dispatch("logout")
+    },
+    accountSettings(){
+
+    }
+  }
 };
 </script>
 <style scoped>

@@ -29,11 +29,11 @@ class AuthController extends Controller
             'username'         => 'required|string|',
             'password'      => 'required|string'
         ]);
- 
+
         if ($validator->fails()) {
             return response()->json($validator->errors(), 422);
         }
- 
+
         if (! $token = auth()->attempt($validator->validated())) {
             return response()->json([
                 'status' => 'error',
@@ -41,7 +41,7 @@ class AuthController extends Controller
             ], 401);
         }
         return $this->createNewToken($token);
-        
+
 
        /*  $credentials = $request->validate([
             'email'         => 'required|string|email',
@@ -49,7 +49,7 @@ class AuthController extends Controller
         ]);
 
         $user = User::where('email', $credentials['email'])->first();
-        
+
         if(!$user || !Hash::check($credentials['password'], $user->password)){
             return response([
                 'status'    => 'error',
@@ -65,14 +65,14 @@ class AuthController extends Controller
         }
 
         $token = $user->createToken('lms')->plainTextToken;
- 
+
         return response()->json([
             'user'  => $user,
             'token' => $token,
             'status' => 'success',
             'message' => 'You have successfully logged in'
         ], 200)->header('Authorization', $token); */
-       
+
 
         /* $fields = $request->validate([
             'username'  => 'required|string',
@@ -91,29 +91,30 @@ class AuthController extends Controller
             'message' => 'Credentials not found, check your username and password and try again.'
         ], 401); */
 
-      
+
     }
 
 
-    public function user() {
+    /* public function me() {
         return response()->json(auth()->user());
-    }
+    } */
 
-   /*  public function user(Request $request)
+    public function user(Request $request)
     {
         $user = User::find(Auth::user()->id);
         return response()->json([
             'status' => 'success',
-            'data' => $user
+            'message' => 'You have successfully authenticated',
+            'user' => $user
         ]);
-    } */
+    }
 
     /* USER LOGOUT FUNCTION */
     public function logout() {
         auth()->logout();
 
         return response()->json(['message' => 'Successfully logged out']);
-        
+
     }
 
     public function refresh()
@@ -124,15 +125,16 @@ class AuthController extends Controller
 
     protected function createNewToken($token){
         return response()->json([
+            'message'   => 'You have successfully authenticated',
             'access_token' => $token,
             'token_type' => 'bearer',
             'expires_in' => auth()->factory()->getTTL() * 60,
             'user' => auth()->user()
         ]);
     }
-    /* private function guard($username, $password)
+    private function guard($username, $password)
     {
         return Auth::guard('user')->attempt(array('username' => $username, 'password' => $password));
-    } */
+    }
 
 }

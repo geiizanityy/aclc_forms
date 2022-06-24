@@ -14,14 +14,19 @@
           <div>
             <strong>{{ snackbarAttrib.title }}</strong>
           </div>
-
-        <div v-if="snackbarAttrib.text">  
+        <div v-if="snackbarAttrib.color === 'success'">
+            <div v-if="snackbarAttrib.text">
+                {{snackbarAttrib.text}}
+            </div>
+        </div>
+        <div v-else>
+        <div v-if="snackbarAttrib.text">
           <div>
             <v-icon size="15">mdi-comment-alert-outline</v-icon>
               {{snackbarAttrib.text.message}}
           </div>
           </div>
-          
+
           <div v-if="snackbarAttrib.text">
              <div v-for="(item,i) in snackbarAttrib.text.errors" :key="i">
               <ul v-for="(error,i) in item" :key="i" style="list-style-type:none;">
@@ -29,11 +34,12 @@
                   <v-icon size="15">mdi-close</v-icon>
                   {{error}}
                 </li>
-                
+
               </ul>
             </div>
           </div>
-         
+        </div>
+
         </v-layout>
         <v-btn
           v-if="snackbarAttrib.timeout === 0"

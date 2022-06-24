@@ -12,7 +12,11 @@ import FormBuilder from './components/forms/form_builder/FormBuilder.vue'
 import SubjectContentList from './components/forms/subject_contents/SubjectContentList.vue'
 import FormSample from './components/forms/form_sample/FormSample.vue'
 
-import Dummy from './components/dummy/Dummy.vue'
+import Student from './components/students/Student.vue'
+
+import SystemAdminDashboard from './components/system/SystemDashboard.vue'
+
+import TeacherDashboard from './components/teacher/TeacherDashboard.vue'
 
 import Dashboard from './components/dashboard/Dashboard.vue'
 
@@ -34,31 +38,31 @@ const routes = [
         children:[
             {
                 path:'/student/dashboard',
-                component:Dummy,
-                name:'dummyroute4',
+                component:Student,
+                name:'student-dashboard',
             }
         ]
     },
     {
-        path:'/instructor',
+        path:'/teacher/dashboard',
         component:Layout,
         children:[
             {
-                path:'/instructor/dashboard',
-                component:Dummy,
-                name:'dummyroute5',
+                path:'/teacher/dashboard',
+                component:TeacherDashboard,
+                name:'teacher-dashboard',
             }
         ]
     },
 
     {
-        path:'/administrator',
+        path:'/system/admin/dashboard',
         component:Layout,
         children:[
             {
-                path:'/administrator/dashboard',
-                component:Dummy,
-                name:'dummyroute6',
+                path:'/system/admin/dashboard',
+                component:SystemAdminDashboard,
+                name:'system-dashboard',
             }
         ]
     },
@@ -74,28 +78,7 @@ const routes = [
             }
         ]
     },
-    {
-        path:'/dummyroute1',
-        component:Layout,
-        children:[
-            {
-                path:'/dummyroute1',
-                component:Dummy,
-                name:'dummyroute1',
-            }
-        ]
-    },
-    {
-        path:'/dummyroute2',
-        component:Layout,
-        children:[
-            {
-                path:'/dummyroute2',
-                component:Dummy,
-                name:'dummyroute2',
-            }
-        ]
-    },
+
 
 
     {

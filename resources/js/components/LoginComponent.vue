@@ -1,10 +1,5 @@
 <template>
   <v-app>
-    <!-- Loading Component -->
-    <div v-if="isLoading">
-      <loading :loadertype="loginAttrib.loadertype"></loading>
-    </div>
-
     <snackbar></snackbar>
     <!-- MAIN COMPONENT LOGIN -->
     <v-main>
@@ -69,7 +64,6 @@
                       color="blue accent-2"
                       class="mr-4 white--text"
                       @click="save()"
-                      :loading="isLoading"
                     >
                       Login
                     </v-btn>
@@ -99,14 +93,6 @@ export default {
   data() {
     return {
       logo: logo,
-
-      //Login Attributes
-      loginAttrib: {
-        loginText: "Login",
-        loadertype: "circular",
-        isLogin: false,
-      },
-
       //Form Attributes
       form: {
         username: "",
@@ -123,52 +109,7 @@ export default {
         username: [(v) => !!v || "Username is required"],
         password: [(v) => !!v || "Password is required"],
       },
-      buttons: [
-        {
-          color: "info",
-          title: "Infomation",
-          type: "info"
-        },
-        {
-          color: "success",
-          title: "Success",
-          type: "success"
-        },
-        {
-          color: "warning",
-          title: "Warning",
-          type: "warning"
-        },
-        {
-          color: "error",
-          title: "Error",
-          type: "error"
-        }
-      ],
-      snackbar: {
-        color: null,
-        icon: null,
-        mode: null,
-        position: "top",
-        text: null,
-        timeout: 7500,
-        title: null,
-        visible: false
-      },
-      timeout: 7500
     };
-  },
-  computed: {
-    //ISLOADING COMPUTED
-    isLoading: {
-      get: function () {
-        return this.$store.state.base.loading.isLoading;
-      },
-
-      set: function (newVal) {
-        return newVal;
-      },
-    },
   },
 
   methods: {
@@ -176,67 +117,10 @@ export default {
       let isValid = this.$refs.form.validate();
       if (isValid) {
         this.$store.dispatch("login", this.form);
-        if(!this.isLoading) {
-            this.loginAttrib.loginText = "Login";
-        }
       } else {
 
       }
     },
-    snackbarShow(type) {
-      if (!type) return;
-      switch (type) {
-        case "error":
-          this.snackbar = {
-            color: "error",
-            icon: "mdi-alert-circle",
-            mode: "multi-line",
-            position: "top",
-            timeout: 7500,
-            title: "Error",
-            text: "Something's gone wrong, sorry.",
-            visible: true
-          };
-          break;
-        case "info":
-          this.snackbar = {
-            color: "info",
-            icon: "mdi-information-outline",
-            mode: "multi-line",
-            position: "top",
-            timeout: 0,
-            title: "Information",
-            text:
-              "This is useful and is quite a long message, and won't be hidden automatically. You need to dismiss this by clicking the 'X' on the right.",
-            visible: true
-          };
-          break;
-        case "success":
-          this.snackbar = {
-            color: "success",
-            icon: "mdi-check-circle-outline",
-            mode: "multi-line",
-            position: "top",
-            timeout: 7500,
-            title: "Success",
-            text: "That worked, hoorah.",
-            visible: true
-          };
-          break;
-        case "warning":
-          this.snackbar = {
-            color: "warning",
-            icon: "mdi-alert-outline",
-            mode: "multi-line",
-            position: "top",
-            timeout: 7500,
-            title: "Warning",
-            text: "You probably shouldn't have seen that, oops.",
-            visible: true
-          };
-          break;
-      }
-    }
   },
 };
 </script>

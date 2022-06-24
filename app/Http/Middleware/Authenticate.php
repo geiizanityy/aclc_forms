@@ -20,7 +20,7 @@ class Authenticate extends Middleware
         }
     }
 
-   /*  public function handle($request, Closure $next, ...$guards)
+    public function handle($request, Closure $next, ...$guards)
     {
         if ($this->authenticate($request, $guards) === 'authentication_failed') {
             return response()->json(['error'=>'Unauthorized'],400);
@@ -39,5 +39,5 @@ class Authenticate extends Middleware
             }
         }
         return 'authentication_failed';
-    } */
+    }
 }
