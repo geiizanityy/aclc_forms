@@ -36,6 +36,9 @@ export default {
       },
     },
   },
+  created() {
+    this.$store.dispatch("getAuthenticatedUser")
+  }
 };
 </script>
 
