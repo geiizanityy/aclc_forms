@@ -82,6 +82,7 @@
   </v-app>
 </template>
 <script>
+import {mapActions, mapGetters} from 'vuex';
 import snackbar from './base/snackbar/Snacbar.vue'
 import loading from "./base/loaders/Loading.vue";
 import logo from "./../../../public/images/src/logo.png";
@@ -111,12 +112,20 @@ export default {
       },
     };
   },
+   computed:{
+      ...mapGetters('auth',{
+        getterLoginStatus:'getLoginStatus'
+      })
+    },
 
   methods: {
-    save() {
+    ...mapActions('auth',{
+          actionLogin:'login'
+    }),
+    async save() {
       let isValid = this.$refs.form.validate();
       if (isValid) {
-        this.$store.dispatch("login", this.form);
+        await this.actionLogin(this.form);
       } else {
 
       }

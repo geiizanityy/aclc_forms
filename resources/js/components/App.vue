@@ -8,6 +8,7 @@
   </v-app>
 </template>
 <script>
+import {mapActions} from 'vuex';
 import Loading from './base/loaders/Loading.vue'
 import Navigation from "./layout/Navigation.vue";
 export default {
@@ -36,9 +37,14 @@ export default {
       },
     },
   },
+  /* methods:{
+     ...mapActions('auth',{
+          getUser:'getAuthenticatedUser'
+    }),
+  },
   created() {
-    this.$store.dispatch("getAuthenticatedUser")
-  }
+    this.getUser()
+  } */
 };
 </script>
 

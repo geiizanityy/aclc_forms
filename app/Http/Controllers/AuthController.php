@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Hash;
 
 use Illuminate\Support\Facades\Crypt;
@@ -105,15 +106,16 @@ class AuthController extends Controller
         return response()->json([
             'status' => 'success',
             'message' => 'You have successfully authenticated',
-            'user' => $user
-        ]);
+            'user' => $user,
+        ],200);
     }
 
     /* USER LOGOUT FUNCTION */
     public function logout() {
+        $cookie = Cookie::forget('a_tkn');
         auth()->logout();
 
-        return response()->json(['message' => 'Successfully logged out']);
+        return response()->json(['message' => 'Successfully logged out'],200);
 
     }
 
@@ -124,14 +126,15 @@ class AuthController extends Controller
 
 
     protected function createNewToken($token){
+        $cookie = cookie('a_tkn',$token,60*1);
         return response()->json([
             'message'   => 'You have successfully authenticated',
             'access_token' => $token,
             'token_type' => 'bearer',
             'expires_in' => auth()->factory()->getTTL() * 60,
-        ]);
+        ],200);
     }
-    private function guard($username, $password)
+    public function guard($username, $password)
     {
         return Auth::guard('user')->attempt(array('username' => $username, 'password' => $password));
     }

@@ -25,15 +25,18 @@ import vuetify from '../plugins/vuetify.js'
 import loader from 'vue-ui-preloader';
 Vue.use(loader);
 
+import VueCookie from 'vue-cookie'
+Vue.use(VueCookie )
 
 
-if(localStorage.a_tkn) {
+
+/* if(localStorage.a_tkn) {
     setAuthHeader(localStorage.a_tkn)
 }else {
     setAuthHeader(false)
 }
 
-
+ */
 
 
 
