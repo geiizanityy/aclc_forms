@@ -6,7 +6,6 @@ import { jwtDecrypt,tokenAlive } from "../../../utils/shared/jwthelper";
 
 import vueCookie from 'vue-cookie'
 
-import setAuthHeader from "../../../authheader";
 
 
 
@@ -21,6 +20,7 @@ const getDefaultSate = () => {
             userName: "",
         },
         loginStatus: "",
+        isTokenActive:null
     }
 }
 const state = getDefaultSate()
@@ -34,8 +34,10 @@ const getters = {
     },
     isTokenActive(state) {
         if (!state.authData.tokenExp) {
+            state.isTokenActive = false
           return false;
         }
+        state.isTokenActive = true
         return tokenAlive(state.authData.tokenExp);
       },
 }
@@ -46,9 +48,9 @@ const mutations = {
     SAVE_TOKEN: (state, data) => {
 
         const jwtDecodedValue = jwtDecrypt(data.access_token);
+        console.log(jwtDecodedValue)
         const newTokenData = {
-            access_token: data.access_token,
-            refresh_token: data.refresh_token,
+            accessToken: data.access_token,
             tokenExp: jwtDecodedValue.exp,
             userId: jwtDecodedValue.sub,
             userName: jwtDecodedValue.userName,
@@ -66,8 +68,8 @@ const actions = {
     async login({ commit, rootState }, payload) {
         rootState.base.loading.isLoading = true;
         await axios.post('/api/auth/login', payload).then((response) => {
-            vueCookie.set('token',response.data.access_token,{ expires: "5s" })
-            vueCookie.set('refresh_token',"")
+            vueCookie.set('token',response.data.access_token,{ expires: "1D" })
+            vueCookie.set('refresh_token',"","1D")
             const data = {
                 access_token: response.data.access_token,
                 refresh_token: ""
@@ -120,7 +122,6 @@ const actions = {
         rootState.base.loading.isLoading = true;
         try {
             await axios.post('/api/auth/logout').then((response) => {
-                localStorage.removeItem('a_tkn')
                 console.log(response.data)
             }).catch((err) => {
                 console.log(err.response.data)

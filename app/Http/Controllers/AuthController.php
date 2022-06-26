@@ -121,17 +121,15 @@ class AuthController extends Controller
 
     public function refresh()
     {
-        return $this->createNewToken(auth()->refresh());
+        return $this->createNewToken(auth()->refresh(true,true));
     }
 
-
     protected function createNewToken($token){
-        $cookie = cookie('a_tkn',$token,60*1);
         return response()->json([
             'message'   => 'You have successfully authenticated',
             'access_token' => $token,
             'token_type' => 'bearer',
-            'expires_in' => auth()->factory()->getTTL() * 60,
+            'expires_in' => auth()->factory()->getTTL()*3600,
         ],200);
     }
     public function guard($username, $password)

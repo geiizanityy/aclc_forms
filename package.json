@@ -27,6 +27,7 @@
     "dependencies": {
         "@mdi/font": "^6.6.96",
         "hpsweb-vuejs-jwt": "^1.1.4",
+        "secure-ls": "^1.2.6",
         "survey-creator-knockout": "^1.9.24",
         "survey-vue": "^1.9.24",
         "vue-cookie": "^1.1.4",
