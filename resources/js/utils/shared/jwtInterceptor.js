@@ -20,6 +20,7 @@ jwtInterceptor.interceptors.response.use(
     },
     async (error) => {
         const originalConfig = error.config;
+        console.log(originalConfig)
         if(originalConfig.url !== 'http://localhost:8000/api/auth/refresh' && error.response) {
             if (error.response.status === 401 && !originalConfig._retry) {
                 originalConfig._retry = true;
@@ -33,7 +34,7 @@ jwtInterceptor.interceptors.response.use(
 
                 const response = await jwtInterceptor.post('http://localhost:8000/api/auth/refresh',payload)
 
-                error.config.headers[
+                error.config.headers.common[
                     "Authorization"
                 ] = `bearer ${response.data.access_token}`;
                 vueCookie.set('token',response.data.access_token,{ expires: "1D" })
