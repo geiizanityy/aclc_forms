@@ -5,6 +5,8 @@ import jwtInterceptor from "../../../utils/shared/jwtInterceptor";
 import { jwtDecrypt,tokenAlive } from "../../../utils/shared/jwthelper";
 
 import vueCookie from 'vue-cookie'
+import SecureLS from "secure-ls";
+const ls = new SecureLS({ isCompression: true });
 
 
 
@@ -20,7 +22,8 @@ const getDefaultSate = () => {
             userName: "",
         },
         loginStatus: "",
-        isTokenActive:null
+        isAuthenticated:false,
+        isTokenActive:false
     }
 }
 const state = getDefaultSate()
@@ -31,6 +34,9 @@ const getters = {
     },
     getLoginStatus(state) {
         return state.loginStatus;
+    },
+    isAuthenticated(state) {
+        return state.isAuthenticated
     },
     isTokenActive(state) {
         if (!state.authData.tokenExp) {
@@ -45,17 +51,19 @@ const mutations = {
     AUTHENTICATED_USER: (state, data) => {
         state.auth = data
     },
-    SAVE_TOKEN: (state, data) => {
-
+    AUTH_DATA: (state, data) => {
         const jwtDecodedValue = jwtDecrypt(data.access_token);
-        console.log(jwtDecodedValue)
         const newTokenData = {
             accessToken: data.access_token,
-            tokenExp: jwtDecodedValue.exp,
+            dateNow: new Date(Date.now()).toString(),
+            tokenExp: new Date(jwtDecodedValue.exp*1000).toString(),
             userId: jwtDecodedValue.sub,
             userName: jwtDecodedValue.userName,
         };
         state.authData = newTokenData;
+    },
+    setIsAuthenticated(state,value) {
+        state.isAuthenticated = value
     },
     setLoginStatus(state, value) {
         state.loginStatus = value;
@@ -69,17 +77,16 @@ const actions = {
         rootState.base.loading.isLoading = true;
         await axios.post('/api/auth/login', payload).then((response) => {
             vueCookie.set('token',response.data.access_token,{ expires: "1D" })
-            vueCookie.set('refresh_token',"","1D")
             const data = {
                 access_token: response.data.access_token,
-                refresh_token: ""
             }
             rootState.base.snackbar = {
                 isVisible: true,
                 type: 'success',
                 content: response.data
             }
-            commit('SAVE_TOKEN', data)
+            commit('AUTH_DATA', data)
+            commit('setIsAuthenticated',true)
             commit('setLoginStatus', 'success')
             router.push({ name: "student-dashboard" });
 
@@ -122,7 +129,15 @@ const actions = {
         rootState.base.loading.isLoading = true;
         try {
             await axios.post('/api/auth/logout').then((response) => {
-                console.log(response.data)
+                vueCookie.delete('token')
+                commit('setIsAuthenticated',false)
+                commit('setLoginStatus', 'failed')
+                router.push({ name: "login" });
+                rootState.base.snackbar = {
+                    isVisible: true,
+                    type: 'success',
+                    content: response.data
+                }
             }).catch((err) => {
                 console.log(err.response.data)
             }).finally(() => {
@@ -133,9 +148,6 @@ const actions = {
         }
 
     },
-    async saveTokenToStorage({ commit, rootState }, data) {
-        console.log(data)
-    }
 
 }
 

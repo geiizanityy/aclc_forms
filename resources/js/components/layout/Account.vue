@@ -25,6 +25,7 @@
   </div>
 </template>
 <script>
+import { mapGetters,mapActions } from "vuex";
 import usericon from './../../../../public/images/src/usericon.png'
 export default {
   data() {
@@ -33,8 +34,12 @@ export default {
     };
   },
   methods:{
+    ...mapActions("auth", {
+      logoutUser: "logout",
+    }),
+
     logout() {
-        this.$store.dispatch("logout")
+        this.logoutUser()
     },
     accountSettings(){
 

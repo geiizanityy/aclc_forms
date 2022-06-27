@@ -114,8 +114,9 @@ export default {
   },
    computed:{
       ...mapGetters('auth',{
-        getterLoginStatus:'getLoginStatus'
-      })
+        getterLoginStatus:'getLoginStatus',
+        getIsAuthenticated:'isAuthenticated'
+      }),
     },
 
   methods: {
@@ -131,6 +132,12 @@ export default {
       }
     },
   },
+  created() {
+    let auth = this.getIsAuthenticated
+    if(!auth) {
+        localStorage.removeItem('vuex')
+    }
+  }
 };
 </script>
 <style scoped>

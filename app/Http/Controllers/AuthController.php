@@ -121,7 +121,7 @@ class AuthController extends Controller
 
     public function refresh()
     {
-        return $this->createNewToken(auth()->refresh(true,true));
+        return $this->createNewToken(auth()->refresh());
     }
 
     protected function createNewToken($token){
@@ -129,12 +129,12 @@ class AuthController extends Controller
             'message'   => 'You have successfully authenticated',
             'access_token' => $token,
             'token_type' => 'bearer',
-            'expires_in' => auth()->factory()->getTTL()*3600,
+            'expires_in' => auth()->factory()->getTTL()*1,
         ],200);
     }
-    public function guard($username, $password)
+    /* public function guard($username, $password)
     {
         return Auth::guard('user')->attempt(array('username' => $username, 'password' => $password));
-    }
+    } */
 
 }

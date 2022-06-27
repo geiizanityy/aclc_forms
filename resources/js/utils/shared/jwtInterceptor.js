@@ -8,9 +8,8 @@ const ls = new SecureLS({ isCompression: false });
 const jwtInterceptor = axios.create({});
 
 jwtInterceptor.interceptors.request.use((config) => {
-    const aw = JSON.parse(ls.get('vuex'))
-    console.log(aw.auth.isTokenActive)
   const authData = vueCookie.get('token')
+  console.log(authData)
   config.headers.common["Authorization"] = `bearer ${authData}`;
   return config;
 });
@@ -20,29 +19,30 @@ jwtInterceptor.interceptors.response.use(
         return response;
     },
     async (error) => {
+        const originalConfig = error.config;
+        if(originalConfig.url !== 'http://localhost:8000/api/auth/refresh' && error.response) {
+            if (error.response.status === 401 && !originalConfig._retry) {
+                originalConfig._retry = true;
+                console.log("YAWA EXPIRED NA ANG TOKEN NIMO!")
+                const tkn = vueCookie.get('token')
+                console.log(tkn)
+                const payload = {
+                    refreshToken:tkn,
+                };
+                console.log(payload)
 
-        if (error.response.status === 401) {
-            console.log("YAWA EXPIRED NA ANG TOKEN NIMO!")
-            var access_token = vueCookie.get('token')
-            const refresh_token = vueCookie.get('refresh_token')
-            console.log(access_token)
+                const response = await jwtInterceptor.post('http://localhost:8000/api/auth/refresh',payload)
 
-            const payload = {
-                token:access_token,
-            };
-
-            var response = await axios.post(
-                'http://localhost:8000/api/auth/refresh',
-                payload
-            );
-            error.config.headers[
-                "Authorization"
-            ] = `bearer ${response.data.access_token}`;
-
-            return axios(error.config);
-        } else {
-            return Promise.reject(error);
+                error.config.headers[
+                    "Authorization"
+                ] = `bearer ${response.data.access_token}`;
+                vueCookie.set('token',response.data.access_token,{ expires: "1D" })
+                return axios(error.config);
+            } else {
+                return Promise.reject(error);
+            }
         }
+
     }
 );
 
