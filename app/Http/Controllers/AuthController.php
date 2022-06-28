@@ -122,11 +122,11 @@ class AuthController extends Controller
 
     public function refresh()
     {
-        $newtoken = JWTAuth::parseToken()->refresh();
-        return $this->createNewToken($newtoken);
+        return $this->createNewToken(Auth::refresh());
     }
 
     protected function createNewToken($token){
+        Auth::setToken($token);
         return response()->json([
             'message'   => 'You have successfully authenticated',
             'access_token' => $token,
