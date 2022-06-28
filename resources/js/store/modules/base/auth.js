@@ -1,6 +1,7 @@
 import axios from "axios";
 import router from "./../../../router"
 
+
 import jwtInterceptor from "../../../utils/shared/jwtInterceptor";
 import { jwtDecrypt,tokenAlive } from "../../../utils/shared/jwthelper";
 
@@ -15,8 +16,6 @@ const getDefaultSate = () => {
     return {
         auth:{},
         authData: {
-            access_token: "",
-            refresh_token: "",
             tokenExp: "",
             userId: "",
             userName: "",
@@ -55,8 +54,7 @@ const mutations = {
         const jwtDecodedValue = jwtDecrypt(data.access_token);
         const newTokenData = {
             accessToken: data.access_token,
-            dateNow: new Date(Date.now()).toString(),
-            tokenExp: new Date(jwtDecodedValue.exp*1000).toString(),
+            tokenExp: jwtDecodedValue.exp,
             userId: jwtDecodedValue.sub,
             userName: jwtDecodedValue.userName,
         };
@@ -113,7 +111,7 @@ const actions = {
     async getAuthenticatedUser({ commit, rootState }) {
         rootState.base.loading.isLoading = true;
         try {
-            var response = await jwtInterceptor.get('/api/auth/user')
+            var response = await jwtInterceptor.post('/api/auth/user')
             if (response && response.data) {
                 commit("AUTHENTICATED_USER",response.data)
                 rootState.base.loading.isLoading = false;

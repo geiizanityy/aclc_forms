@@ -24,6 +24,9 @@ class AuthController extends Controller
     public function login(Request $request)
     {
 
+
+
+
         $aw = $request->only('username','password');
 
         $validator = Validator::make($request->all(), [
@@ -119,7 +122,8 @@ class AuthController extends Controller
 
     public function refresh()
     {
-        return $this->createNewToken(auth()->refresh());
+        $newtoken = JWTAuth::parseToken()->refresh();
+        return $this->createNewToken($newtoken);
     }
 
     protected function createNewToken($token){
@@ -127,12 +131,12 @@ class AuthController extends Controller
             'message'   => 'You have successfully authenticated',
             'access_token' => $token,
             'token_type' => 'bearer',
-            'expires_in' => auth()->factory()->getTTL()*1,
+            'expires_in' => auth('api')->factory()->getTTL()*1,
         ],200);
     }
-    /* public function guard($username, $password)
+    public function guard($username, $password)
     {
         return Auth::guard('user')->attempt(array('username' => $username, 'password' => $password));
-    } */
+    }
 
 }

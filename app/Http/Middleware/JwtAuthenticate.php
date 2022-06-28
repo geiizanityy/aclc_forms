@@ -24,11 +24,12 @@ class JwtAuthenticate
         }catch(Exception $e) {
             if($e instanceof TokenExpiredException) {
                 $newtoken = JWTAuth::parseToken()->refresh();
+
                 return response()->json([
                     'success'   =>false,
-                    'message'   =>'token_expired',
+                    'message'   =>'Token is expired',
                     'token'     =>$newtoken
-                ],401);
+                ],200);
             }else if($e instanceof TokenInvalidException) {
                 return response()->json(['success'=>false,'message'=>'token_invalid'],401);
             }else {
