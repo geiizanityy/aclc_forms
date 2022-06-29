@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container fluid>
     <transition
       class="fade"
       enter-active-class="animate__animated animate__fadeInLeft"

@@ -1,19 +1,22 @@
 <template>
   <v-app>
+    <snackbar>
+
+    </snackbar>
     <div v-if="isLoading">
       <loading :loadertype="loginAttrib.loadertype"></loading>
     </div>
-
     <router-view></router-view>
   </v-app>
 </template>
 <script>
-import {mapActions} from 'vuex';
+import snackbar from "./base/snackbar/Snacbar.vue"
 import Loading from './base/loaders/Loading.vue'
 import Navigation from "./layout/Navigation.vue";
 export default {
   components: {
     Loading,
+    snackbar,
     Navigation,
   },
   data() {

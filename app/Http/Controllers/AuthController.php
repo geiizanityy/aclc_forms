@@ -109,6 +109,7 @@ class AuthController extends Controller
         $user = User::find(Auth::user()->id);
         return response()->json([
             'status' => 'success',
+            'success' => 'Authenticated',
             'message' => 'You have successfully authenticated',
             'user' => $user,
         ],200);
@@ -117,7 +118,11 @@ class AuthController extends Controller
     /* USER LOGOUT FUNCTION */
     public function logout() {
         auth()->logout();
-        return response()->json(['message' => 'Successfully logged out'],200);
+        return response()->json([
+            'status' => 'success',
+            'success' => 'Unauthenticated',
+            'message' => 'Your account successfully, logged out'
+        ],200);
 
     }
 
@@ -132,7 +137,7 @@ class AuthController extends Controller
             'message'   => 'You have successfully authenticated',
             'access_token' => $token,
             'token_type' => 'bearer',
-            'expires_in' => auth('api')->factory()->getTTL()*1,
+            'expires_in' => auth('api')->factory()->getTTL()*3600,
         ],200);
     }
     public function guard($username, $password)

@@ -1,6 +1,5 @@
 <template>
   <v-app>
-    <snackbar></snackbar>
     <!-- MAIN COMPONENT LOGIN -->
     <v-main>
       <v-container class="fill-height fluid">
@@ -89,9 +88,6 @@ export default {
   },
   data() {
     return {
-        imgs:{
-
-        },
         shiwImg:false,
       vcardbg: "#1f2255",
       logo: null,
@@ -129,9 +125,7 @@ export default {
     ...mapActions("auth", {
       actionLogin: "login",
     }),
-    ...mapState("auth", {
-        isAuthenticated:"isAuthenticated"
-    }),
+
     /* importAll(r) {
       r.keys().forEach(r);
     }, */

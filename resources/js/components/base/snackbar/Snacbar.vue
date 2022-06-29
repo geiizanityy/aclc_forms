@@ -5,7 +5,8 @@
       :color="snackbarAttrib.color"
       :multi-line="snackbarAttrib.mode === 'multi-line'"
       :timeout="snackbarAttrib.timeout"
-      :top="snackbarAttrib.position === 'top'"
+      :right="snackbarAttrib.position === 'top'"
+      :top="snackbarAttrib.position === 'right'"
     >
       <v-layout align-center pr-5>
         <v-icon class="pr-3" dark large>{{ snackbarAttrib.icon }}</v-icon>
@@ -15,7 +16,9 @@
             <strong>{{ snackbarAttrib.title }}</strong>
           </div>
         <div v-if="snackbarAttrib.color === 'success'">
+            {{snackbarAttrib.subtext}}
             <div v-if="snackbarAttrib.text">
+                <v-icon size="15">mdi-comment-alert-outline</v-icon>
                 {{snackbarAttrib.text}}
             </div>
         </div>
@@ -59,28 +62,6 @@ export default {
   data() {
     return {
         snackbar:false,
-      buttons: [
-        {
-          color: "info",
-          title: "Infomation",
-          type: "info",
-        },
-        {
-          color: "success",
-          title: "Success",
-          type: "success",
-        },
-        {
-          color: "warning",
-          title: "Warning",
-          type: "warning",
-        },
-        {
-          color: "error",
-          title: "Error",
-          type: "error",
-        },
-      ],
     };
   },
   computed: {
@@ -98,7 +79,7 @@ export default {
             color: "error",
             icon: "mdi-alert-circle",
             mode: "multi-line",
-            position: "top",
+            position: "right",
             timeout: 5500,
             title: "Error",
             text: this.snackbarNotification.content,
@@ -123,10 +104,10 @@ export default {
             color: "success",
             icon: "mdi-check-circle-outline",
             mode: "multi-line",
-            position: "top",
+            position: this.snackbarNotification.isTop ? "right" : "top",
             timeout: 5500,
             title: "Success",
-            subtext:this.snackbarNotification.content,
+            subtext:this.snackbarNotification.content.success,
             text: this.snackbarNotification.content.message,
             visible: true,
           };
@@ -172,5 +153,6 @@ export default {
           this.snackbar = false
       }
   },
+
 };
 </script>

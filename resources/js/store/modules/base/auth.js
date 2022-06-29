@@ -84,21 +84,14 @@ const actions = {
             }
             rootState.base.snackbar = {
                 isVisible: true,
+                isTop:false,
                 type: 'success',
-                content: response.data.message
+                content: {message:response.data.message}
             }
             commit('AUTH_DATA', data)
             commit('setIsAuthenticated',true)
             commit('setLoginStatus', 'success')
             router.push({ name: "student-dashboard" });
-
-
-            /* var user_type = response.data.user.user_type;
-            if (user_type === "Chief" || user_type === "Staff") {
-                this.$router.push({ name: "systemdashboard" });
-            } else {
-                this.$router.push({ name: "clientsearch" });
-            } */
         })
             .catch((err) => {
                 rootState.base.snackbar = {
@@ -118,12 +111,15 @@ const actions = {
             var response = await jwtInterceptor.post('/api/auth/user')
             if(response && response.status === 200) {
                 commit("AUTHENTICATED_USER",response.data)
+                rootState.base.snackbar = {
+                    isVisible: true,
+                    type: 'success',
+                    content: response.data
+                }
                 rootState.base.loading.isLoading = false;
-                console.log("success")
             }
         } catch (error) {
             rootState.base.loading.isLoading = false;
-            console.log(error)
         }
 
     },
@@ -135,11 +131,15 @@ const actions = {
                 commit('setIsAuthenticated',false)
                 commit('setLoginStatus', 'failed')
                 router.push({ name: "login" });
-                rootState.base.snackbar = {
+                const snackbar = {
                     isVisible: true,
                     type: 'success',
+                    isTop:false,
                     content: response.data
                 }
+
+                commit("base/UPDATE_SNACKBAR",snackbar,{root:true})
+
             }).catch((err) => {
                 console.log(err.response.data)
             }).finally(() => {

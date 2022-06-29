@@ -49,7 +49,7 @@ const routes = [
         children:[
             {
                 path:'/teacher/dashboard',
-                component:TeacherDashboard,
+                component:() => import ('./components/teacher/Teacher.vue'),
                 name:'teacher-dashboard',
             }
         ]
