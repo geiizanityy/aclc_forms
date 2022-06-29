@@ -31,6 +31,7 @@
         "survey-creator-knockout": "^1.9.24",
         "survey-vue": "^1.9.24",
         "vue-cookie": "^1.1.4",
+        "vue-lazyload": "^3.0.0-rc.2",
         "vue-router": "^3.5.2",
         "vue-ui-preloader": "^1.2.1",
         "vuetify": "^2.6.4",

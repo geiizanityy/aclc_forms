@@ -53,7 +53,6 @@ const mutations = {
     AUTH_DATA: (state, data) => {
         const jwtDecodedValue = jwtDecrypt(data.access_token);
         const newTokenData = {
-            accessToken: data.access_token,
             tokenExp: jwtDecodedValue.exp,
             userId: jwtDecodedValue.sub,
             userName: jwtDecodedValue.userName,
@@ -65,6 +64,11 @@ const mutations = {
     },
     setLoginStatus(state, value) {
         state.loginStatus = value;
+    },
+    UPDATE_AUTH_DATA:(state,data) => {
+        state.isAuthenticated = data.isAuthenticated
+        state.loginStatus = data.loginStatus
+        state.isTokenActive = data.isTokenActive
     }
 
 
@@ -81,7 +85,7 @@ const actions = {
             rootState.base.snackbar = {
                 isVisible: true,
                 type: 'success',
-                content: response.data
+                content: response.data.message
             }
             commit('AUTH_DATA', data)
             commit('setIsAuthenticated',true)
@@ -112,7 +116,7 @@ const actions = {
         rootState.base.loading.isLoading = true;
         try {
             var response = await jwtInterceptor.post('/api/auth/user')
-            if (response && response.data) {
+            if(response && response.status === 200) {
                 commit("AUTHENTICATED_USER",response.data)
                 rootState.base.loading.isLoading = false;
                 console.log("success")

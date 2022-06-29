@@ -22,12 +22,13 @@
         <div v-else>
         <div v-if="snackbarAttrib.text">
           <div>
+            {{snackbarAttrib.text.error}} <br>
             <v-icon size="15">mdi-comment-alert-outline</v-icon>
               {{snackbarAttrib.text.message}}
           </div>
           </div>
 
-          <div v-if="snackbarAttrib.text">
+          <!-- <div v-if="snackbarAttrib.text">
              <div v-for="(item,i) in snackbarAttrib.text.errors" :key="i">
               <ul v-for="(error,i) in item" :key="i" style="list-style-type:none;">
                 <li>
@@ -37,7 +38,7 @@
 
               </ul>
             </div>
-          </div>
+          </div> -->
         </div>
 
         </v-layout>
@@ -112,6 +113,7 @@ export default {
             position: "top",
             timeout: 5500,
             title: "Information",
+            subtext:this.snackbarNotification.content,
             text: this.snackbarNotification.content.message,
             visible: true,
           };
@@ -124,6 +126,7 @@ export default {
             position: "top",
             timeout: 5500,
             title: "Success",
+            subtext:this.snackbarNotification.content,
             text: this.snackbarNotification.content.message,
             visible: true,
           };
@@ -136,6 +139,7 @@ export default {
             position: "top",
             timeout: 5500,
             title: "Warning",
+            subtext:this.snackbarNotification.content,
             text: this.snackbarNotification.content.message,
             visible: true,
           };

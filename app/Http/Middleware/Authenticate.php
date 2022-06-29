@@ -23,7 +23,11 @@ class Authenticate extends Middleware
     public function handle($request, Closure $next, ...$guards)
     {
         if ($this->authenticate($request, $guards) === 'authentication_failed') {
-            return response()->json(['error'=>'Unauthorized'],401);
+            return response()->json([
+                'status' => 'error',
+                'error'=>'Unauthorized',
+                'message' => 'Your token was expired please re-authenticate, to get access token'
+            ],401);
         }
         return $next($request);
     }

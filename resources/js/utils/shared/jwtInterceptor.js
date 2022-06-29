@@ -10,12 +10,6 @@ const jwtInterceptor = axios.create({});
 
 jwtInterceptor.interceptors.request.use((config) => {
   const authData = vueCookie.get('token')
-  console.log(authData)
-  const access_token_exp = store.state.auth.authData.tokenExp
-  const now = new Date(Date.now()).toString()
-  console.log("current_date: "+ now)
-  console.log("exp_date: "+ new Date(access_token_exp*1000).toString())
-
   config.headers.common["Authorization"] = `bearer ${authData}`;
   return config;
 });
@@ -27,6 +21,36 @@ jwtInterceptor.interceptors.response.use(
     async (error) => {
       if (error.response.status === 401) {
         router.push({name:'login'})
+        store.state.auth.auth = {}
+        store.state.auth.authData = {}
+        const authdata = {
+            isAuthenticated:false,
+            isTokenActive:false,
+            loginStatus:'unauthenticated'
+        }
+
+        store.commit("auth/UPDATE_AUTH_DATA",authdata)
+                const snackbar = {
+                    isVisible:true,
+                    type:'error',
+                    content:error.response.data
+                }
+                store.commit("base/UPDATE_SNACKBAR",snackbar)
+                store.commit("base/UPDATE_LOADING",false)
+                localStorage.removeItem("vuex");
+        /* store.state.auth.isAuthenticated = false
+        store.state.auth.isTokenActive = false
+        store.state.auth.loginStatus = "unauthenticated"
+        localStorage.removeItem("vuex");
+        const snackbar = {
+            isVisible:true,
+            type:'error',
+            content:error.response.data
+        }
+
+        store.commit("UPDATE_SNACKBAR",snackbar)
+        store.commit("UPDATE_LOADING",false) */
+
        /*  const authData = vueCookie.get('token')
         const payload = {
           access_token: authData,

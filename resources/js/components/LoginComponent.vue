@@ -3,33 +3,26 @@
     <snackbar></snackbar>
     <!-- MAIN COMPONENT LOGIN -->
     <v-main>
-      <v-container class="fill-height">
-        <v-row justify="center">
-          <v-col cols="12" sm="8" md="6">
-            <v-card class="elavation-12">
+      <v-container class="fill-height fluid">
+        <v-row justify="center" align="center">
+          <v-col cols="12" md="5" sm="12">
+            <v-card class="elavation-12 transparent" :color="vcardbg">
               <v-card-title class="loginheader">
-                <v-row class="mt-15">
+                <v-layout justify-center>
                   <div class="text-center">
-                    <v-icon size="100" class="white--text"
-                      >mdi-account-lock</v-icon
-                    >
-                    <h1
-                      class="
-                        text-h4
-                        white--text
-                        text-center text-uppercase
-                        font-weight-bold
-                        mt-5
-                      "
-                    >
-                      Login
-                    </h1>
+
+                    <v-row>
+                      <v-col>
+                             <v-img :src="images[0].default" max-width="120" max-height="135"></v-img>
+                      </v-col>
+                    </v-row>
                   </div>
-                </v-row>
+                </v-layout>
               </v-card-title>
 
               <!-- LOGIN FORM -->
               <v-container>
+
                 <v-form
                   @submit.prevent="save"
                   v-model="rules.isValid"
@@ -38,6 +31,8 @@
                   ref="form"
                 >
                   <v-text-field
+                  dark
+                    class="login-input"
                     prepend-inner-icon="mdi-account"
                     label="Username"
                     :rules="rules.username"
@@ -49,6 +44,7 @@
                   ></v-text-field>
 
                   <v-text-field
+                  dark
                     label="Password"
                     :rules="rules.password"
                     v-model="form.password"
@@ -61,7 +57,7 @@
 
                   <v-card-actions>
                     <v-btn
-                      color="blue accent-2"
+                      color="red accent-2"
                       class="mr-4 white--text"
                       @click="save()"
                     >
@@ -82,18 +78,24 @@
   </v-app>
 </template>
 <script>
-import {mapActions, mapGetters} from 'vuex';
-import snackbar from './base/snackbar/Snacbar.vue'
-import loading from "./base/loaders/Loading.vue";
-import logo from "./../../../public/images/src/logo.png";
+import { mapActions, mapGetters, mapState } from "vuex"
+import snackbar from "./base/snackbar/Snacbar.vue"
+import { loadImages } from "./../utils/base/loadimages"
+import loading from "./base/loaders/Loading.vue"
 export default {
   components: {
     loading,
-    snackbar
+    snackbar,
   },
   data() {
     return {
-      logo: logo,
+        imgs:{
+
+        },
+        shiwImg:false,
+      vcardbg: "#1f2255",
+      logo: null,
+      showImg: false,
       //Form Attributes
       form: {
         username: "",
@@ -112,47 +114,77 @@ export default {
       },
     };
   },
-   computed:{
-      ...mapGetters('auth',{
-        getterLoginStatus:'getLoginStatus',
-        getIsAuthenticated:'isAuthenticated'
-      }),
+  computed: {
+    images() {
+        return loadImages()
     },
 
-  methods: {
-    ...mapActions('auth',{
-          actionLogin:'login'
+    ...mapGetters("auth", {
+      getterLoginStatus: "getLoginStatus",
+      getIsAuthenticated: "isAuthenticated",
     }),
+  },
+
+  methods: {
+    ...mapActions("auth", {
+      actionLogin: "login",
+    }),
+    ...mapState("auth", {
+        isAuthenticated:"isAuthenticated"
+    }),
+    /* importAll(r) {
+      r.keys().forEach(r);
+    }, */
+
     async save() {
       let isValid = this.$refs.form.validate();
       if (isValid) {
         await this.actionLogin(this.form);
       } else {
-
       }
     },
   },
-  created() {
-    let auth = this.getIsAuthenticated
-    if(!auth) {
-        localStorage.removeItem('vuex')
+  mounted() {
+
+    /* importAll(
+      require.context("../assets/static_images/", true, /\.jpg\.svg\.png$/)
+    ); */
+    /*  let logo = new Image();
+    logo.onload = () => {
+        console.log('img loaded');
+        this.logo = logo.src
+        this.showImg = true
     }
-  }
+    logo.src = "http://localhost:8000/images/src/logo.png" */
+  },
+  created() {
+    let auth = this.getIsAuthenticated;
+    if (!auth) {
+      localStorage.removeItem("vuex");
+    }
+  },
 };
 </script>
 <style scoped>
 #app {
   height: 100%;
   width: 100%;
-  background: url("http://localhost:8000/images/src/bg13.jpg") no-repeat center
+  background-color: #1f214e;
+  /* background: url("http://localhost:8000/images/src/bg13.jpg") no-repeat center
     center;
-  background-size: cover;
+  background-size: cover; */
+}
+.login-input {
+  color: #ffff;
 }
 .logincontainer {
   height: 500px;
 }
 .loginheader {
-  background: #262863;
+  background: #1f2255;
+}
+.login {
+  background: #1f2255;
 }
 .logo {
   width: 60%;

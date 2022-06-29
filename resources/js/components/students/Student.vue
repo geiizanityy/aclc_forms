@@ -4,20 +4,30 @@
 
 
 <script>
-import { mapGetters,mapActions } from "vuex";
+import { mapGetters,mapActions,mapState } from "vuex";
 export default {
   computed: {
     ...mapGetters("auth", {
       gettersAuthData: "getAuthData",
+    }),
+    ...mapState("auth", {
+        isAuthenticated:"isAuthenticated"
     }),
   },
   methods: {
     ...mapActions("auth", {
       getUser: "getAuthenticatedUser",
     }),
+
   },
   created() {
-    this.getUser();
+    console.log(this.isAuthenticated)
+    if(!this.isAuthenticated) {
+        this.$router.push({name:'login'})
+    }else {
+        this.getUser();
+    }
+
   },
 };
 </script>

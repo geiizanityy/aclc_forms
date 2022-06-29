@@ -29,7 +29,7 @@ const routes = [
     },
     {
         path:'/',
-        component:LoginComponent,
+        component:() => import('./components/LoginComponent.vue'),
         name:'login'
     },
     {
@@ -38,7 +38,7 @@ const routes = [
         children:[
             {
                 path:'/student/dashboard',
-                component:Student,
+                component:() => import ('./components/students/Student.vue'),
                 name:'student-dashboard',
             }
         ]

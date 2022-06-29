@@ -7,8 +7,6 @@
 require('./bootstrap');
 
 window.Vue = require('vue').default;
-
-import setAuthHeader from "./authheader.js";
 import Vue from "vue";
 
 
@@ -27,6 +25,22 @@ Vue.use(loader);
 
 import VueCookie from 'vue-cookie'
 Vue.use(VueCookie )
+
+import VueLazyload from 'vue-lazyload'
+
+Vue.use(VueLazyload)
+
+// or with options
+const loadimage = require('./../assets/base/spinner.gif')
+const errorimage = require('./../assets/base/spinner.gif')
+
+Vue.use(VueLazyload, {
+  preLoad: 1.3,
+  error: errorimage,
+  loading: loadimage,
+  attempt: 1
+})
+
 
 
 

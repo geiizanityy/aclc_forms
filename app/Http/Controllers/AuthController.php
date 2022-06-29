@@ -41,6 +41,7 @@ class AuthController extends Controller
         if (! $token = auth()->attempt($validator->validated())) {
             return response()->json([
                 'status' => 'error',
+                'error' => 'Invalid username or password',
                 'message' => 'Credentials not found, check your username and password and try again.'
             ], 401);
         }

@@ -26,9 +26,12 @@ const getters = {
 /* STORE MUTATIONS */
 const mutations = {
     /* FETCH FILE DATA FROM STORE STATES */
-    UPDATE_LOADING:(state,data) => {
-        state.loading.isLoading = data.data
+    UPDATE_SNACKBAR:(state,data) => {
+        state.snackbar = data
     },
+    UPDATE_LOADING:(state,data) => {
+        state.loading.isLoading = data
+    }
 
 
 
@@ -43,6 +46,7 @@ const actions = {
 }
 
 export default {
+    namespaced: true,
     state,
     getters,
     mutations,
