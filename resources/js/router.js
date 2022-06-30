@@ -56,6 +56,16 @@ const routes = [
                 path:'/teacher/dashboard',
                 component:() => import ('./components/teacher/Teacher.vue'),
                 name:'teacher-dashboard',
+            },
+            {
+                path:'/teacher/dummy',
+                component:() => import ('./components/teacher/Teacher.vue'),
+                name:'dummysubject1',
+            },
+            {
+                path:'/teacher/dummy1',
+                component:() => import ('./components/teacher/Teacher.vue'),
+                name:'dummysubject2',
             }
         ]
     },

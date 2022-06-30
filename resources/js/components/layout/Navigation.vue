@@ -43,9 +43,9 @@
         </v-row>
       </v-container>
       <v-divider></v-divider>
-      <div v-if="authtype">
-        <v-list>
-        <v-list-group  no-action v-for="item in setNavigation" :key="item.navtext" :append-icon="item.sublink ? 'mdi-chevron-up' : null " class="red_list" nav dense >
+        <v-list class="red_list" nav dense>
+        <v-list-group style="margin:0px auto" no-action v-for="item in setNavigation" :key="item.navtext" :append-icon="item.sublink ? 'mdi-chevron-up' : null" nav>
+
           <v-list-item
           slot="activator"
           :to="item.path"
@@ -62,7 +62,8 @@
 
           </v-list-item>
 
-          <v-list-item v-for="sub in item.sublink" :key="sub.navtext" link>
+
+          <v-list-item class="animal" v-for="sub in item.sublink" :key="sub.navtext" link :to="sub.path">
 
             <v-list-item-icon>
               <v-icon class="white--text">{{ sub.icon }}</v-icon>
@@ -73,6 +74,7 @@
             }}</v-list-item-title>
 
           </v-list-item>
+
 
 
           <!-- <v-list-group class="v-list-group" :value="false">
@@ -104,7 +106,7 @@
         </v-list-item> -->
         </v-list-group>
         </v-list>
-      </div>
+
     </v-navigation-drawer>
   </nav>
 </template>
@@ -156,17 +158,17 @@ export default {
                   sublink:[
                     {
                         navtext:"Subject 1",
-                        path:{name:"student-dashboard"},
+                        path:{name:"teacher-dashboard"},
                         icon:"mdi-bookmark-outline"
                     },
                     {
                         navtext:"Subject 2",
-                        path:{name:"subject-dashboard"},
+                        path:{name:"dummysubject1"},
                         icon:"mdi-bookmark-outline"
                     },
                     {
                         navtext:"Subject 3",
-                        path:{name:"teacher-dashboard"},
+                        path:{name:"dummysubject2"},
                         icon:"mdi-bookmark-outline"
                     }
                   ]
@@ -302,33 +304,26 @@ export default {
   widows: 100%;
   height: 100%;
 }
-.red_list .v-list-item-group .v-list-item--active {
-  background-color: red;
-  color: white;
-}
 .v-list-item-text {
   color: #ffffff;
   size: 16px;
 }
-.v-list-group-item {
-  size: 15px;
-}
-.active {
-  background-color: #8e0202;
-  color: #fff;
-}
 .v-list-item--active {
-  background-color: #8e0202;
+      background-color: #8e0202;
   color: #fff;
+  width: 100%;
 }
-.v-list-group {
-  color: #ffffff;
+.v-list-item {
+    width: 100%;
 }
 .v-list-item-title {
   color: #ffffff;
+  width: 100%;
 }
-.v-list-group {
+.v-list-item .v-list-group:hover {
+    background-color: #8e0202;
   color: #ffffff;
+  width: 100%;
 }
 .v-list-group__header__append-icon {
 display: none !important;
