@@ -5,7 +5,7 @@
       <v-container class="fill-height fluid">
         <v-row justify="center" align="center">
           <v-col cols="12" md="5" sm="12">
-            <v-card class="elavation-12 transparent" :color="vcardbg">
+            <v-card class="elavation-12" :color="vcardbg">
               <v-card-title class="loginheader">
                 <v-layout justify-center>
                   <div class="text-center">
@@ -61,6 +61,7 @@
                       @click="save()"
                     >
                       Login
+                      <v-icon size="15">mdi-login</v-icon>
                     </v-btn>
                   </v-card-actions>
                 </v-form>
@@ -89,7 +90,7 @@ export default {
   data() {
     return {
         shiwImg:false,
-      vcardbg: "#1f2255",
+      vcardbg: "#191b4a",
       logo: null,
       showImg: false,
       //Form Attributes
@@ -138,19 +139,17 @@ export default {
       }
     },
   },
-  mounted() {
+  /* mounted() {
 
-    /* importAll(
-      require.context("../assets/static_images/", true, /\.jpg\.svg\.png$/)
-    ); */
-    /*  let logo = new Image();
+
+     let logo = new Image();
     logo.onload = () => {
         console.log('img loaded');
         this.logo = logo.src
         this.showImg = true
     }
-    logo.src = "http://localhost:8000/images/src/logo.png" */
-  },
+    logo.src = "http://localhost:8000/images/src/logo.png"
+  }, */
   created() {
     let auth = this.getIsAuthenticated;
     if (!auth) {
@@ -175,10 +174,10 @@ export default {
   height: 500px;
 }
 .loginheader {
-  background: #1f2255;
+  background: #191b4a;
 }
 .login {
-  background: #1f2255;
+  background: #17193c;
 }
 .logo {
   width: 60%;

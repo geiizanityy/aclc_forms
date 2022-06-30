@@ -40,7 +40,12 @@ const routes = [
                 path:'/student/dashboard',
                 component:() => import ('./components/students/Student.vue'),
                 name:'student-dashboard',
-            }
+            },
+            {
+                path:'/student/subjects',
+                component:() => import ('./components/students/Student.vue'),
+                name:'student-subjects',
+            },
         ]
     },
     {

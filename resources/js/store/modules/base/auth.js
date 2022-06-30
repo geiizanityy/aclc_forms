@@ -31,6 +31,9 @@ const getters = {
     getAuthData(state){
         return state.authData;
     },
+    getAuthUser(state) {
+        return state.auth.user
+    },
     getLoginStatus(state) {
         return state.loginStatus;
     },
