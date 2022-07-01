@@ -43,70 +43,34 @@
         </v-row>
       </v-container>
       <v-divider></v-divider>
-        <v-list class="red_list" nav dense>
-        <v-list-group style="margin:0px auto" no-action v-for="item in setNavigation" :key="item.navtext" :append-icon="item.sublink ? 'mdi-chevron-up' : null" nav>
 
-          <v-list-item
-          slot="activator"
-          :to="item.path"
-            class="white--text"
-            link
-          >
+      <v-list dense class="list text-uppercase">
+        <div v-for="(item, i) in setNavigation" :key="i">
+          <v-list-item link v-if="!item.sublink" :key="i" :to="item.path">
             <v-list-item-icon>
-              <v-icon class="white--text">{{ item.icon }}</v-icon>
+              <v-icon v-text="item.icon" size="20"></v-icon>
             </v-list-item-icon>
 
-            <v-list-item-title  class="v-list-item-text">{{
-              item.navtext
-            }}</v-list-item-title>
-
+            <v-list-item-title v-text="item.navtext"></v-list-item-title>
           </v-list-item>
 
-
-          <v-list-item class="animal" v-for="sub in item.sublink" :key="sub.navtext" link :to="sub.path">
-
-            <v-list-item-icon>
-              <v-icon class="white--text">{{ sub.icon }}</v-icon>
-            </v-list-item-icon>
-
-            <v-list-item-title  class="v-list-item-text" :to="item.path">{{
-              sub.navtext
-            }}</v-list-item-title>
-
-          </v-list-item>
-
-
-
-          <!-- <v-list-group class="v-list-group" :value="false">
-          <v-icon slot="prependIcon" color="white">mdi-form-select</v-icon>
-
-          <template v-slot:activator>
-            <v-list-item-title class="v-list-item-title"
-              >Forms</v-list-item-title
-            >
-          </template>
-          <div class="ml-5">
-            <v-list-item :to="{ name: 'dummyroute6' }">
-              <v-list-item-icon>
-                <v-icon class="white--text" small>mdi-table</v-icon>
+          <v-list-group v-else :value="false" no-action>
+            <v-icon slot="prependIcon" size="20" v-text="item.icon"></v-icon>
+            <template v-slot:activator>
+              <v-list-item-title v-text="item.navtext"></v-list-item-title>
+            </template>
+            <v-list-item active-class="list-active" v-for="(subitem, i) in item.sublink" :key="i" :to="subitem.path" link>
+              <div class="d-flex ml-n10">
+                <v-list-item-icon>
+                <v-icon v-text="subitem.icon"></v-icon>
               </v-list-item-icon>
-              <v-list-item-title class="white--text v-list-group-item"
-                >Subject Content</v-list-item-title
-              >
+              <v-list-item-title v-text="subitem.navtext"></v-list-item-title>
+              </div>
+
             </v-list-item>
-          </div>
-        </v-list-group> -->
-
-          <!-- <v-list-item class="white--text" :to="{ name: 'dummyroute1' }">
-          <v-list-item-icon>
-            <v-icon class="white--text">mdi-form-select</v-icon>
-          </v-list-item-icon>
-
-          <v-list-item-title>Route 2</v-list-item-title>
-        </v-list-item> -->
-        </v-list-group>
-        </v-list>
-
+          </v-list-group>
+        </div>
+      </v-list>
     </v-navigation-drawer>
   </nav>
 </template>
@@ -126,6 +90,16 @@ export default {
       logo: logo,
       aw: null,
       navigation: [],
+      admins: [
+        ["Management", "mdi-account-multiple-outline"],
+        ["Settings", "mdi-cog-outline"],
+      ],
+      cruds: [
+        ["Create", "mdi-plus-outline"],
+        ["Read", "mdi-file-outline"],
+        ["Update", "mdi-update"],
+        ["Delete", "mdi-delete"],
+      ],
     };
   },
   computed: {
@@ -135,7 +109,7 @@ export default {
     authtype() {
       try {
         let authUser = this.$store.getters["auth/getAuthUser"];
-        const user_id = authUser?.usertype_id
+        const user_id = authUser?.usertype_id;
         return user_id;
       } catch (error) {
         console.log(error);
@@ -143,70 +117,75 @@ export default {
     },
     setNavigation() {
       try {
-          switch (this.authtype) {
-            case 1:
-            case 2:
-              return [
-                {
-                  navtext: "Dashboard",
-                  path: { name: "student-dashboard" },
-                  icon: "mdi-view-dashboard-outline",
-                },
-                {
-                  navtext: "Subjects",
-                  icon: "mdi-bookmark-outline",
-                  sublink:[
-                    {
-                        navtext:"Subject 1",
-                        path:{name:"teacher-dashboard"},
-                        icon:"mdi-bookmark-outline"
-                    },
-                    {
-                        navtext:"Subject 2",
-                        path:{name:"dummysubject1"},
-                        icon:"mdi-bookmark-outline"
-                    },
-                    {
-                        navtext:"Subject 3",
-                        path:{name:"dummysubject2"},
-                        icon:"mdi-bookmark-outline"
-                    }
-                  ]
-                },
-              ];
-              break;
-            case 3:
-              return [
-                {
-                  navtext: "Teacher",
-                  path: { name: "student-dashboard" },
-                  icon: "mdi-view-dashboard-outline",
-                },
-                {
-                  navtext: "Subjects",
-                  path: { name: "student-subjects" },
-                  icon: "mdi-bookmark-outline",
-                },
-              ];
-              break;
-            case 4:
-              return [
-                {
-                  navtext: "Student",
-                  path: { name: "student-dashboard" },
-                  icon: "mdi-view-dashboard-outline",
-                },
-                {
-                  navtext: "Subjects",
-                  path: { name: "student-subjects" },
-                  icon: "mdi-bookmark-outline",
-                },
-              ];
-              break;
-            default:
-              return null;
-              break;
-          }
+        switch (this.authtype) {
+          case 1:
+          case 2:
+            return [
+              {
+                navtext: "Dashboard",
+                path: { name: "student-dashboard" },
+                icon: "mdi-view-dashboard-outline",
+              },
+              {
+                navtext: "My Classes",
+                icon: "mdi-google-classroom",
+                sublink: [
+                  {
+                    navtext: "ENGLISH 101",
+                    path: { name: "teacher-dashboard" },
+                    icon: "mdi-bookmark-outline",
+                  },
+                  {
+                    navtext: "Database Manangement System",
+                    path: { name: "dummysubject1" },
+                    icon: "mdi-bookmark-outline",
+                  },
+                  {
+                    navtext: "introduction to programming 1",
+                    path: { name: "dummysubject2" },
+                    icon: "mdi-bookmark-outline",
+                  },
+                ],
+              },
+              {
+                navtext: "Route 2",
+                path: { name: "teacher-dashboard" },
+                icon: "mdi-view-dashboard-outline",
+              },
+            ];
+            break;
+          case 3:
+            return [
+              {
+                navtext: "Teacher",
+                path: { name: "student-dashboard" },
+                icon: "mdi-view-dashboard-outline",
+              },
+              {
+                navtext: "Subjects",
+                path: { name: "student-subjects" },
+                icon: "mdi-bookmark-outline",
+              },
+            ];
+            break;
+          case 4:
+            return [
+              {
+                navtext: "Student",
+                path: { name: "student-dashboard" },
+                icon: "mdi-view-dashboard-outline",
+              },
+              {
+                navtext: "Subjects",
+                path: { name: "student-subjects" },
+                icon: "mdi-bookmark-outline",
+              },
+            ];
+            break;
+          default:
+            return null;
+            break;
+        }
       } catch (error) {
         console.log(error);
       }
@@ -304,29 +283,36 @@ export default {
   widows: 100%;
   height: 100%;
 }
+.list .v-list-item--active .v-list-group--active {
+   background-color: #8e0202 !important;
+  color: #ffffff;
+}
+.list .list-active {
+  background-color: #8e0202 !important;
+  color: #ffffff !important;
+}
 .v-list-item-text {
   color: #ffffff;
   size: 16px;
 }
-.v-list-item--active {
-      background-color: #8e0202;
-  color: #fff;
-  width: 100%;
-}
 .v-list-item {
-    width: 100%;
+  width: 100%;
 }
 .v-list-item-title {
   color: #ffffff;
   width: 100%;
 }
+.v-list-item--active {
+  background-color: #8e0202 !important;
+  color: #ffffff;
+}
 .v-list-item .v-list-group:hover {
-    background-color: #8e0202;
+  background-color: #8e0202 !important;
   color: #ffffff;
   width: 100%;
 }
 .v-list-group__header__append-icon {
-display: none !important;
+  display: none !important;
 }
 
 #app-header {
