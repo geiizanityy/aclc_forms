@@ -1,9 +1,10 @@
 <template>
   <v-container fluid>
-    <h1>Student Dashboard</h1>
     <v-row dense>
 
-      <v-col cols="12" md="8" sm="10"> Subject Content </v-col>
+      <v-col cols="12" md="8" sm="10">
+        <student-subject></student-subject>
+      </v-col>
       <v-col cols="12" md="4" sm="6">
         <subject-progress></subject-progress>
 
@@ -14,10 +15,12 @@
 
 
 <script>
+import StudentSubject from './StudentSubject.vue'
 import SubjectProgress from './SubjectProgress.vue'
 export default {
     components:{
         SubjectProgress,
+        StudentSubject
     },
   data() {
     return {

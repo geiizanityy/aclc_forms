@@ -62,9 +62,9 @@
             <v-list-item active-class="list-active" v-for="(subitem, i) in item.sublink" :key="i" :to="subitem.path" link>
               <div class="d-flex ml-n10">
                 <v-list-item-icon>
-                <v-icon v-text="subitem.icon"></v-icon>
+                <v-icon v-text="subitem.icon" size="15"></v-icon>
               </v-list-item-icon>
-              <v-list-item-title v-text="subitem.navtext"></v-list-item-title>
+              <v-list-item-title v-text="subitem.navtext" class="ml-n5"></v-list-item-title>
               </div>
 
             </v-list-item>
@@ -131,7 +131,7 @@ export default {
                 icon: "mdi-google-classroom",
                 sublink: [
                   {
-                    navtext: "ENGLISH 101",
+                    navtext: "ENGLISH 101 ENGLISH INTRODUCTION MATH EXAMPLE",
                     path: { name: "teacher-dashboard" },
                     icon: "mdi-bookmark-outline",
                   },

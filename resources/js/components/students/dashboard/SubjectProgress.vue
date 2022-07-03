@@ -1,5 +1,5 @@
 <template>
-  <v-card max-width="400" class="mx-auto">
+  <v-card class="mx-auto">
     <v-app-bar dark :color="cardbg" height="35">
       <v-app-bar-nav-icon></v-app-bar-nav-icon>
       <v-toolbar-title class="text-h6 text-uppercase">Progress</v-toolbar-title>
@@ -30,7 +30,7 @@
 export default {
   data() {
     return {
-      cardheader: "#191b4a",
+      cardheader: "#8e0202",
       cardbg: "#1F7087",
        progress: [
         {
