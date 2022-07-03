@@ -7,6 +7,7 @@
     </v-app>
 </template>
 <script>
+import { mapGetters, mapActions, mapState } from "vuex";
 import AppContent from './Content.vue'
 import Navigation from './Navigation.vue'
 export default {
@@ -15,19 +16,27 @@ export default {
         AppContent,
 
     },
-    data() {
-        return {
-            /* token: localStorage.getItem('a_tkn') */
-        }
-    },
-    mounted() {
-        /* window.axios.defaults.headers.common['Authorization'] = `Bearer ${this.token}`
-        console.log(this.token)
-        if(this.token) {
-            return this.$store.dispatch("getAuthenticatedUser")
-        }
- */
+     computed: {
+    //ISLOADING COMPUTED
+    ...mapGetters("auth", {
+      gettersAuthData: "getAuthData",
+    }),
+    ...mapState("auth", {
+      isAuthenticated: "isAuthenticated",
+    }),
 
+  },
+  methods: {
+    ...mapActions("auth", {
+      getUser: "getAuthenticatedUser",
+    }),
+  },
+  mounted() {
+    if (!this.isAuthenticated) {
+      this.$router.push({ name: "login" });
+    } else {
+      this.getUser();
     }
+  },
 }
 </script>

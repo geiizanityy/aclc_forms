@@ -39,15 +39,10 @@ export default {
         return newVal;
       },
     },
+
   },
-  /* methods:{
-     ...mapActions('auth',{
-          getUser:'getAuthenticatedUser'
-    }),
-  },
-  created() {
-    this.getUser()
-  } */
+
+
 };
 </script>
 

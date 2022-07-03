@@ -42,9 +42,24 @@ const routes = [
                 name:'student-dashboard',
             },
             {
-                path:'/student/subjects',
+                path:'/student/classes',
+                component:() => import ('./components/students/classes/Classes.vue'),
+                name:'student-classes',
+            },
+            {
+                path:'/student/enrolledsubjects',
                 component:() => import ('./components/students/Student.vue'),
-                name:'student-subjects',
+                name:'student-enrolled-subjects',
+            },
+            {
+                path:'/student/calendar',
+                component:() => import ('./components/students/calendar/Calendar.vue'),
+                name:'student-calendar',
+            },
+            {
+                path:'/student/usersettings',
+                component:() => import ('./components/students/user_settings/UserSettings.vue'),
+                name:'student-user-settings',
             },
         ]
     },

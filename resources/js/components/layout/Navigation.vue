@@ -5,7 +5,6 @@
         @click="drawer = !drawer"
         class="white--text"
       ></v-app-bar-nav-icon>
-
       <v-toolbar-title> Learning Management System </v-toolbar-title>
 
       <v-spacer></v-spacer>
@@ -127,8 +126,13 @@ export default {
                 icon: "mdi-view-dashboard-outline",
               },
               {
-                navtext: "My Classes",
+                navtext: "Classes",
+                path: { name: "student-classes" },
                 icon: "mdi-google-classroom",
+              },
+              {
+                navtext: "Enrolled",
+                icon: "mdi-text-box-check-outline",
                 sublink: [
                   {
                     navtext: "ENGLISH 101 ENGLISH INTRODUCTION MATH EXAMPLE",
@@ -148,9 +152,14 @@ export default {
                 ],
               },
               {
-                navtext: "Route 2",
-                path: { name: "teacher-dashboard" },
-                icon: "mdi-view-dashboard-outline",
+                navtext: "Calendar",
+                path: { name: "student-calendar" },
+                icon: "mdi-calendar",
+              },
+              {
+                navtext: "Settings",
+                path: { name: "student-user-settings" },
+                icon: "mdi-account-cog",
               },
             ];
             break;
@@ -189,81 +198,6 @@ export default {
       } catch (error) {
         console.log(error);
       }
-
-      /*  let utype_id = this.gettersAuthData.user.usertype_id
-     if(utype_id === 1) {
-        return [
-          {
-            navtext: "Dashboard",
-            path: { name: "admin-dashboard" },
-            icon: "mdi-view-dashboard-outline",
-          },
-            {
-              navtext: "Subjects",
-              path: { name: "admin-subjects" },
-              icon: "mdi-bookmark-outline",
-            }];
-     }else {
-        return [
-          {
-            navtext: "DD",
-            path: { name: "admin-dashboard" },
-            icon: "mdi-view-dashboard-outline",
-          },
-            {
-              navtext: "asdas",
-              path: { name: "admin-subjects" },
-              icon: "mdi-bookmark-outline",
-            }];
-     } */
-      /* switch (utype_id) {
-        case 1:
-        case 2:
-        return [
-          {
-            navtext: "Dashboard",
-            path: { name: "admin-dashboard" },
-            icon: "mdi-view-dashboard-outline",
-          },
-            {
-              navtext: "Subjects",
-              path: { name: "admin-subjects" },
-              icon: "mdi-bookmark-outline",
-            }];
-          break;
-
-        case 3:
-          return [
-          {
-            navtext: "Dashboard",
-            path: { name: "stu-dashboard" },
-            icon: "mdi-view-dashboard-outline",
-          },
-            {
-              navtext: "Subjects Teacher",
-              path: { name: "teacher-subjects" },
-              icon: "mdi-bookmark-outline",
-            }];
-          break;
-        case 4:
-
-          return [
-          {
-            navtext: "Dashboard",
-            path: { name: "student-dashboard" },
-            icon: "mdi-view-dashboard-outline",
-          },
-            {
-              navtext: "Subjects",
-              path: { name: "student-subjects" },
-              icon: "mdi-bookmark-outline",
-            }];
-          break;
-
-        default:
-          return null;
-          break;
-      } */
     },
   },
   watch: {

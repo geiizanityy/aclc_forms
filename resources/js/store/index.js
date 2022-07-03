@@ -2,7 +2,7 @@ import Vue from "vue";
 import Vuex from 'vuex'
 import createdPersistedState from 'vuex-persistedstate'
 import SecureLS from "secure-ls";
-const ls = new SecureLS({ isCompression: false });
+const ls = new SecureLS({ isCompression: true });
 
 
 /* SUBJECT CONTENTS MODULES */

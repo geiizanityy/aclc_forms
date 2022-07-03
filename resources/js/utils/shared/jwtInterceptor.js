@@ -3,9 +3,6 @@ import router from "../../router";
 import store from "../../store/index";
 import vueCookie from 'vue-cookie';
 
-import SecureLS from "secure-ls";
-const ls = new SecureLS({ isCompression: false });
-
 const jwtInterceptor = axios.create({});
 
 jwtInterceptor.interceptors.request.use((config) => {

@@ -9,17 +9,22 @@
     <v-container>
       <v-row dense>
         <v-card>
-            <div v-for="(item,i) in progress" :key="i" class="text-uppercase">
-            <h6>{{item.subject}}</h6>
-          <v-progress-linear
-            :color="item.value <=30 ? 'red' : item.value >=31 && item.value <=60 ? 'light-blue' : 'light-green'"
-            :height="item.height"
-            :value="item.value"
-            striped
-          >
-        <strong>{{ Math.ceil(item.value) }}%</strong>
-          </v-progress-linear>
-        </div>
+          <div v-for="(item, i) in progress" :key="i" class="text-uppercase">
+            <h6>{{ item.subject }}</h6>
+            <v-progress-linear
+              :color="
+                item.value <= 30
+                  ? 'red'
+                  : item.value >= 31 && item.value <= 60
+                  ? 'light-blue'
+                  : 'light-green'
+              "
+              :height="item.height"
+              :value="item.value"
+            >
+              <strong>{{ Math.ceil(item.value) }}%</strong>
+            </v-progress-linear>
+          </div>
         </v-card>
       </v-row>
     </v-container>
@@ -32,7 +37,7 @@ export default {
     return {
       cardheader: "#8e0202",
       cardbg: "#1F7087",
-       progress: [
+      progress: [
         {
           subject: "Introduction to Programming 1",
           value: 20,
@@ -40,25 +45,23 @@ export default {
         },
         {
           subject: "Software Engineering",
-          value: 50,
+          value: 40,
           height: 15,
         },
         {
           subject: "Free Elective 1",
-          value: 40,
+          value: 60,
           height: 15,
-
         },
         {
           subject: "IT Major Elective 2",
-          value: 90,
+          value: 80,
           height: 15,
         },
         {
           subject: "Internet Technology",
-          value: 10,
+          value: 100,
           height: 15,
-
         },
       ],
       items: [
