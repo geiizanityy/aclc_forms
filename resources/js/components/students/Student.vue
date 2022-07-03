@@ -7,7 +7,7 @@
         <student-classes></student-classes>
     </div>
     <div v-else-if="getRouteName === 'student-enrolled-subject'">
-        <student-subjects></student-subjects>
+        <student-enrolled></student-enrolled>
     </div>
     <div v-else-if="getRouteName === 'student-calendar'">
         <student-calendar></student-calendar>
@@ -22,14 +22,14 @@
 <script>
 import StudentDashboard from "./dashboard/StudentDashboard.vue";
 import StudentClasses from './classes/Classes.vue'
-import StudentSubjects from "./subjects/StudentSubject.vue";
+import StudentEnrolled from "./enrolled/StudentSubject.vue";
 import StudentCalendar from './calendar/Calendar.vue'
 import StudentSettings from './user_settings/UserSettings.vue'
 export default {
   components: {
     StudentClasses,
     StudentDashboard,
-    StudentSubjects,
+    StudentEnrolled,
     StudentCalendar,
     StudentSettings
   },

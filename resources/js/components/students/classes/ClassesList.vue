@@ -44,7 +44,8 @@
 
     <v-card-actions>
       <v-btn
-        color="orange"
+      :to="item.path"
+        color="blue"
         text
       >
         Enter Class
@@ -69,49 +70,56 @@ export default {
             course_code:"IT4-100-5502",
             course_desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et xercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
             ins_name:"John Doe Smith",
-            course_banner:"http://localhost:8000/images/subjectbanner.jpg"
+            course_banner:"http://localhost:8000/images/subjectbanner.jpg",
+            path:{name:'student-enrolled-subject'}
         },
         {
             course_name:"Introduction to Information System",
             course_code:"IT3-101-6643",
             course_desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et xercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
             ins_name:"John Doe Smith",
-            course_banner:"http://localhost:8000/images/subjectbanner2.jpg"
+            course_banner:"http://localhost:8000/images/subjectbanner2.jpg",
+            path:{name:'student-enrolled-subject'}
         },
         {
             course_name:"Introduction to Software Engineering",
             course_code:"IT3-100-5523",
             course_desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et xercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
             ins_name:"John Doe Smith",
-            course_banner:"http://localhost:8000/images/subjectbanner2.jpg"
+            course_banner:"http://localhost:8000/images/subjectbanner2.jpg",
+            path:{name:'student-enrolled-subject'}
         },
         {
             course_name:"Physical Education 4",
             course_code:"GE-101-2223",
             course_desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et xercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
             ins_name:"John Doe Smith",
-            course_banner:"http://localhost:8000/images/subjectbanner.jpg"
+            course_banner:"http://localhost:8000/images/subjectbanner.jpg",
+            path:{name:'student-enrolled-subject'}
         },
         {
             course_name:"Introduction to information system",
             course_code:"GE-200-6723",
             course_desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et xercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
             ins_name:"John Doe Smith",
-            course_banner:"http://localhost:8000/images/subjectbanner2.jpg"
+            course_banner:"http://localhost:8000/images/subjectbanner2.jpg",
+            path:{name:'student-enrolled-subject'}
         },
         {
             course_name:"IT Major elective 3",
             course_code:"IT4-100-5523",
             course_desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et xercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
             ins_name:"John Doe Smith",
-            course_banner:"http://localhost:8000/images/subjectbanner.jpg"
+            course_banner:"http://localhost:8000/images/subjectbanner.jpg",
+            path:{name:'student-enrolled-subject'}
         },
         {
             course_name:"Free Elective 3",
             course_code:"IT4-600-6969",
             course_desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et xercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
             ins_name:"John Doe Smith",
-            course_banner:"http://localhost:8000/images/subjectbanner2.jpg"
+            course_banner:"http://localhost:8000/images/subjectbanner2.jpg",
+            path:{name:'student-enrolled-subject'}
         }
       ]
     };

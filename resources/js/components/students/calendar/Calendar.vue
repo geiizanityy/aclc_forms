@@ -1,7 +1,5 @@
 <template>
-  <v-row>
-    <v-col>
-      <v-sheet>
+      <v-sheet height="650">
         <v-calendar
           ref="calendar"
           :now="today"
@@ -11,8 +9,6 @@
           type="week"
         ></v-calendar>
       </v-sheet>
-    </v-col>
-  </v-row>
 </template>
 
 

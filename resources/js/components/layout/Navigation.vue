@@ -136,17 +136,17 @@ export default {
                 sublink: [
                   {
                     navtext: "ENGLISH 101 ENGLISH INTRODUCTION MATH EXAMPLE",
-                    path: { name: "teacher-dashboard" },
+                    path: { name: "student-enrolled-subject" },
                     icon: "mdi-bookmark-outline",
                   },
                   {
                     navtext: "Database Manangement System",
-                    path: { name: "dummysubject1" },
+                    path: { name: "student-enrolled-subject" },
                     icon: "mdi-bookmark-outline",
                   },
                   {
                     navtext: "introduction to programming 1",
-                    path: { name: "dummysubject2" },
+                    path: { name: "student-enrolled-subject" },
                     icon: "mdi-bookmark-outline",
                   },
                 ],

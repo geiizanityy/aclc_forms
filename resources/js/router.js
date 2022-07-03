@@ -49,7 +49,7 @@ const routes = [
             {
                 path:'/student/enrolledsubjects',
                 component:() => import ('./components/students/Student.vue'),
-                name:'student-enrolled-subjects',
+                name:'student-enrolled-subject',
             },
             {
                 path:'/student/calendar',
