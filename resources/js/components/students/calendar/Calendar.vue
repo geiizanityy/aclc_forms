@@ -1,5 +1,23 @@
 <template>
-      <v-sheet height="650">
+ <v-card
+    class="mx-auto"
+  >
+
+    <v-toolbar
+      :color="cardbg"
+      dark
+      height="35"
+
+    >
+     <v-icon size="20">mdi-calendar</v-icon>
+
+      <v-toolbar-title class="text-uppercase ml-2"> Calendar</v-toolbar-title>
+
+    </v-toolbar>
+
+    <v-container fluid>
+      <v-row dense>
+        <v-sheet height="650">
         <v-calendar
           ref="calendar"
           :now="today"
@@ -9,12 +27,16 @@
           type="week"
         ></v-calendar>
       </v-sheet>
+      </v-row>
+    </v-container>
+  </v-card>
 </template>
 
 
 <script>
   export default {
     data: () => ({
+         cardbg: "#1F7087",
       today: '2022-07-07',
       events: [
         {

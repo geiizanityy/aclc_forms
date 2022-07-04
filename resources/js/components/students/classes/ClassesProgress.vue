@@ -1,38 +1,27 @@
 <template>
   <v-card class="mx-auto">
     <v-app-bar dark :color="cardbg" height="35">
-      <v-app-bar-nav-icon></v-app-bar-nav-icon>
-      <v-toolbar-title class="text-h6 text-uppercase">Progress</v-toolbar-title>
+      <v-icon>mdi-chart-arc</v-icon>
+      <v-toolbar-title class="text-h6 text-uppercase ml-2">Progress</v-toolbar-title>
       <v-spacer></v-spacer>
     </v-app-bar>
-
     <v-container>
-      <v-row dense>
-        <v-card>
-          <div v-for="(item, i) in progress" :key="i" class="text-uppercase">
-            <h6>{{ item.subject }}</h6>
-            <v-progress-linear
-              :color="
-                item.value <= 30
-                  ? 'red'
-                  : item.value >= 31 && item.value <= 60
-                  ? 'light-blue'
-                  : 'light-green'
-              "
-              :height="item.height"
-              :value="item.value"
-            >
-              <strong>{{ Math.ceil(item.value) }}%</strong>
-            </v-progress-linear>
-          </div>
+        <v-row v-for="(item,i) in progress" :key="i" class="pa-1">
+        <v-card color="primaryblue">
+         <subj-progress :percentage="item.value" :label="item.subject"></subj-progress>
+
         </v-card>
-      </v-row>
+        </v-row>
     </v-container>
   </v-card>
 </template>
 
 <script>
+import SubjProgress from './Progress.vue'
 export default {
+  components:{
+    SubjProgress
+  },
   data() {
     return {
       cardheader: "#8e0202",
@@ -41,7 +30,7 @@ export default {
         {
           subject: "Introduction to Programming 1",
           value: 20,
-          height: 15,
+          height: 20,
         },
         {
           subject: "Software Engineering",
@@ -80,5 +69,46 @@ export default {
       ],
     };
   },
+  methods: {
+    beforeEnter(el) {
+      el.style.width = 0;
+    },
+    enter(el) {
+      el.style.width = `${this.percentage}%`
+      el.style.transition = `width 1s linear`
+    },
+  },
 };
 </script>
+<style scoped>
+
+
+.progress-bar {
+  width: 100%;
+  height: 50px;
+}
+.progress-bar label {
+  color: #ffff;
+}
+.progress-bar .info {
+  font-size: 17px;
+  justify-content: space-between;
+  display: flex;
+  color: grey;
+  text-transform: uppercase;
+}
+.progress-bar .info .percentage {
+  font-weight: bolder;
+}
+.progress-bar .background-bar {
+  background: #ccc;
+  width: 100%;
+  height: 50px;
+}
+.progress-bar .tracker-bar {
+  background: #ff298a;
+  height: 50px;
+  width: 0;
+  transition: width 0.5s linear;
+}
+</style>

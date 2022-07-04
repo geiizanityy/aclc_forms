@@ -1,15 +1,19 @@
 <template>
   <v-container fluid>
-    <v-row dense>
+    <v-row dense mb->
 
       <v-col cols="12" md="8" sm="10">
         <classes-list></classes-list>
       </v-col>
       <v-col cols="12" md="4" sm="6">
-        <classes-progress></classes-progress>
-        <v-sheet max-height="300">
+        <div class="mb-4">
+            <classes-progress></classes-progress>
+        </div>
+        <div>
+
             <calendar></calendar>
-        </v-sheet>
+        </div>
+
 
 
 

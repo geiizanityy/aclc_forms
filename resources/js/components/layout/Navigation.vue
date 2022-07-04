@@ -248,7 +248,6 @@ export default {
 .v-list-group__header__append-icon {
   display: none !important;
 }
-
 #app-header {
   background-color: #8e0202;
   color: #ffffff;

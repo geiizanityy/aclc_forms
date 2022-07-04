@@ -1,8 +1,8 @@
 <template>
   <v-card>
     <v-app-bar dark :color="cardbg" height="35">
-      <v-app-bar-nav-icon></v-app-bar-nav-icon>
-      <v-toolbar-title class="text-h6 text-uppercase">My Classes</v-toolbar-title>
+      <v-icon>mdi-google-classroom</v-icon>
+      <v-toolbar-title class="text-h6 text-uppercase ml-2"> My Classes</v-toolbar-title>
       <v-spacer></v-spacer>
     </v-app-bar>
 
